@@ -23,7 +23,7 @@ onMounted(() => (isLoading.value = false));
         <div class="carousel lg:hidden carousel-center max-w-sm p-4 pb-8 lg:max-w-fit space-x-4">
           <div class="carousel-item" v-for="day in menu.days">
             <div
-              class="card justify-between rounded-none max-w-[20rem] h-[32rem] bg-white shadow-xl text-base-100"
+              class="card justify-between rounded-none max-w-xs h-[32rem] bg-white shadow-xl text-base-100"
             >
               <div class="card-body">
                 <h2 class="card-title text-primary mb-6 text-3xl">{{ day.name }}</h2>
