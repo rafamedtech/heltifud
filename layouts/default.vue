@@ -8,7 +8,10 @@ import logo from '@/assets/img/logo-horizontal.png';
       <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col bg-base-300">
         <!-- Navbar -->
-        <div class="navbar lg:container bg-base-300 py-6">
+        <div class="bg-primary text-sm text-white text-center py-2">
+          <p>Servicio disponible únicamente para Tijuana, B.C.</p>
+        </div>
+        <div class="navbar lg:container bg-base-300 py-4 lg:py-6">
           <div class="flex-none lg:hidden">
             <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
               <svg

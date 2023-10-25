@@ -47,7 +47,7 @@ useHead({
     <!-- Page content -->
     <template #content>
       <section class="mt-8">
-        <section class="grid gap-4 lg:grid-cols-5">
+        <section class="grid gap-2 lg:grid-cols-5">
           <div v-for="day in menu.days">
             <div class="collapse lg:hidden rounded-none lg:max-w-lg bg-white">
               <input type="radio" name="my-accordion-1" />
