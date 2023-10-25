@@ -6,7 +6,7 @@ import logo from '@/assets/img/logo-horizontal.png';
   <main>
     <div class="drawer">
       <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content fixed inset-y-0 flex flex-col">
+      <div class="drawer-content flex flex-col">
         <!-- Navbar -->
         <div class="w-full navbar container bg-base-300">
           <div class="flex-none lg:hidden">

@@ -8,7 +8,7 @@ defineProps<Props>();
 
 <template>
   <section class="min-h-screen w-full px-2 lg:px-8 pt-8 lg:pt-0 bg-[#f3f3f3]">
-    <section class="sticky top-0 lg:static lg:pt-8 z-[999] bg-[#f3f3f3] container">
+    <section class="sticky top-0 lg:static lg:pt-8 z-[999] bg-[#f3f3f3] container px-4 lg:px-0">
       <slot name="heading"></slot>
     </section>
 
