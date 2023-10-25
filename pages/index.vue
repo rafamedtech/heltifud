@@ -4,6 +4,38 @@ import { menu } from '@/utils/menu';
 const isLoading = ref(true);
 
 onMounted(() => (isLoading.value = false));
+
+useHead({
+  title: 'Heltifud Meal preps',
+  meta: [
+    {
+      name: 'description',
+      content: 'Servicio de Meal preps saludables, caseros y flexibles a domicilio.',
+    },
+    // Facbebook Meta tags
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:url',
+      content: 'https://heltifud.com/',
+    },
+    {
+      property: 'og:title',
+      content: 'Heltifud Meal preps',
+    },
+    {
+      property: 'og:description',
+      content: 'Servicio de Meal preps saludables, caseros y flexibles a domicilio.',
+    },
+    {
+      property: 'og:image',
+      content:
+        'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
+    },
+  ],
+});
 </script>
 
 <template>
