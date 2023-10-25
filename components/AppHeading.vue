@@ -9,7 +9,7 @@ defineProps<Props>();
 
 <template>
   <section>
-    <h1 class="text-3xl font-bold text-primary">{{ title }}</h1>
+    <h1 class="text-[40px] text-primary mb-3">{{ title }}</h1>
     <span class="text-base-100">{{ description }}</span>
   </section>
 </template>
