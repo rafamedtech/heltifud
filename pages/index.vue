@@ -9,7 +9,7 @@ onMounted(() => (isLoading.value = false));
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Menú de la semana" :description="menu.dates" />
+      <AppHeading title="Menú de la próxima semana" :description="menu.dates" />
     </template>
 
     <!-- Page content -->
@@ -32,20 +32,18 @@ onMounted(() => (isLoading.value = false));
                           <h3 class="font-bold text-xl text-primary">{{ course.name }}</h3>
                           <ul>
                             <li v-for="meal in course.meals">
-                              <ul>
+                              <ul class="flex flex-col gap-2">
                                 <li class="flex gap-2 justify-between w-full">
-                                  <span class="w-2/3"
-                                    ><Icon name="material-symbols:check-circle-outline" />
-                                    {{ meal.main.name }}</span
+                                  <span class="w-1/2 block"> {{ meal.main.name }}</span>
+                                  <span class="w-1/2 block text-end"
+                                    >{{ meal.main.calories }} Cal</span
                                   >
-                                  <span class="w-1/3 text-end">{{ meal.main.calories }} Cal</span>
                                 </li>
                                 <li v-if="meal.side" class="flex gap-2 justify-between w-full">
-                                  <span
-                                    ><Icon name="material-symbols:check-circle-outline" />
-                                    {{ meal.side?.name }}</span
+                                  <span class="w-1/2 block"> {{ meal.side?.name }}</span>
+                                  <span class="w-1/2 block text-end"
+                                    >{{ meal.side?.calories }} Cal</span
                                   >
-                                  <span>{{ meal.side?.calories }} Cal</span>
                                 </li>
                                 <!-- <li v-if="meal.side2">
                             <span>{{ meal.side2?.name }}</span>
