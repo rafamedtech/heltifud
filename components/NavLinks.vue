@@ -2,12 +2,19 @@
 
 <template>
   <li>
-    <a href="https://heltifud.com" rel="noreferrer">Inicio</a>
+    <NuxtLink active-class="underline" to="https://heltifud.com" rel="noreferrer">Inicio</NuxtLink>
   </li>
   <li>
-    <a href="https://heltifud.com/collections/planes" rel="noreferrer">Nuestros planes</a>
+    <NuxtLink active-class="underline" to="https://heltifud.com/collections/planes" rel="noreferrer"
+      >Nuestros planes</NuxtLink
+    >
   </li>
   <li>
-    <a href="https://heltifud.com/pages/contact" rel="noreferrer">Contacto</a>
+    <NuxtLink active-class="underline" to="/" rel="noreferrer">Menú</NuxtLink>
+  </li>
+  <li>
+    <NuxtLink active-class="underline" to="https://heltifud.com/pages/contact" rel="noreferrer"
+      >Contacto</NuxtLink
+    >
   </li>
 </template>
