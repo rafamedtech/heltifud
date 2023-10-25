@@ -15,12 +15,12 @@ onMounted(() => (isLoading.value = false));
     <!-- Page content -->
     <template #content>
       <section class="mt-8">
-        <section class="flex lg:hidden justify-center items-center gap-4">
+        <!-- <section class="flex lg:hidden justify-center items-center gap-4">
           <Icon name="icon-park-outline:arrow-left" size="32" class="text-primary" />
           <span class="text-base-100 text-center block text-lg">Desliza para ver todo</span>
           <Icon name="icon-park-outline:arrow-right" size="32" class="text-primary" />
-        </section>
-        <div class="carousel lg:hidden carousel-center max-w-sm p-4 pb-8 lg:max-w-fit space-x-4">
+        </section> -->
+        <!-- <div class="carousel lg:hidden carousel-center max-w-sm p-4 pb-8 lg:max-w-fit space-x-4">
           <div class="carousel-item" v-for="day in menu.days">
             <div
               class="card justify-between rounded-none max-w-xs h-[32rem] bg-white shadow-xl text-base-100"
@@ -48,9 +48,9 @@ onMounted(() => (isLoading.value = false));
                               >
                               <span>{{ meal.side?.calories }} Cal</span>
                             </li>
-                            <!-- <li v-if="meal.side2">
+                             <li v-if="meal.side2">
                             <span>{{ meal.side2?.name }}</span>
-                          </li> -->
+                          </li> 
                           </ul>
                         </li>
                       </ul>
@@ -64,9 +64,9 @@ onMounted(() => (isLoading.value = false));
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <section class="hidden lg:grid lg:grid-cols-3 gap-8">
+        <section class="grid lg:grid-cols-3 gap-8">
           <div v-for="day in menu.days">
             <div
               class="card justify-between rounded-none h-[32rem] bg-white shadow-xl text-base-100"
