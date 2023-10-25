@@ -2,9 +2,12 @@
 
 <template>
   <li>
-    <a href="https://heltifud.com/collections/planes" target="_blank" rel="noreferrer">Planes</a>
+    <a href="https://heltifud.com" rel="noreferrer">Inicio</a>
   </li>
   <li>
-    <a href="https://heltifud.com/pages/contact" target="_blank" rel="noreferrer">Contacto</a>
+    <a href="https://heltifud.com/collections/planes" rel="noreferrer">Nuestros planes</a>
+  </li>
+  <li>
+    <a href="https://heltifud.com/pages/contact" rel="noreferrer">Contacto</a>
   </li>
 </template>

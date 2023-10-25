@@ -26,13 +26,19 @@ import logo from '@/assets/img/logo-horizontal.png';
               </svg>
             </label>
           </div>
-          <div class="flex-1 px-2 mx-2"><img :src="logo" alt="" class="w-36 lg:w-40" /></div>
-          <div class="flex-none hidden lg:block">
+          <div class="flex-1 px-2 mx-2 gap-4">
+            <img :src="logo" alt="" class="w-36 lg:w-40" />
+            <div class="flex-none hidden lg:block">
+              <ul class="menu menu-horizontal">
+                <NavLinks />
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="flex-none hidden lg:block">
             <ul class="menu menu-horizontal">
-              <!-- Navbar menu content here -->
               <NavLinks />
             </ul>
-          </div>
+          </div> -->
         </div>
         <!-- Page content here -->
         <slot></slot>
