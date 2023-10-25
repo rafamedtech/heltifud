@@ -15,12 +15,12 @@ onMounted(() => (isLoading.value = false));
     <!-- Page content -->
     <template #content>
       <section class="mt-8">
-        <section class="flex max-w-full lg:hidden justify-center items-center gap-4">
+        <!-- <section class="flex lg:hidden justify-center items-center gap-4">
           <Icon name="icon-park-outline:arrow-left" size="32" class="text-primary" />
           <span class="text-base-100 text-center block text-lg">Desliza para ver todo</span>
           <Icon name="icon-park-outline:arrow-right" size="32" class="text-primary" />
-        </section>
-        <div class="carousel lg:hidden carousel-center max-w-md p-4 pb-8 lg:max-w-fit space-x-4">
+        </section> -->
+        <div class="carousel lg:hidden carousel-center max-w-sm p-4 pb-8 lg:max-w-fit space-x-4">
           <div class="carousel-item" v-for="day in menu.days">
             <div
               class="card justify-between rounded-none max-w-[20rem] h-[32rem] bg-white shadow-xl text-base-100"
