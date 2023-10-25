@@ -35,6 +35,7 @@ export default {
         forest: {
           ...require('daisyui/src/theming/themes')['[data-theme=forest]'],
           primary: '#7FB714',
+          'base-300': '#1a1a1a',
           '--rounded-btn': '0.5rem',
           '--rounded-badge': '1rem',
         },

@@ -6,9 +6,9 @@ import logo from '@/assets/img/logo-horizontal.png';
   <main>
     <div class="drawer">
       <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col">
+      <div class="drawer-content flex flex-col bg-base-300">
         <!-- Navbar -->
-        <div class="navbar lg:container bg-base-300">
+        <div class="navbar lg:container bg-base-300 py-6">
           <div class="flex-none lg:hidden">
             <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
               <svg
@@ -26,12 +26,11 @@ import logo from '@/assets/img/logo-horizontal.png';
               </svg>
             </label>
           </div>
-          <div class="flex-1 px-2 mx-2"><img :src="logo" alt="" class="w-32" /></div>
+          <div class="flex-1 px-2 mx-2"><img :src="logo" alt="" class="w-36 lg:w-40" /></div>
           <div class="flex-none hidden lg:block">
             <ul class="menu menu-horizontal">
               <!-- Navbar menu content here -->
-              <li><a>Planes</a></li>
-              <li><a>Contacto</a></li>
+              <NavLinks />
             </ul>
           </div>
         </div>
@@ -42,8 +41,7 @@ import logo from '@/assets/img/logo-horizontal.png';
         <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 min-h-full bg-base-200">
           <!-- Sidebar content here -->
-          <li><a>Planes</a></li>
-          <li><a>Contacto</a></li>
+          <NavLinks />
         </ul>
       </div>
     </div>
