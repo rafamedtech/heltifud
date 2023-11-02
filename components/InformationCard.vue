@@ -1,6 +1,5 @@
 <script setup lang="ts">
 // Type imports
-import { Category } from '@/types/category';
 
 interface Props {
   product: any;
@@ -28,7 +27,7 @@ defineProps<Props>();
 
         <div class="stat">
           <div class="stat-title font-bold text-xl">Categoría</div>
-          <div
+          <!-- <div
             class="badge badge-primary my-2 rounded-lg"
             :class="{
               'badge-primary':
@@ -40,7 +39,7 @@ defineProps<Props>();
             }"
           >
             {{ product.productByHandle.collections.edges[0].node.title }}
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

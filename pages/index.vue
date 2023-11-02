@@ -125,9 +125,12 @@ useHead({
                                     >{{ meal.side?.calories }} Cal</span
                                   >
                                 </li>
-                                <!-- <li v-if="meal.side2">
-                            <span>{{ meal.side2?.name }}</span>
-                          </li> -->
+                                <li v-if="meal.side2" class="flex gap-2 justify-between w-full">
+                                  <span>{{ meal.side2?.name }}</span>
+                                  <span class="w-1/2 block text-end"
+                                    >{{ meal.side2?.calories }} Cal</span
+                                  >
+                                </li>
                               </ul>
                             </li>
                           </ul>

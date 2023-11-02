@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Type imports
-import { Category } from '@/types/category';
+// import { Category } from '@/types/category';
 
 interface Props {
   item: any;
@@ -14,7 +14,7 @@ defineProps<Props>();
     <th>{{ item.variants.edges[0].node.sku }}</th>
     <td>{{ item.title }}</td>
     <td>
-      <span
+      <!-- <span
         class="badge rounded-lg"
         :class="{
           'badge-primary': item.collections.edges[0].node.title === Category.GUARNICIONES,
@@ -22,7 +22,7 @@ defineProps<Props>();
           'badge-accent': item.collections.edges[0].node.title === Category.DESAYUNO,
         }"
         >{{ item.collections.edges[0].node.title }}</span
-      >
+      > -->
     </td>
     <td>
       <NuxtLink

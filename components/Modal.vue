@@ -1,14 +1,14 @@
 <script setup>
-import { insumos } from '@/utils/insumos';
+// import { insumos } from '@/utils/insumos';
 
-function addInsumo() {
-  insumos.value.push({
-    id: Math.random(),
-    name: '',
-    qty: 0,
-    unit: 'gr',
-  });
-}
+// function addInsumo() {
+//   insumos.value.push({
+//     id: Math.random(),
+//     name: '',
+//     qty: 0,
+//     unit: 'gr',
+//   });
+// }
 </script>
 
 <template>

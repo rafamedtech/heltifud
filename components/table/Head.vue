@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { sortProducts } = useProducts();
+// const { sortProducts } = useProducts();
 interface Props {
   order: string;
 }
@@ -13,19 +13,19 @@ defineProps<Props>();
       <th>SKU</th>
       <th>
         Nombre
-        <Icon
+        <!-- <Icon
           name="icon-park-outline:sort-three"
           @click="sortProducts('name', order)"
           class="cursor-pointer"
-        />
+        /> -->
       </th>
       <th>
         Categoría
-        <Icon
+        <!-- <Icon
           name="icon-park-outline:sort-three"
           @click="sortProducts('category', order)"
           class="cursor-pointer"
-        />
+        /> -->
       </th>
       <th></th>
     </tr>
