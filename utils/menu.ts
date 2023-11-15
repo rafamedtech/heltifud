@@ -1,6 +1,6 @@
 export const menu = {
   id: 1,
-  dates: '6 Noviembre - 10 Noviembre',
+  dates: '20 Noviembre - 24 Noviembre',
   days: [
     {
       name: 'Lunes',
@@ -10,9 +10,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Huevos revueltos a la mexicana', calories: 222 },
-              side: { name: 'Papas horneadas', calories: 131 },
-              side2: null,
+              name: 'Papa con huevo y chorizo',
+              calories: 536,
+            },
+            {
+              id: 2,
+              name: 'Frijoles refritos',
+              calories: 347,
             },
           ],
         },
@@ -21,9 +25,18 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Sandwich de pechuga de pollo', calories: 423 },
-              side: { name: 'Puré de camote y papa', calories: 195 },
-              side2: null,
+              name: 'Fajitas de pollo',
+              calories: 196,
+            },
+            {
+              id: 2,
+              name: 'Arroz blanco',
+              calories: 185,
+            },
+            {
+              id: 3,
+              name: 'Frijoles en grano',
+              calories: 347,
             },
           ],
         },
@@ -32,14 +45,12 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Salpicón', calories: 352 },
-              side: { name: 'Porción de frijol', calories: 347 },
-              side2: null,
+              name: 'Salpicón',
+              calories: 352,
             },
           ],
         },
       ],
-      totalCalories: 1669,
     },
     {
       name: 'Martes',
@@ -49,9 +60,8 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Huevos revueltos con salchicha', calories: 276 },
-              side: { name: 'Porción de frijol', calories: 347 },
-              side2: null,
+              name: 'Waffle de avena',
+              calories: 447,
             },
           ],
         },
@@ -60,9 +70,18 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Fajitas de res', calories: 149 },
-              side: { name: 'Porción de arroz', calories: 185 },
-              side2: { name: 'Porción de frijol entero', calories: 347 },
+              name: 'Bistec ranchero',
+              calories: 243,
+            },
+            {
+              id: 2,
+              name: 'Arroz rojo',
+              calories: 189,
+            },
+            {
+              id: 3,
+              name: 'Frijoles machacados',
+              calories: 347,
             },
           ],
         },
@@ -71,14 +90,17 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Pescado a la mostaza', calories: 148 },
-              side: { name: 'Porción de arroz rojo', calories: 189 },
-              side2: null,
+              name: 'Pescado con pimientos salteados',
+              calories: 352,
+            },
+            {
+              id: 2,
+              name: 'Arroz blanco',
+              calories: 185,
             },
           ],
         },
       ],
-      totalCalories: 1640,
     },
     {
       name: 'Miércoles',
@@ -88,20 +110,29 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Papa con salchicha a la mexicana', calories: 245 },
-              side: { name: 'Porción de frijoles', calories: 347 },
-              side2: null,
+              name: 'Huevos revueltos con pechuga de pavo',
+              calories: 240,
+            },
+            {
+              id: 2,
+              name: 'Frijoles machacados',
+              calories: 347,
             },
           ],
         },
+
         {
           name: 'Comida',
           meals: [
             {
               id: 1,
-              main: { name: 'Pechuga de pollo a la plancha', calories: 191 },
-              side: { name: 'Porción de arroz', calories: 185 },
-              side2: { name: 'Porción de verduras al vapor', calories: 43 },
+              name: 'Sandwich de pechuga de pollo',
+              calories: 423,
+            },
+            {
+              id: 2,
+              name: 'Papas horneadas',
+              calories: 131,
             },
           ],
         },
@@ -110,14 +141,22 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Ensalada de pollo (fría)', calories: 423 },
-              side: null,
-              side2: null,
+              name: 'Pechuga de pollo a la plancha',
+              calories: 261,
+            },
+            {
+              id: 2,
+              name: 'Arroz rojo',
+              calories: 189,
+            },
+            {
+              id: 3,
+              name: 'Rajas poblanas con elote',
+              calories: 243,
             },
           ],
         },
       ],
-      totalCalories: 1592,
     },
     {
       name: 'Jueves',
@@ -127,9 +166,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Huevo revuelto con pechuga de pavo', calories: 240 },
-              side: { name: 'Papas horneadas', calories: 131 },
-              side2: null,
+              name: 'Papas con salchicha a la mexicana',
+              calories: 200,
+            },
+            {
+              id: 2,
+              name: 'Frijoles machacados',
+              calories: 347,
             },
           ],
         },
@@ -138,9 +181,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Bistec ranchero', calories: 243 },
-              side: { name: 'Arroz blanco', calories: 185 },
-              side2: { name: 'Porción de frijol', calories: 347 },
+              name: 'Teriyaki de res',
+              calories: 215,
+            },
+            {
+              id: 2,
+              name: 'Arroz blanco',
+              calories: 185 * 2,
             },
           ],
         },
@@ -149,14 +196,22 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Pescado a la plancha', calories: 132 },
-              side: { name: 'Porción de arroz rojo', calories: 189 },
-              side2: null,
+              name: 'Pescado a la plancha',
+              calories: 132,
+            },
+            {
+              id: 2,
+              name: 'Arroz rojo',
+              calories: 189,
+            },
+            {
+              id: 3,
+              name: 'Verduras al vapor',
+              calories: 43,
             },
           ],
         },
       ],
-      totalCalories: 1467,
     },
     {
       name: 'Viernes',
@@ -166,9 +221,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Sandwich de huevo', calories: 440 },
-              side: { name: 'Papas horneadas', calories: 131 },
-              side2: null,
+              name: 'Sandwich de huevo',
+              calories: 359,
+            },
+            {
+              id: 2,
+              name: 'Papas horneadas',
+              calories: 131,
             },
           ],
         },
@@ -177,9 +236,8 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Teriyaki de pollo', calories: 256 },
-              side: { name: 'Porción de arroz', calories: 185 * 2 },
-              side2: null,
+              name: 'Ensalada de pollo (fría)',
+              calories: 511,
             },
           ],
         },
@@ -188,14 +246,22 @@ export const menu = {
           meals: [
             {
               id: 1,
-              main: { name: 'Carne asada', calories: 191 },
-              side: { name: 'Rajas poblanas con crema y elote', calories: 243 },
-              side2: null,
+              name: 'Carne asada',
+              calories: 191,
+            },
+            {
+              id: 2,
+              name: 'Frijoles machacados',
+              calories: 347,
+            },
+            {
+              id: 3,
+              name: 'Rajas poblanas con elote',
+              calories: 243,
             },
           ],
         },
       ],
-      totalCalories: 1734,
     },
   ],
 };

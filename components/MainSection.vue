@@ -15,7 +15,7 @@ defineProps<Props>();
     <div v-if="loading" class="w-full flex justify-center h-[70vh] items-center">
       <Icon name="icon-park-outline:loading-four" size="48" class="animate-spin" />
     </div>
-    <section class="lg:pb-24 lg:pt-8 lg:container" v-else>
+    <section class="lg:pb-24 pt-8 lg:container" v-else>
       <slot name="content"></slot>
     </section>
   </section>

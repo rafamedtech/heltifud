@@ -33,7 +33,7 @@ export default {
     themes: [
       {
         forest: {
-          ...require('daisyui/src/theming/themes')['[data-theme=forest]'],
+          ...require('daisyui/src/theming/themes')['forest'],
           primary: '#7FB714',
           'base-300': '#1a1a1a',
           '--rounded-btn': '0.5rem',
