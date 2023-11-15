@@ -80,9 +80,9 @@ useHead({
                       </li>
                     </ul>
                   </section>
-                  <section class="mt-8 flex justify-end gap-2 items-center w-full">
-                    <span class="font-bold">Total:</span>
-                    <!-- <p class="w-fit text-end">{{ day.totalCalories }} Cal</p> -->
+                  <section class="mt-8 flex gap-2 items-center justify-end w-full h-16">
+                    <span class="font-bold text-primary">Total:</span>
+                    <p class="w-fit text-end font-bold">{{ sumCaloriesForDay(day) }} Cal</p>
                   </section>
                 </div>
               </div>
@@ -114,27 +114,9 @@ useHead({
                   </li>
                 </ul>
 
-                <!-- <section>
-                  <ul class="flex flex-col gap-4 h-full">
-                    <li v-for="course in day.courses" class="min-h-[30%]">
-                      <h3 class="font-bold text-xl text-primary">{{ course.name }}</h3>
-
-                      <section class="flex gap-1 justify-between w-full flex-col mt-2">
-                        <article v-for="meal in course.meals" class="flex gap-1">
-                          <Icon name="icon-park-outline:arrow-right" class="text-primary" />
-                          <section class="flex justify-between w-full">
-                            <span class="w-2/3 block"> {{ meal.name }}</span>
-                            <span class="w-1/3 block text-end">{{ meal.calories }} Cal</span>
-                          </section>
-                        </article>
-                      </section>
-                    </li>
-                  </ul>
-                </section> -->
-
-                <section class="mt-8 flex gap-2 items-center w-full h-16">
-                  <span class="font-bold">Total:</span>
-                  <p class="w-fit text-end">{{ sumCaloriesForDay(day) }} Cal</p>
+                <section class="mt-8 flex gap-2 items-center justify-end w-full h-16">
+                  <span class="font-bold text-primary">Total:</span>
+                  <p class="w-fit text-end font-bold">{{ sumCaloriesForDay(day) }} Cal</p>
                 </section>
               </div>
             </div>
