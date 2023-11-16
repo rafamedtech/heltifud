@@ -1,13 +1,31 @@
 <script setup lang="ts">
 import { menu } from '@/utils/menu';
 
+interface Day {
+  name: string;
+  courses: Course[];
+}
+
+interface Course {
+  name: string;
+  meals: Meal[];
+}
+
+interface Meal {
+  id: number;
+  name: string;
+  calories: number;
+}
+
 const isLoading = ref(true);
 
 onMounted(() => (isLoading.value = false));
 
-const sumCaloriesForDay = (day: any) => {
-  return day.courses.reduce((totalCalories: number, course: any) => {
-    return totalCalories + course.meals.reduce((total: any, meal: any) => total + meal.calories, 0);
+const sumCaloriesForDay = (day: Day) => {
+  return day.courses.reduce((totalCalories: number, course: Course) => {
+    return (
+      totalCalories + course.meals.reduce((total: number, meal: Meal) => total + meal.calories, 0)
+    );
   }, 0);
 };
 
