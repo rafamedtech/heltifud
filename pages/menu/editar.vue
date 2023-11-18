@@ -5,11 +5,28 @@ const currentMenu = ref(null);
 
 const isLoading = ref(true);
 
+const orderForm = reactive({
+  name: 'Rafael Valenzuela',
+  phone: '6642591920',
+  address: 'San Patricio 6109, H14, Santa Fe I',
+});
+
 const desayuno = ref(false);
 const comida = ref(false);
 const cena = ref(false);
 
+const desayunoQty = ref(3);
+const comidaQty = ref(3);
+const cenaQty = ref(3);
+
+const planType = ref('basico');
+const basicOption = ref('');
+
 const userMenu = computed(() => {});
+
+const orderReady = ref(false); // temporary variable
+
+const orderTotal = computed(() => 1);
 
 onMounted(() => {
   isLoading.value = false;
@@ -20,162 +37,315 @@ onMounted(() => {
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Personaliza tu menú" :description="menu.dates" />
+      <AppHeading
+        title="Ingresar una orden"
+        description="Elige entre nuestros planes básicos o flexibles"
+      />
     </template>
     <template #content>
-      <form class="pb-24">
+      <form>
         <section class="flex flex-col gap-4">
+          <h3 class="text-xl text-primary">Información de contacto</h3>
           <div class="form-control gap-2">
             <label for="" class="text-black">Tu nombre</label>
-            <input type="text" class="input input-primary bg-white text-black" />
+            <input
+              type="text"
+              class="input input-primary bg-white text-black"
+              v-model="orderForm.name"
+            />
           </div>
           <div class="form-control gap-2">
             <label for="" class="text-black">Teléfono</label>
-            <input type="text" class="input input-primary bg-white text-black" />
+            <input
+              type="text"
+              class="input input-primary bg-white text-black"
+              v-model="orderForm.phone"
+            />
           </div>
           <div class="form-control gap-2">
             <label for="" class="text-black">Domicilio de entrega</label>
-            <input type="text" class="input input-primary bg-white text-black" />
+            <input
+              type="text"
+              class="input input-primary bg-white text-black"
+              v-model="orderForm.address"
+            />
           </div>
         </section>
 
-        <section class="flex p-2 gap-4 justify-center mt-4">
-          <div class="form-control gap-2 items-center">
-            <div class="badge badge-lg p-4 rounded-lg min-w-[6rem]">Desayuno</div>
-            <input type="checkbox" v-model="desayuno" class="checkbox checkbox-primary" />
-            <div class="form-control w-full max-w-xs" v-if="desayuno">
-              <label class="label">
-                <span class="label-text text-base-300">Cantidad</span>
-              </label>
-              <select class="select select-bordered">
-                <option>3</option>
-                <option>5</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-control gap-2 items-center">
-            <div class="badge badge-lg p-4 rounded-lg min-w-[6rem]">Comida</div>
-            <input type="checkbox" v-model="comida" class="checkbox checkbox-primary" />
-            <div class="form-control w-full max-w-xs" v-if="comida">
-              <label class="label">
-                <span class="label-text text-base-300">Cantidad</span>
-              </label>
-              <select class="select select-bordered">
-                <option>3</option>
-                <option>5</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-control gap-2 items-center">
-            <div class="badge badge-lg p-4 rounded-lg min-w-[6rem]">Cena</div>
-            <input type="checkbox" v-model="cena" class="checkbox checkbox-primary" />
-            <div class="form-control w-full max-w-xs" v-if="cena">
-              <label class="label">
-                <span class="label-text text-base-300">Cantidad</span>
-              </label>
-              <select class="select select-bordered">
-                <option>3</option>
-                <option>5</option>
-              </select>
-            </div>
-          </div>
-        </section>
+        <section class="flex flex-col gap-4 mt-4">
+          <h3 class="text-xl text-primary">Tipo de plan</h3>
+          <fieldset class="flex flex-col gap-4">
+            <PlanCard :selected="planType === 'basico'" label-for="basico">
+              <input
+                id="basico"
+                type="radio"
+                name="radio-1"
+                class="radio absolute right-4 top-4 radio-primary"
+                value="basico"
+                v-model="planType"
+              />
+              <h2 class="card-title text-primary">básico</h2>
+              <p>
+                Las opciones del menú son predeterminadas y no se pueden modificar (El menú cambia
+                cada semana).
+              </p>
+            </PlanCard>
 
-        <section class="flex flex-col gap-4 my-8" v-if="desayuno">
-          <div class="collapse collapse-arrow bg-white">
-            <input type="radio" name="my-accordion-2" />
-            <div class="collapse-title text-primary text-3xl font-medium">Desayunos</div>
-            <div class="collapse-content lg:flex">
-              <section>
-                <h4 class="text-base-200 text-xl font-bold">Dia 1</h4>
-                <div class="form-control gap-2 my-4">
-                  <select
-                    id=""
-                    class="select w-full lg:max-w-xs bg-white border-2 border-base-200 transition-all focus:ring focus:ring-primary dark:bg-dark-strong dark:border-base-100/10 dark:text-base-100"
-                  >
-                    <option>Prueba</option>
-                  </select>
-                </div>
-                <div class="divider divider-primary"></div>
-              </section>
-            </div>
-          </div>
+            <PlanCard :selected="planType === 'flexible'" label-for="flexible">
+              <input
+                id="flexible"
+                type="radio"
+                name="radio-1"
+                class="radio absolute right-4 top-4 radio-primary"
+                value="flexible"
+                v-model="planType"
+              />
+              <h2 class="card-title text-primary">Flexible</h2>
+              <p class="">
+                Personaliza los platillos e incluso agrega o elimina opciones de tu menú semanal (El
+                costo dependerá de las opciones elegidas).
+              </p>
+            </PlanCard>
+          </fieldset>
         </section>
-
-        <section class="flex flex-col gap-4 my-8" v-if="comida">
-          <div class="collapse collapse-arrow bg-white">
-            <input type="radio" name="my-accordion-2" />
-            <div class="collapse-title text-primary text-3xl font-medium">Comidas</div>
-            <div class="collapse-content lg:flex">
-              <section>
-                <h4 class="text-base-200 text-xl font-bold">Dia 1</h4>
-                <div class="form-control gap-2 my-4">
-                  <select
-                    id=""
-                    class="select w-full lg:max-w-xs bg-white border-2 border-base-200 transition-all focus:ring focus:ring-primary dark:bg-dark-strong dark:border-base-100/10 dark:text-base-100"
-                  >
-                    <option>Prueba</option>
-                  </select>
-                </div>
-                <div class="divider divider-primary"></div>
-              </section>
-            </div>
-          </div>
-        </section>
-
-        <section class="flex flex-col gap-4 my-8" v-if="cena">
-          <div class="collapse collapse-arrow bg-white">
-            <input type="radio" name="my-accordion-2" />
-            <div class="collapse-title text-primary text-3xl font-medium">Cenas</div>
-            <div class="collapse-content lg:flex">
-              <section>
-                <h4 class="text-base-200 text-xl font-bold">Dia 1</h4>
-                <div class="form-control gap-2 my-4">
-                  <select
-                    id=""
-                    class="select w-full lg:max-w-xs bg-white border-2 border-base-200 transition-all focus:ring focus:ring-primary dark:bg-dark-strong dark:border-base-100/10 dark:text-base-100"
-                  >
-                    <option>Prueba</option>
-                  </select>
-                </div>
-                <div class="divider divider-primary"></div>
-              </section>
-            </div>
-          </div>
-        </section>
-
-        <!-- <section class="flex flex-col gap-4 my-8">
-          <div class="collapse collapse-arrow bg-white" v-for="(day, index) in menu.days">
-            <input type="radio" name="my-accordion-2" />
-            <div class="collapse-title text-primary text-3xl font-medium">
-              {{ day.name }}
-            </div>
-            <div class="collapse-content lg:flex">
-              <section v-for="course in day.courses">
-                <h4 class="text-base-200 text-xl font-bold">{{ course.name }}</h4>
-                <div class="form-control gap-2 my-4" v-for="(meal, index) in course.meals">
-                  <select
-                    id=""
-                    class="select w-full lg:max-w-xs bg-white border-2 border-base-200 transition-all focus:ring focus:ring-primary dark:bg-dark-strong dark:border-base-100/10 dark:text-base-100"
-                  >
-                    <option v-for="ml in course.meals" :value="course.meals[index]" :key="meal.id">
-                      {{ meal.name }}
-                    </option>
-                  </select>
-                </div>
-                <div class="divider divider-primary"></div>
-              </section>
-            </div>
-          </div>
-        </section> -->
       </form>
-      <div class="btm-nav">
-        <button></button>
-        <button></button>
+
+      <section class="pb-24" v-show="planType === 'basico'">
+        <h3 class="text-xl text-primary mt-4">Selecciona tu(s) plan(es):</h3>
+        <section class="mt-4 gap-2 flex flex-col">
+          <PlanCard label-for="basico-3d" :selected="desayuno">
+            <input
+              id="basico-3d"
+              type="checkbox"
+              class="checkbox checkbox-primary absolute right-4 top-4"
+              v-model="desayuno"
+            />
+            <h2 class="card-title text-primary">Desayuno</h2>
+            <p class="">Opciones para desayunar rico y saludable.</p>
+            <section v-show="desayuno" class="flex justify-center gap-6 mt-2">
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">3 días ($400)</span>
+                  <input type="radio" name="radio-10" class="radio radio-primary" checked />
+                </label>
+              </div>
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">5 días ($600)</span>
+                  <input type="radio" name="radio-10" class="radio radio-primary" />
+                </label>
+              </div>
+            </section>
+          </PlanCard>
+
+          <PlanCard label-for="basico-3c1" :selected="comida">
+            <input
+              id="basico-3c1"
+              type="checkbox"
+              class="checkbox checkbox-primary absolute right-4 top-4"
+              v-model="comida"
+            />
+            <h2 class="card-title text-primary">Comida</h2>
+            <p class="">Opciones para la hora de comida.</p>
+            <section v-show="comida" class="flex justify-center gap-6 mt-2">
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">3 días ($500)</span>
+                  <input type="radio" name="radio-11" class="radio radio-primary" checked />
+                </label>
+              </div>
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">5 días ($700)</span>
+                  <input type="radio" name="radio-11" class="radio radio-primary" />
+                </label>
+              </div>
+            </section>
+          </PlanCard>
+
+          <PlanCard label-for="basico-3c2" :selected="cena">
+            <input
+              id="basico-3c2"
+              type="checkbox"
+              class="checkbox checkbox-primary absolute right-4 top-4"
+              v-model="cena"
+            />
+            <h2 class="card-title text-primary">Cena</h2>
+            <p class="">Opciones para cenar ligero y delicioso.</p>
+            <section v-show="cena" class="flex justify-center gap-6 mt-2">
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">3 días ($450)</span>
+                  <input type="radio" name="radio-12" class="radio radio-primary" checked />
+                </label>
+              </div>
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">5 días ($650)</span>
+                  <input type="radio" name="radio-12" class="radio radio-primary" />
+                </label>
+              </div>
+            </section>
+          </PlanCard>
+        </section>
+      </section>
+
+      <section class="pb-24" v-show="planType === 'flexible'">
+        <h3 class="text-xl text-primary mt-4">Personaliza tu plan:</h3>
+        <section class="mt-4 gap-2 flex flex-col">
+          <PlanCard label-for="basico-3d" :selected="desayuno">
+            <input
+              id="basico-3d"
+              type="checkbox"
+              class="checkbox checkbox-primary absolute right-4 top-4"
+              v-model="desayuno"
+            />
+            <h2 class="card-title text-primary">Desayuno</h2>
+            <p class="">Opciones para desayunar rico y saludable.</p>
+            <section v-show="desayuno" class="flex justify-center gap-6 mt-2">
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">3 días</span>
+                  <input
+                    type="radio"
+                    name="radio-10"
+                    class="radio radio-primary"
+                    value="3"
+                    v-model="desayunoQty"
+                  />
+                </label>
+              </div>
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">5 días</span>
+                  <input
+                    type="radio"
+                    name="radio-10"
+                    class="radio radio-primary"
+                    value="5"
+                    v-model="desayunoQty"
+                  />
+                </label>
+              </div>
+            </section>
+          </PlanCard>
+
+          <PlanCard label-for="basico-3c1" :selected="comida">
+            <input
+              id="basico-3c1"
+              type="checkbox"
+              class="checkbox checkbox-primary absolute right-4 top-4"
+              v-model="comida"
+            />
+            <h2 class="card-title text-primary">Comida</h2>
+            <p class="">Opciones para la hora de comida.</p>
+
+            <section v-show="comida" class="mt-2">
+              <div class="flex justify-center gap-6">
+                <div class="form-control">
+                  <label class="label cursor-pointer gap-2">
+                    <span class="label-text">3 días</span>
+                    <input
+                      type="radio"
+                      name="radio-11"
+                      class="radio radio-primary"
+                      value="3"
+                      v-model="comidaQty"
+                    />
+                  </label>
+                </div>
+
+                <div class="form-control">
+                  <label class="label cursor-pointer gap-2">
+                    <span class="label-text">5 días</span>
+                    <input
+                      type="radio"
+                      name="radio-11"
+                      class="radio radio-primary"
+                      value="5"
+                      v-model="comidaQty"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div v-for="(day, index) in 5">
+                  <p class="text-primary">Día {{ index + 1 }}</p>
+                  <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                      <span class="label-text">Selecciona el platillo</span>
+                    </label>
+                    <select class="select select-bordered select-primary">
+                      <option>Opcion 1</option>
+                      <option>Opcion 2</option>
+                    </select>
+                  </div>
+                  <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                      <span class="label-text">Selecciona la guarnicion</span>
+                    </label>
+                    <select class="select select-bordered select-primary">
+                      <option>Opcion 1</option>
+                      <option>Opcion 2</option>
+                    </select>
+                  </div>
+                  <div class="divider mt-8"></div>
+                </div>
+              </div>
+            </section>
+          </PlanCard>
+
+          <PlanCard label-for="basico-3c2" :selected="cena">
+            <input
+              id="basico-3c2"
+              type="checkbox"
+              class="checkbox checkbox-primary absolute right-4 top-4"
+              v-model="cena"
+            />
+            <h2 class="card-title text-primary">Cena</h2>
+            <p class="">Opciones para cenar ligero y delicioso.</p>
+            <section v-show="cena" class="flex justify-center gap-6 mt-2">
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">3 días</span>
+                  <input
+                    type="radio"
+                    name="radio-12"
+                    class="radio radio-primary"
+                    value="3"
+                    v-model="cenaQty"
+                  />
+                </label>
+              </div>
+              <div class="form-control">
+                <label class="label cursor-pointer gap-2">
+                  <span class="label-text">5 días</span>
+                  <input
+                    type="radio"
+                    name="radio-12"
+                    class="radio radio-primary"
+                    value="5"
+                    v-model="cenaQty"
+                  />
+                </label>
+              </div>
+            </section>
+          </PlanCard>
+        </section>
+      </section>
+
+      <div class="btm-nav pr-4">
+        <button class="text-xl flex flex-row">
+          <!-- <span>Calorías:</span>
+          <span class="text-primary">9800</span> -->
+        </button>
+
         <button class="text-xl flex flex-row">
           <span>Total:</span>
-          <span class="text-primary">$1200</span>
+          <span class="text-primary">${{ orderTotal }}</span>
         </button>
+
+        <button class="btn btn-primary flex-1" :disabled="orderTotal === 0">Ordenar</button>
       </div>
     </template>
   </MainSection>
