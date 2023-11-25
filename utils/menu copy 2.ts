@@ -1,9 +1,109 @@
-export const menu = {
+export const menuCopy2 = {
   id: 1,
-  dates: '27 Noviembre - 1 Diciembre',
+  dates: '20 Noviembre - 24 Noviembre',
   days: [
     {
       name: 'Lunes',
+      courses: [
+        {
+          name: 'Desayuno',
+          meals: [
+            {
+              id: 1,
+              name: 'Papa con huevo y chorizo',
+              calories: 536,
+            },
+            {
+              id: 2,
+              name: 'Frijoles refritos',
+              calories: 347,
+            },
+          ],
+        },
+        {
+          name: 'Comida',
+          meals: [
+            {
+              id: 1,
+              name: 'Fajitas de pollo',
+              calories: 196,
+            },
+            {
+              id: 2,
+              name: 'Arroz blanco',
+              calories: 185,
+            },
+            {
+              id: 3,
+              name: 'Frijoles en grano',
+              calories: 347,
+            },
+          ],
+        },
+        {
+          name: 'Cena',
+          meals: [
+            {
+              id: 1,
+              name: 'Salpicón',
+              calories: 352,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Martes',
+      courses: [
+        {
+          name: 'Desayuno',
+          meals: [
+            {
+              id: 1,
+              name: 'Waffle de avena',
+              calories: 447,
+            },
+          ],
+        },
+        {
+          name: 'Comida',
+          meals: [
+            {
+              id: 1,
+              name: 'Bistec ranchero',
+              calories: 243,
+            },
+            {
+              id: 2,
+              name: 'Arroz rojo',
+              calories: 189,
+            },
+            {
+              id: 3,
+              name: 'Frijoles machacados',
+              calories: 347,
+            },
+          ],
+        },
+        {
+          name: 'Cena',
+          meals: [
+            {
+              id: 1,
+              name: 'Pescado con pimientos salteados',
+              calories: 352,
+            },
+            {
+              id: 2,
+              name: 'Arroz blanco',
+              calories: 185,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Miércoles',
       courses: [
         {
           name: 'Desayuno',
@@ -15,11 +115,12 @@ export const menu = {
             },
             {
               id: 2,
-              name: 'Frijoles refritos',
+              name: 'Frijoles machacados',
               calories: 347,
             },
           ],
         },
+
         {
           name: 'Comida',
           meals: [
@@ -40,119 +141,18 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Pescado a la mostaza',
-              calories: 148,
-            },
-            {
-              id: 2,
-              name: 'Arroz blanco',
-              calories: 185,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Martes',
-      courses: [
-        {
-          name: 'Desayuno',
-          meals: [
-            {
-              id: 1,
-              name: 'Huevos revueltos a la mexicana',
-              calories: 222,
-            },
-            {
-              id: 2,
-              name: 'Frijoles en grano',
-              calories: 347,
-            },
-          ],
-        },
-        {
-          name: 'Comida',
-          meals: [
-            {
-              id: 1,
-              name: 'Picadillo',
-              calories: 242,
-            },
-            {
-              id: 2,
-              name: 'Arroz blanco',
-              calories: 185,
-            },
-            {
-              id: 3,
-              name: 'Frijoles en grano',
-              calories: 347,
-            },
-          ],
-        },
-        {
-          name: 'Cena',
-          meals: [
-            {
-              id: 1,
-              name: 'Pescado a la plancha',
-              calories: 132,
-            },
-            {
-              id: 2,
-              name: 'Verduras al vapor',
-              calories: 43,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Miércoles',
-      courses: [
-        {
-          name: 'Desayuno',
-          meals: [
-            {
-              id: 1,
-              name: 'Huevos revueltos con salchicha',
-              calories: 276,
-            },
-            {
-              id: 2,
-              name: 'Frijoles refritos',
-              calories: 347,
-            },
-          ],
-        },
-
-        {
-          name: 'Comida',
-          meals: [
-            {
-              id: 1,
-              name: 'Pasta con pollo en crema de champiñones',
-              calories: 582,
-            },
-            {
-              id: 2,
-              name: 'Verduras al vapor',
-              calories: 43,
-            },
-          ],
-        },
-        {
-          name: 'Cena',
-          meals: [
-            {
-              id: 1,
               name: 'Pechuga de pollo a la plancha',
               calories: 261,
             },
             {
               id: 2,
-              name: 'Puré de camote y papa',
-              calories: 195,
+              name: 'Arroz rojo',
+              calories: 189,
+            },
+            {
+              id: 3,
+              name: 'Rajas poblanas con elote',
+              calories: 243,
             },
           ],
         },
@@ -171,7 +171,7 @@ export const menu = {
             },
             {
               id: 2,
-              name: 'Frijoles refritos',
+              name: 'Frijoles machacados',
               calories: 347,
             },
           ],
@@ -181,18 +181,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Fajitas de res',
-              calories: 149,
+              name: 'Teriyaki de res',
+              calories: 215,
             },
             {
               id: 2,
               name: 'Arroz blanco',
-              calories: 185,
-            },
-            {
-              id: 3,
-              name: 'Frijoles refritos',
-              calories: 347,
+              calories: 185 * 2,
             },
           ],
         },
@@ -201,11 +196,16 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Sandwich de pechuga de pollo',
-              calories: 423,
+              name: 'Pescado a la plancha',
+              calories: 132,
             },
             {
               id: 2,
+              name: 'Arroz rojo',
+              calories: 189,
+            },
+            {
+              id: 3,
               name: 'Verduras al vapor',
               calories: 43,
             },
@@ -221,13 +221,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Huevos revueltos',
-              calories: 299,
+              name: 'Sandwich de huevo',
+              calories: 359,
             },
             {
               id: 2,
-              name: 'Frijoles en grano',
-              calories: 347,
+              name: 'Papas horneadas',
+              calories: 131,
             },
           ],
         },
@@ -236,13 +236,8 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Pescado a la mostaza',
-              calories: 148,
-            },
-            {
-              id: 2,
-              name: 'Puré de camote y papa',
-              calories: 195,
+              name: 'Ensalada de pollo (fría)',
+              calories: 511,
             },
           ],
         },
@@ -256,7 +251,7 @@ export const menu = {
             },
             {
               id: 2,
-              name: 'Frijoles refritos',
+              name: 'Frijoles machacados',
               calories: 347,
             },
             {

@@ -203,29 +203,55 @@ onMounted(() => {
             <h2 class="card-title text-primary">Desayuno</h2>
             <p class="">Opciones para desayunar rico y saludable.</p>
             <section v-show="desayuno" class="flex justify-center gap-6 mt-2">
-              <div class="form-control">
-                <label class="label cursor-pointer gap-2">
-                  <span class="label-text">3 días</span>
-                  <input
-                    type="radio"
-                    name="radio-10"
-                    class="radio radio-primary"
-                    value="3"
-                    v-model="desayunoQty"
-                  />
-                </label>
-              </div>
-              <div class="form-control">
-                <label class="label cursor-pointer gap-2">
-                  <span class="label-text">5 días</span>
-                  <input
-                    type="radio"
-                    name="radio-10"
-                    class="radio radio-primary"
-                    value="5"
-                    v-model="desayunoQty"
-                  />
-                </label>
+              <div>
+                <div class="form-control">
+                  <label class="label cursor-pointer gap-2">
+                    <span class="label-text">3 días</span>
+                    <input
+                      type="radio"
+                      name="radio-10"
+                      class="radio radio-primary"
+                      value="3"
+                      v-model="desayunoQty"
+                    />
+                  </label>
+                </div>
+                <div class="form-control">
+                  <label class="label cursor-pointer gap-2">
+                    <span class="label-text">5 días</span>
+                    <input
+                      type="radio"
+                      name="radio-10"
+                      class="radio radio-primary"
+                      value="5"
+                      v-model="desayunoQty"
+                    />
+                  </label>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <div v-for="(day, index) in 5">
+                    <p class="text-primary">Día {{ index + 1 }}</p>
+                    <div class="form-control w-full max-w-xs">
+                      <label class="label">
+                        <span class="label-text">Selecciona el platillo</span>
+                      </label>
+                      <select class="select select-bordered select-primary">
+                        <option>Opcion 1</option>
+                        <option>Opcion 2</option>
+                      </select>
+                    </div>
+                    <div class="form-control w-full max-w-xs">
+                      <label class="label">
+                        <span class="label-text">Selecciona la guarnicion</span>
+                      </label>
+                      <select class="select select-bordered select-primary">
+                        <option>Opcion 1</option>
+                        <option>Opcion 2</option>
+                      </select>
+                    </div>
+                    <div class="divider mt-8"></div>
+                  </div>
+                </div>
               </div>
             </section>
           </PlanCard>
@@ -266,30 +292,6 @@ onMounted(() => {
                       v-model="comidaQty"
                     />
                   </label>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2">
-                <div v-for="(day, index) in 5">
-                  <p class="text-primary">Día {{ index + 1 }}</p>
-                  <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                      <span class="label-text">Selecciona el platillo</span>
-                    </label>
-                    <select class="select select-bordered select-primary">
-                      <option>Opcion 1</option>
-                      <option>Opcion 2</option>
-                    </select>
-                  </div>
-                  <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                      <span class="label-text">Selecciona la guarnicion</span>
-                    </label>
-                    <select class="select select-bordered select-primary">
-                      <option>Opcion 1</option>
-                      <option>Opcion 2</option>
-                    </select>
-                  </div>
-                  <div class="divider mt-8"></div>
                 </div>
               </div>
             </section>
