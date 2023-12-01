@@ -30,11 +30,11 @@ const sumCaloriesForDay = (day: Day) => {
 };
 
 useHead({
-  title: 'Heltifud Meal preps',
+  title: 'Menú de la semana | Heltifud Meal preps',
   meta: [
     {
       name: 'description',
-      content: 'Servicio de Meal preps saludables, caseros y flexibles a domicilio.',
+      content: 'Este es nuestro menú para la próxima semana.',
     },
     // Facebook Meta tags
     {
@@ -51,7 +51,7 @@ useHead({
     },
     {
       property: 'og:description',
-      content: 'Servicio de Meal preps saludables, caseros y flexibles a domicilio.',
+      content: 'Este es nuestro menú para la próxima semana.',
     },
     {
       property: 'og:image',
