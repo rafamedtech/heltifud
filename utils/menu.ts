@@ -1,6 +1,6 @@
 export const menu = {
   id: 1,
-  dates: '27 Noviembre - 1 Diciembre',
+  dates: '4 Diciembre - 8 Diciembre',
   days: [
     {
       name: 'Lunes',
