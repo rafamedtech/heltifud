@@ -1,61 +1,32 @@
 <script setup lang="ts">
+import type { Expense } from '@prisma/client';
 const isLoading = ref(true);
+const dateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 
-const items = ref([
-  {
-    id: 1,
-    date: '19/11/2023',
-    type: 'ingreso',
-    concept: 'Comidas Ricardo',
-    price: 1000,
-    category: 'Venta',
-    ticket: '',
-  },
-  {
-    id: 2,
-    date: '19/11/2023',
-    type: 'gasto',
-    concept: 'Insumos 19/11/2023',
-    price: 616,
-    category: 'Insumos',
-    ticket: '',
-  },
-  {
-    id: 3,
-    date: '19/11/2023',
-    type: 'gasto',
-    concept: 'Pago Aby 19/11/2023',
-    price: 700,
-    category: 'Sueldo',
-    ticket: '',
-  },
-  {
-    id: 4,
-    date: '19/11/2023',
-    type: 'ingreso',
-    concept: '',
-    price: 0,
-    category: '',
-    ticket: '',
-  },
-  {
-    id: 5,
-    date: '19/11/2023',
-    type: 'gasto',
-    concept: '',
-    price: 0,
-    category: '',
-    ticket: '',
-  },
-]);
+const { data: items } = await useFetch<Expense[]>('/api/expenses/all');
 
 const income = computed(() => {
-  return items.value.filter((item) => item.type === 'ingreso');
+  return items.value?.filter((item) => item.type === 'Ingreso') as Expense[];
 });
 
 const expenses = computed(() => {
-  return items.value.filter((item) => item.type === 'gasto');
+  return items.value?.filter((item) => item.type === 'Gasto') as Expense[];
 });
+
+const totalExpenses = computed(() =>
+  transformPrice(sumPrices(income.value as Expense[]) - sumPrices(expenses.value as Expense[]))
+);
+
+function transformPrice(item: number) {
+  return new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+  }).format(item);
+}
+
+const sumPrices = (items: Expense[]): number => {
+  return items.reduce((total, item: Expense) => total + item.price, 0);
+};
 
 onMounted(() => {
   isLoading.value = false;
@@ -84,7 +55,7 @@ onMounted(() => {
               <Icon name="icon-park-outline:balance-two" size="32" />
             </div>
             <div class="stat-title text-base-100">Balance</div>
-            <div class="stat-value">1,200</div>
+            <div class="stat-value">{{ totalExpenses }}</div>
           </div>
         </section>
         <section class="stats w-full lg:max-w-xl mx-auto bg-white text-base-100 shadow">
@@ -93,7 +64,7 @@ onMounted(() => {
               <Icon name="icon-park-outline:paper-money-two" size="32" />
             </div>
             <div class="stat-title text-base-100">Ingresos</div>
-            <div class="stat-value">31K</div>
+            <div class="stat-value">{{ transformPrice(sumPrices(income)) }}</div>
           </div>
 
           <div class="stat">
@@ -101,36 +72,29 @@ onMounted(() => {
               <Icon name="icon-park-outline:mall-bag" size="32" />
             </div>
             <div class="stat-title text-base-100">Gastos</div>
-            <div class="stat-value">4,200</div>
+            <div class="stat-value">{{ transformPrice(sumPrices(expenses)) }}</div>
           </div>
         </section>
       </section>
-      <section class="flex text-base-100 justify-between mt-8">
+      <section class="grid lg:grid-cols-2 text-base-100 justify-between mt-8">
         <div class="overflow-x-auto">
           <h3 class="text-xl">Ingresos</h3>
           <table class="table">
-            <!-- head -->
-            <thead class="text-primary">
-              <tr>
-                <th>Fecha</th>
-                <th>Concepto</th>
-                <th>Cantidad</th>
-                <th>Categoría</th>
-              </tr>
-            </thead>
+            <TableHead />
             <tbody>
-              <!-- row 1 -->
-              <tr v-for="expense in income" :key="expense.id">
-                <th>{{ expense.date }}</th>
-                <td>{{ expense.concept }}</td>
-                <td>${{ expense.price }}</td>
-                <td>{{ expense.category }}</td>
+              <tr v-for="{ id, date, concept, price, category } in income" :key="id">
+                <th>{{ new Date(date as Date).toLocaleDateString('es-MX', dateOptions) }}</th>
+                <td>{{ concept }}</td>
+                <td>
+                  {{ transformPrice(price) }}
+                </td>
+                <td>{{ category }}</td>
               </tr>
 
               <tr>
                 <th></th>
                 <td class="text-end font-bold text-primary">Total:</td>
-                <td class="font-bold">$1000</td>
+                <td class="font-bold">{{ transformPrice(sumPrices(income)) }}</td>
                 <td></td>
               </tr>
             </tbody>
@@ -141,27 +105,27 @@ onMounted(() => {
           <h3 class="text-xl">Gastos</h3>
           <table class="table">
             <!-- head -->
-            <thead class="text-primary">
-              <tr>
-                <th>Fecha</th>
-                <th>Concepto</th>
-                <th>Cantidad</th>
-                <th>Categoría</th>
-              </tr>
-            </thead>
+            <TableHead />
             <tbody>
               <!-- row 1 -->
-              <tr v-for="expense in expenses" :key="expense.id">
-                <th>{{ expense.date }}</th>
-                <td>{{ expense.concept }}</td>
-                <td>${{ expense.price }}</td>
-                <td>{{ expense.category }}</td>
+              <tr v-for="{ id, date, concept, price, category } in expenses" :key="id">
+                <th>{{ new Date(date as Date).toLocaleDateString('es-MX', dateOptions) }}</th>
+                <td>{{ concept }}</td>
+                <td>
+                  {{
+                    new Intl.NumberFormat('es-MX', {
+                      style: 'currency',
+                      currency: 'MXN',
+                    }).format(price)
+                  }}
+                </td>
+                <td>{{ category }}</td>
               </tr>
 
               <tr>
                 <th></th>
                 <td class="text-end font-bold text-primary">Total:</td>
-                <td class="font-bold">$1000</td>
+                <td class="font-bold">{{ transformPrice(sumPrices(expenses)) }}</td>
                 <td></td>
               </tr>
             </tbody>

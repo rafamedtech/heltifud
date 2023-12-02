@@ -17,7 +17,11 @@
     "nuxt-icon": "^0.6.6",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
+    "prisma": "5.6.0",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@prisma/client": "5.6.0"
   }
 }
