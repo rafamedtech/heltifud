@@ -1,6 +1,6 @@
 export const menu = {
   id: 1,
-  dates: '4 Diciembre - 8 Diciembre',
+  dates: '11 Diciembre - 15 Diciembre',
   days: [
     {
       name: 'Lunes',
@@ -25,13 +25,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Carne asada',
-              calories: 191,
+              name: 'Teriyaki de pollo',
+              calories: 256,
             },
             {
               id: 2,
-              name: 'Rajas poblanas con elote',
-              calories: 243,
+              name: 'Arroz blanco',
+              calories: 185 * 2,
             },
           ],
         },
@@ -40,8 +40,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Ensalada fría de pollo',
-              calories: 511,
+              name: 'Sandwich de pechuga de pollo',
+              calories: 423,
+            },
+            {
+              id: 2,
+              name: 'Papas horneadas',
+              calories: 131,
             },
           ],
         },
@@ -70,17 +75,17 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Fajitas de pollo',
-              calories: 196,
+              name: 'Picadillo',
+              calories: 242,
             },
             {
               id: 2,
-              name: 'Pasta con salsa de tomate',
-              calories: 284,
+              name: 'Arroz blanco',
+              calories: 185,
             },
             {
               id: 3,
-              name: 'Frijoles machacados',
+              name: 'Frijoles en grano',
               calories: 347,
             },
           ],
@@ -90,8 +95,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Salpicón',
-              calories: 352,
+              name: 'Fajitas de pollo',
+              calories: 196,
+            },
+            {
+              id: 2,
+              name: 'Verduras al vapor',
+              calories: 43,
             },
           ],
         },
@@ -121,18 +131,8 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Carne deshebrada con verduras',
-              calories: 330,
-            },
-            {
-              id: 2,
-              name: 'Arroz rojo',
-              calories: 189,
-            },
-            {
-              id: 3,
-              name: 'Frijoles machacados',
-              calories: 347,
+              name: 'Pasta con pollo en crema de cilantro',
+              calories: 615,
             },
           ],
         },
@@ -148,11 +148,6 @@ export const menu = {
               id: 2,
               name: 'Puré de papa',
               calories: 170,
-            },
-            {
-              id: 2,
-              name: 'Verduras al vapor',
-              calories: 43,
             },
           ],
         },
@@ -181,18 +176,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Pechuga de pollo a la plancha',
-              calories: 261,
+              name: 'Sandwich de pechuga de pollo',
+              calories: 423,
             },
             {
               id: 2,
-              name: 'Pasta con salsa de tomate',
-              calories: 284,
-            },
-            {
-              id: 3,
-              name: 'Frijoles en grano',
-              calories: 347,
+              name: 'Papas horneadas',
+              calories: 131,
             },
           ],
         },
@@ -241,16 +231,12 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Pescado a la mostaza',
-              calories: 148,
+              name: 'Espaguetti a la boloñesa',
+              calories: 650,
             },
+
             {
               id: 2,
-              name: 'Puré de camote y papa',
-              calories: 195,
-            },
-            {
-              id: 3,
               name: 'Verduras al vapor',
               calories: 43,
             },
@@ -261,13 +247,13 @@ export const menu = {
           meals: [
             {
               id: 1,
-              name: 'Carne deshebrada con verduras',
-              calories: 330,
+              name: 'Pechuga de pollo a la plancha',
+              calories: 261,
             },
             {
               id: 2,
-              name: 'Arroz rojo',
-              calories: 189,
+              name: 'Puré de camote y papa',
+              calories: 195,
             },
           ],
         },

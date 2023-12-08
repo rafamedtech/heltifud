@@ -20,7 +20,7 @@ import logo from '@/assets/img/logo-horizontal.png';
           <div class="flex-1 px-2 mx-2 gap-4">
             <img :src="logo" alt="" class="w-36 lg:w-40" />
             <div class="flex-none hidden lg:block">
-              <ul class="menu menu-horizontal">
+              <ul class="menu menu-horizontal text-base-100">
                 <NavLinks />
               </ul>
             </div>

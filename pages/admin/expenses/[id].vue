@@ -58,14 +58,11 @@ definePageMeta({
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Capturar nuevo gasto/ingreso" />
+      <AppHeading title="Detalles de la entrada" />
     </template>
     <template #content>
-      <section class="lg:bg-white flex flex-col lg:card lg:flex-row">
-        <form
-          class="lg:p-8 w-full lg:mx-auto flex flex-col gap-4 lg:w-1/2"
-          @submit.prevent="submitExpense"
-        >
+      <section class="bg-white flex lg:card lg:flex-row">
+        <form class="lg:p-8 lg:mx-auto flex flex-col gap-4 w-1/2" @submit.prevent="submitExpense">
           <BaseInput label="Concepto" v-model="concept" />
           <BaseSelect label="Tipo de entrada" :items="expenseTypes" v-model="type" />
           <BaseInput
@@ -75,7 +72,6 @@ definePageMeta({
             @keypress="isNumber($event)"
           />
           <BaseInput label="Categoría" v-model="category" />
-          <!-- <BaseInput disabled label="Ticket" v-model="ticket" /> -->
 
           <Divider />
 
@@ -85,11 +81,11 @@ definePageMeta({
             </NuxtLink>
             <BaseButton type="primary" :loading="btnLoading">Guardar</BaseButton>
           </section>
-
-          <!-- <UploadWidget /> -->
         </form>
         <section class="flex flex-col gap-8 lg:p-8 w-1/2">
-          <UploadWidget class="w-1/3" />
+          <!-- <UploadWidget /> -->
+          <!-- <UploadWidget class="w-1/3" /> -->
+          <h3>Ticket</h3>
           <figure class="w-2/3">
             <img :src="ticketUrl" alt="" class="max-w-full" />
           </figure>

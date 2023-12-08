@@ -14,11 +14,11 @@ const sumCaloriesForDay = (day: Day) => {
 <template>
   <div class="hidden lg:block max-w-lg bg-white min-h-[35rem] max-h-[30rem]">
     <div class="collapse-title text-xl font-medium h-16">
-      <h2 class="card-title text-base-100 text-3xl">{{ day.name }}</h2>
+      <h2 class="card-title text-base-300 text-3xl">{{ day.name }}</h2>
     </div>
 
     <div
-      class="justify-between flex flex-col rounded-none min-h-[31rem] h-[31rem] max-h-[31rem] bg-white text-base-100 lg:text-xs p-4"
+      class="justify-between flex flex-col rounded-none min-h-[31rem] h-[31rem] max-h-[31rem] bg-white text-base-300 lg:text-xs p-4"
     >
       <ul class="flex flex-col gap-4 flex-1 items-stretch">
         <li v-for="course in day.courses" class="h-full min-h-max">

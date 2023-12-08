@@ -5,19 +5,26 @@ const dateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short
 
 const { data: items } = await useFetch<Expense[]>('/api/expenses/all');
 
-const income = computed(() => {
-  return items.value?.filter((item) => item.type === 'Ingreso') as Expense[];
-});
+const expenseFilter = ref('Ingreso');
+const expenseOptions = ['Todas', 'Gasto', 'Ingreso'];
 
-const expenses = computed(() => {
-  return items.value?.filter((item) => item.type === 'Gasto') as Expense[];
+const filteredItems = computed(() => {
+  if (expenseFilter.value === 'Todas') {
+    // If filter is 'Todas', return all items
+    return items.value;
+  } else {
+    // Otherwise, filter items based on the specified category
+    return items.value?.filter((item: Expense) => item.type === expenseFilter.value) as Expense[];
+  }
 });
 
 const totalExpenses = computed(() =>
-  transformPrice(sumPrices(income.value as Expense[]) - sumPrices(expenses.value as Expense[]))
+  transformPrice(
+    sumPrices(filteredItems.value as Expense[]) - sumPrices(filteredItems.value as Expense[])
+  )
 );
 
-function transformPrice(item: number) {
+function transformPrice(item: number): string {
   return new Intl.NumberFormat('es-MX', {
     style: 'currency',
     currency: 'MXN',
@@ -31,6 +38,10 @@ const sumPrices = (items: Expense[]): number => {
 onMounted(() => {
   isLoading.value = false;
 });
+
+definePageMeta({
+  layout: 'admin',
+});
 </script>
 
 <template>
@@ -39,8 +50,8 @@ onMounted(() => {
       <AppHeading title="Control de gastos" />
     </template>
     <template #content>
-      <section class="flex flex-col lg:flex-row justify-center gap-4">
-        <div class="form-control w-full max-w-xs">
+      <section class="flex flex-col lg:grid justify-center gap-4">
+        <!-- <div class="form-control w-full max-w-xs">
           <label class="label">
             <span class="label-text text-base-100">Selecciona un mes</span>
           </label>
@@ -48,41 +59,82 @@ onMounted(() => {
             <option>Enero</option>
             <option>Febrero</option>
           </select>
-        </div>
-        <section class="stats shadow bg-white text-base-100">
-          <div class="stat">
-            <div class="stat-figure text-primary">
-              <Icon name="icon-park-outline:balance-two" size="32" />
-            </div>
-            <div class="stat-title text-base-100">Balance</div>
-            <div class="stat-value">{{ totalExpenses }}</div>
-          </div>
-        </section>
-        <section class="stats w-full lg:max-w-xl mx-auto bg-white text-base-100 shadow">
-          <div class="stat">
+        </div> -->
+
+        <section
+          class="stats stats-vertical lg:stats-horizontal w-full mx-auto bg-white text-base-300 shadow"
+        >
+          <div class="stat p-4">
             <div class="stat-figure text-primary">
               <Icon name="icon-park-outline:paper-money-two" size="32" />
             </div>
-            <div class="stat-title text-base-100">Ingresos</div>
-            <div class="stat-value">{{ transformPrice(sumPrices(income)) }}</div>
+            <div class="stat-title text-base-300">Ingresos</div>
+            <div class="stat-value">
+              {{ transformPrice(sumPrices(filteredItems as Expense[])) }}
+            </div>
           </div>
 
-          <div class="stat">
+          <div class="stat p-4">
             <div class="stat-figure text-primary">
               <Icon name="icon-park-outline:mall-bag" size="32" />
             </div>
-            <div class="stat-title text-base-100">Gastos</div>
-            <div class="stat-value">{{ transformPrice(sumPrices(expenses)) }}</div>
+            <div class="stat-title text-base-300">Gastos</div>
+            <div class="stat-value">
+              {{ transformPrice(sumPrices(items)) }}
+            </div>
+          </div>
+
+          <div class="stat p-4">
+            <div class="stat-figure text-primary">
+              <Icon name="icon-park-outline:balance-two" size="32" />
+            </div>
+            <div class="stat-title text-base-300">Balance</div>
+            <div class="stat-value">{{ totalExpenses }}</div>
           </div>
         </section>
+        <!-- 
+        <section class="flex flex-col gap-4">
+
+        </section> -->
       </section>
-      <section class="grid lg:grid-cols-2 text-base-100 justify-between mt-8">
-        <div class="overflow-x-auto">
-          <h3 class="text-xl">Ingresos</h3>
-          <table class="table">
+
+      <section class="flex justify-center py-4">
+        <NuxtLink to="/admin/expenses/new" class="btn mt-4 lg:w-52 normal-case btn-primary">
+          <!-- <BaseButton type="primary">Nueva entrada</BaseButton> -->Nueva entrada
+        </NuxtLink>
+      </section>
+      <section
+        class="grid lg:grid-cols-1 gap-8 max-w-2xl mx-auto text-base-100 justify-between mt-8"
+      >
+        <div>
+          <h3 class="text-2xl text-primary">Filtros</h3>
+          <section class="flex gap-2 mt-2 justify-between">
+            <BaseSelect
+              label="Mes"
+              :items="expenseOptions"
+              v-model="expenseFilter"
+              class="min-w-fit w-full"
+            />
+
+            <BaseSelect
+              label="Tipo"
+              :items="expenseOptions"
+              v-model="expenseFilter"
+              class="min-w-fit w-full"
+            />
+            <BaseSelect
+              label="Categoría"
+              :items="expenseOptions"
+              v-model="expenseFilter"
+              class="min-w-fit w-full"
+            />
+          </section>
+          <table class="table text-base-300 mt-8">
+            <!-- head -->
             <TableHead />
             <tbody>
-              <tr v-for="{ id, date, concept, price, category } in income" :key="id">
+              <!-- row 1 -->
+              <tr v-for="{ id, date, concept, price, category } in filteredItems" :key="id">
                 <th>{{ new Date(date as Date).toLocaleDateString('es-MX', dateOptions) }}</th>
                 <td>{{ concept }}</td>
                 <td>
@@ -91,41 +143,16 @@ onMounted(() => {
                 <td>{{ category }}</td>
               </tr>
 
-              <tr>
-                <th></th>
-                <td class="text-end font-bold text-primary">Total:</td>
-                <td class="font-bold">{{ transformPrice(sumPrices(income)) }}</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="divider divider-horizontal"></div>
-        <div class="overflow-x-auto">
-          <h3 class="text-xl">Gastos</h3>
-          <table class="table">
-            <!-- head -->
-            <TableHead />
-            <tbody>
-              <!-- row 1 -->
-              <tr v-for="{ id, date, concept, price, category } in expenses" :key="id">
-                <th>{{ new Date(date as Date).toLocaleDateString('es-MX', dateOptions) }}</th>
-                <td>{{ concept }}</td>
-                <td>
-                  {{
-                    new Intl.NumberFormat('es-MX', {
-                      style: 'currency',
-                      currency: 'MXN',
-                    }).format(price)
-                  }}
-                </td>
-                <td>{{ category }}</td>
+              <tr v-if="!filteredItems?.length">
+                <td>No hay resultados</td>
               </tr>
 
               <tr>
                 <th></th>
                 <td class="text-end font-bold text-primary">Total:</td>
-                <td class="font-bold">{{ transformPrice(sumPrices(expenses)) }}</td>
+                <td class="font-bold">
+                  {{ transformPrice(sumPrices(filteredItems as Expense[])) }}
+                </td>
                 <td></td>
               </tr>
             </tbody>

@@ -12,9 +12,7 @@ const handleInputChange = (event: Event) => (event.target as HTMLInputElement).v
 
 <template>
   <div class="form-control gap-2">
-    <label :for="label" class="dark:text-base-100"
-      >{{ label }}<span v-if="isrequired" class="text-red-500">*</span></label
-    >
+    <label :for="label">{{ label }}<span v-if="isrequired" class="text-red-500">*</span></label>
     <input
       v-bind="$attrs"
       :value="modelValue"
@@ -23,7 +21,7 @@ const handleInputChange = (event: Event) => (event.target as HTMLInputElement).v
       @input="$emit('update:modelValue', handleInputChange($event))"
       :type="type"
       :required="isrequired"
-      class="input border-2 dark:text-base-100 bg-white border-base-200 dark:border-base-100/10 dark:bg-dark-strong focus:ring focus:ring-primary"
+      class="input border-2 bg-white border-base-200 focus:ring focus:ring-primary"
     />
   </div>
 </template>

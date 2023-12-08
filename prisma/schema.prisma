@@ -20,5 +20,5 @@ model Expense {
   concept   String
   price     Float
   category  String
-  ticket    String?
+  ticket    String
 }

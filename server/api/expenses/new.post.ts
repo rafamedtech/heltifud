@@ -8,8 +8,6 @@ export default defineEventHandler(async (event) => {
   assertMethod(event, ['POST']);
 
   return prisma.expense.create({
-    data: {
-      ...expense,
-    },
+    data: expense,
   });
 });

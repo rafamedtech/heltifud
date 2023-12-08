@@ -31,10 +31,10 @@ const sumCaloriesForDay = (day: Day) => {
   <div class="collapse lg:hidden rounded-none lg:max-w-lg bg-white">
     <input type="radio" name="my-accordion-1" />
     <div class="collapse-title text-xl font-medium">
-      <h2 class="card-title text-base-100 text-3xl">{{ day.name }}</h2>
+      <h2 class="card-title text-base-300 text-3xl">{{ day.name }}</h2>
     </div>
     <div class="collapse-content lg:text-xs">
-      <div class="justify-between rounded-none h-full bg-white text-base-100">
+      <div class="justify-between rounded-none h-full bg-white text-base-300">
         <section>
           <ul class="flex flex-col gap-4">
             <li v-for="course in day.courses">
