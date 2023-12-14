@@ -1,14 +1,23 @@
 <script setup lang="ts">
-defineProps<{
-  day: Day;
+import type { DayWithMeals, Course, MealType } from '@/types/Menu';
+
+const { day } = defineProps<{
+  day: DayWithMeals;
 }>();
 
-const sumCaloriesForDay = (day: Day) => {
-  return day.courses.reduce((totalCalories: number, course: Course) => {
-    return (
-      totalCalories + course.meals.reduce((total: number, meal: Meal) => total + meal.calories, 0)
-    );
-  }, 0);
+const breakfast = day.breakfast as Course;
+const lunch = day.lunch as Course;
+const dinner = day.dinner as Course;
+
+const sumCaloriesForDay = (day: DayWithMeals): number => {
+  let totalCalories = 0;
+  ['breakfast', 'lunch', 'dinner'].forEach((mealType) => {
+    const meals = day[mealType as keyof DayWithMeals] as MealType[];
+    meals.forEach((meal) => {
+      totalCalories += meal.calories;
+    });
+  });
+  return totalCalories;
 };
 </script>
 <template>
@@ -21,21 +30,9 @@ const sumCaloriesForDay = (day: Day) => {
       class="justify-between flex flex-col rounded-none min-h-[31rem] h-[31rem] max-h-[31rem] bg-white text-base-300 lg:text-xs p-4"
     >
       <ul class="flex flex-col gap-4 flex-1 items-stretch">
-        <li v-for="course in day.courses" class="h-full min-h-max">
-          <h3 class="font-bold text-xl text-primary">{{ course.name }}</h3>
-
-          <ul class="flex gap-1 justify-between w-full flex-col mt-2">
-            <li v-for="meal in course.meals">
-              <article class="flex gap-1">
-                <Icon name="icon-park-outline:arrow-right" class="text-primary" />
-                <section class="flex justify-between w-full">
-                  <span class="w-2/3 block"> {{ meal.name }}</span>
-                  <span class="w-1/3 block text-end">{{ meal.calories }} Cal</span>
-                </section>
-              </article>
-            </li>
-          </ul>
-        </li>
+        <MealCourse title="Desayuno" :course="breakfast" />
+        <MealCourse title="Comida" :course="lunch" />
+        <MealCourse title="Cena" :course="dinner" />
       </ul>
 
       <section class="mt-8 flex gap-2 items-center justify-end w-full h-16">

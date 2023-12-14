@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { menu } from '@/utils/menu';
+import type { DayWithMeals } from '~/types/Menu';
 
-const days = menu.days;
+const { data: days } = await useFetch<DayWithMeals[]>('/api/menu');
 
 const isLoading = ref(true);
 
@@ -43,7 +43,7 @@ useHead({
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Menú de la próxima semana" :description="menu.dates" />
+      <AppHeading title="Menú de la próxima semana" description="18 Diciembre - 22 Diciembre" />
     </template>
 
     <!-- Page content -->

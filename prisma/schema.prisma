@@ -22,3 +22,23 @@ model Expense {
   category  String
   ticket    String
 }
+
+model Day {
+  id        String @id @default(uuid())
+  name      String
+  breakfast Meal[] @relation("BreakfastMeals")
+  lunch     Meal[] @relation("LunchMeals")
+  dinner    Meal[] @relation("DinnerMeals")
+}
+
+model Meal {
+  id             String  @id @default(uuid())
+  name           String
+  calories       Int
+  breakfastDayId String?
+  lunchDayId     String?
+  dinnerDayId    String?
+  breakfastDay   Day?    @relation("BreakfastMeals", fields: [breakfastDayId], references: [id])
+  lunchDay       Day?    @relation("LunchMeals", fields: [lunchDayId], references: [id])
+  dinnerDay      Day?    @relation("DinnerMeals", fields: [dinnerDayId], references: [id])
+}

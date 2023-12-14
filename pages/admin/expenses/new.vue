@@ -61,39 +61,42 @@ definePageMeta({
       <AppHeading title="Capturar nuevo gasto/ingreso" />
     </template>
     <template #content>
-      <section class="lg:bg-white flex flex-col lg:card lg:flex-row">
-        <form
-          class="lg:p-8 w-full lg:mx-auto flex flex-col gap-4 lg:w-1/2"
-          @submit.prevent="submitExpense"
-        >
-          <BaseInput label="Concepto" v-model="concept" />
-          <BaseSelect label="Tipo de entrada" :items="expenseTypes" v-model="type" />
-          <BaseInput
-            label="Cantidad"
-            type="number"
-            v-model.number="price"
-            @keypress="isNumber($event)"
-          />
-          <BaseInput label="Categoría" v-model="category" />
-          <!-- <BaseInput disabled label="Ticket" v-model="ticket" /> -->
+      <section class="lg:bg-white flex flex-col max-w-5xl lg:mx-auto lg:card lg:flex-row">
+        <form class="lg:p-8 w-full lg:mx-auto flex flex-col" @submit.prevent="submitExpense">
+          <section class="lg:flex w-full gap-4">
+            <section class="flex flex-col gap-2 lg:w-1/2">
+              <BaseInput label="Concepto" v-model="concept" />
+              <BaseSelect label="Tipo de entrada" :items="expenseTypes" v-model="type" />
+              <BaseInput
+                label="Cantidad"
+                type="number"
+                v-model.number="price"
+                @keypress="isNumber($event)"
+              />
+              <BaseInput label="Categoría" v-model="category" />
+            </section>
+
+            <Divider />
+
+            <section class="flex flex-col gap-8 lg:p-4 lg:pt-0 lg:w-1/3">
+              <UploadWidget class="lg:w-1/3" />
+              <figure class="w-2/3">
+                <img :src="ticketUrl" alt="" class="max-w-full" />
+              </figure>
+            </section>
+          </section>
 
           <Divider />
 
-          <section class="flex justify-end gap-4 lg:justify-between">
-            <NuxtLink to="/admin/expenses">
-              <BaseButton>Cancelar</BaseButton>
+          <section class="flex justify-end gap-4">
+            <NuxtLink to="/admin/expenses" class="btn lg:w-52 normal-case text-lg">
+              Cancelar
             </NuxtLink>
-            <BaseButton type="primary" :loading="btnLoading">Guardar</BaseButton>
+            <BaseButton type="submit" color="primary" :loading="btnLoading">Guardar</BaseButton>
           </section>
 
           <!-- <UploadWidget /> -->
         </form>
-        <section class="flex flex-col gap-8 lg:p-8 w-1/2">
-          <UploadWidget class="w-1/3" />
-          <figure class="w-2/3">
-            <img :src="ticketUrl" alt="" class="max-w-full" />
-          </figure>
-        </section>
       </section>
     </template>
   </MainSection>

@@ -1,10 +1,11 @@
 <template>
-  <thead class="text-primary">
-    <tr>
+  <thead>
+    <tr class="text-primary">
       <th>Fecha</th>
       <th>Concepto</th>
-      <th>Cantidad</th>
       <th>Categoría</th>
+      <th>Cantidad</th>
+      <th>Detalles</th>
     </tr>
   </thead>
 </template>

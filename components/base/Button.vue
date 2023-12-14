@@ -1,14 +1,16 @@
 <script setup lang="ts">
 defineProps<{
-  type?: string;
+  type: 'button' | 'submit' | 'reset';
+  color?: string;
   loading?: boolean;
 }>();
 </script>
 
 <template>
   <button
-    class="btn mt-4 lg:w-52 normal-case"
-    :class="{ 'btn-accent dark:btn-primary w-[12rem] min-w-fit': type === 'primary' }"
+    :type="type"
+    class="btn lg:w-52 normal-case text-lg"
+    :class="{ 'btn-accent dark:btn-primary w-[12rem] min-w-fit': color === 'primary' }"
   >
     <Icon v-if="loading" class="animate-spin" name="icon-park-outline:loading-four" size="32" />
     <span v-else class="text-lg"> <slot></slot> </span>

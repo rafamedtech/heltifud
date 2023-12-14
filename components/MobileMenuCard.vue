@@ -1,34 +1,28 @@
 <script setup lang="ts">
-interface Day {
-  name: string;
-  courses: Course[];
-}
+import type { DayWithMeals, Course, MealType } from '@/types/Menu';
 
-interface Course {
-  name: string;
-  meals: Meal[];
-}
-
-interface Meal {
-  id: number;
-  name: string;
-  calories: number;
-}
-defineProps<{
-  day: Day;
+const { day } = defineProps<{
+  day: DayWithMeals;
 }>();
 
-const sumCaloriesForDay = (day: Day) => {
-  return day.courses.reduce((totalCalories: number, course: Course) => {
-    return (
-      totalCalories + course.meals.reduce((total: number, meal: Meal) => total + meal.calories, 0)
-    );
-  }, 0);
-};
+const breakfast = day.breakfast as Course;
+const lunch = day.lunch as Course;
+const dinner = day.dinner as Course;
+
+function sumCaloriesForDay(day: DayWithMeals): number {
+  let totalCalories = 0;
+  ['breakfast', 'lunch', 'dinner'].forEach((mealType) => {
+    const meals = day[mealType as keyof DayWithMeals] as MealType[];
+    meals.forEach((meal) => {
+      totalCalories += meal.calories;
+    });
+  });
+  return totalCalories;
+}
 </script>
 
 <template>
-  <div class="collapse lg:hidden rounded-none lg:max-w-lg bg-white">
+  <div tabindex="0" class="collapse lg:hidden rounded-none lg:max-w-lg bg-white">
     <input type="radio" name="my-accordion-1" />
     <div class="collapse-title text-xl font-medium">
       <h2 class="card-title text-base-300 text-3xl">{{ day.name }}</h2>
@@ -37,20 +31,9 @@ const sumCaloriesForDay = (day: Day) => {
       <div class="justify-between rounded-none h-full bg-white text-base-300">
         <section>
           <ul class="flex flex-col gap-4">
-            <li v-for="course in day.courses">
-              <h3 class="font-bold text-xl text-primary">{{ course.name }}</h3>
-              <ul class="mt-2">
-                <li v-for="meal in course.meals">
-                  <ul class="flex flex-col gap-2">
-                    <li class="flex gap-2 justify-between w-full">
-                      <Icon name="icon-park-outline:arrow-right" class="text-primary" />
-                      <span class="w-1/2 block"> {{ meal.name }}</span>
-                      <span class="w-1/2 block text-end">{{ meal.calories }} Cal</span>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
+            <MealCourse title="Desayuno" :course="breakfast" />
+            <MealCourse title="Comida" :course="lunch" />
+            <MealCourse title="Cena" :course="dinner" />
           </ul>
         </section>
         <section class="mt-8 flex gap-2 items-center justify-end w-full h-16">

@@ -1,15 +1,11 @@
-interface Day {
-  name: string;
-  courses: Course[];
-}
+import type { Day, Meal } from '@prisma/client';
 
-interface Course {
-  name: string;
-  meals: Meal[];
-}
+export type DayWithMeals = Day & {
+  breakfast: Meal[] | null;
+  lunch: Meal[] | null;
+  dinner: Meal[] | null;
+};
 
-interface Meal {
-  id: number;
-  name: string;
-  calories: number;
-}
+export type Course = Meal[];
+
+export type MealType = Meal;

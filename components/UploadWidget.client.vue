@@ -36,10 +36,10 @@ function open() {
 </script>
 
 <template>
-  <div class="form-control gap-1">
-    <h3>Subir ticket</h3>
+  <div class="form-control gap-2">
+    <h3 class="min-w-fit">Ticket</h3>
     <!-- <button @click="open" id="upload_widget" class="cloudinary-button">Upload files</button> -->
-    <BaseButton class="mt-0" type="primary" id="upload_widget" @click="open"
+    <BaseButton type="button" class="mt-0" color="primary" id="upload_widget" @click="open"
       >Subir imagen</BaseButton
     >
   </div>
