@@ -22,7 +22,7 @@ function sumCaloriesForDay(day: DayWithMeals): number {
 </script>
 
 <template>
-  <div tabindex="0" class="collapse lg:hidden rounded-none lg:max-w-lg bg-white">
+  <div tabindex="0" class="collapse lg:hidden rounded-none lg:max-w-lg bg-white collapse-arrow">
     <input type="radio" name="my-accordion-1" />
     <div class="collapse-title text-xl font-medium">
       <h2 class="card-title text-base-300 text-3xl">{{ day.name }}</h2>
