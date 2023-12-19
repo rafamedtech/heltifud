@@ -32,4 +32,8 @@
     opacity: 0;
     transform: translateX(-15px);
   }
+
+  li::marker {
+    display: none !important;
+  }
 }

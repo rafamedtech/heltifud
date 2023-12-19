@@ -1,42 +1,100 @@
-<script setup>
-import logo from '@/assets/img/logo-horizontal.png';
+<script setup lang="ts">
+const isOpen = ref(false);
+
+const links = [
+  {
+    label: 'Inicio',
+    icon: 'i-heroicons-home',
+    to: '/',
+  },
+  {
+    label: 'Nuestros planes',
+    icon: 'i-heroicons-list-bullet-20-solid',
+    to: '/',
+  },
+  {
+    label: 'Menú',
+    icon: 'i-heroicons-newspaper',
+    to: '/menu',
+  },
+];
 </script>
 
 <template>
   <main>
-    <div class="drawer">
-      <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col bg-base-300">
-        <!-- Navbar -->
-        <div class="bg-primary text-xs text-white text-center py-3">
-          <p class="tracking-widest">Servicio disponible únicamente para Tijuana, B.C.</p>
-        </div>
-        <div class="navbar lg:container bg-base-300 py-4 lg:py-6">
-          <div class="flex-none lg:hidden">
-            <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
-              <NavbarIcon />
-            </label>
-          </div>
-          <div class="flex-1 px-2 mx-2 gap-4">
-            <img :src="logo" alt="" class="w-36 lg:w-40" />
-            <div class="flex-none hidden lg:block">
-              <ul class="menu menu-horizontal text-base-100">
-                <NavLinks />
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Page content here -->
-        <slot></slot>
-      </div>
-      <div class="drawer-side z-[99999]">
-        <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu p-4 w-80 min-h-full bg-base-200">
-          <!-- Sidebar content here -->
-          <NavLinks />
-        </ul>
-      </div>
+    <div class="bg-primary-500 text-xs text-white text-center py-3">
+      <p class="tracking-widest">Servicio disponible únicamente para Tijuana, B.C.</p>
     </div>
+    <section class="bg-gray-950">
+      <UContainer
+        as="section"
+        :ui="{ base: 'flex py-4 items-center justify-between', constrained: 'max-w-6xl' }"
+      >
+        <Logo />
+
+        <ul class="hidden lg:flex text-white gap-8">
+          <li v-for="{ to, label, icon } in links">
+            <NuxtLink
+              :to="to"
+              class="flex gap-2 items-center"
+              active-class="text-primary-500 border-b border-primary-500"
+            >
+              <Icon :name="icon" />
+              <span>{{ label }}</span>
+            </NuxtLink>
+          </li>
+        </ul>
+
+        <UButton label="Ordenar" class="hidden lg:flex">
+          <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
+        </UButton>
+
+        <button class="text-white lg:hidden" @click="() => (isOpen = !isOpen)">
+          <Icon name="icon-park-outline:align-text-both" size="28" />
+        </button>
+      </UContainer>
+    </section>
+
+    <USlideover
+      v-model="isOpen"
+      prevent-close
+      :ui="{
+        body: { base: ' text-white' },
+        background: 'bg-gray-950',
+      }"
+      class="lg:hidden"
+    >
+      <UCard
+        class="flex flex-col flex-1"
+        :ui="{
+          body: { base: 'flex-1' },
+          ring: '',
+          divide: 'divide-y divide-primary-500 ',
+          background: '',
+        }"
+      >
+        <template #header>
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold leading-6 text-white">Navegación</h3>
+            <UButton
+              variant="ghost"
+              icon="i-heroicons-x-mark-20-solid"
+              class="-my-1 text-white"
+              @click="isOpen = false"
+            />
+          </div>
+        </template>
+
+        <UVerticalNavigation
+          :links="links"
+          :ui="{
+            size: 'text-lg',
+            icon: { base: 'flex-shrink-0 w-8 h-8' },
+            active: 'before:bg-primary',
+          }"
+        />
+      </UCard>
+    </USlideover>
+    <slot></slot>
   </main>
 </template>

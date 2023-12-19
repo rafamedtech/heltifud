@@ -7,13 +7,11 @@ const { selected, labelFor } = defineProps<{
 
 <template>
   <label :for="labelFor">
-    <div
-      class="card border border-primary text-base-100"
+    <UCard
+      class="border border-primary-500"
       :class="{ 'bg-base-100 text-white border-2': selected }"
     >
-      <div class="card-body relative">
-        <slot></slot>
-      </div>
-    </div>
+      <slot></slot>
+    </UCard>
   </label>
 </template>

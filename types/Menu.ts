@@ -6,6 +6,6 @@ export type DayWithMeals = Day & {
   dinner: Meal[] | null;
 };
 
-export type Course = Meal[];
+export type Course = Meal[] | undefined | null;
 
 export type MealType = Meal;

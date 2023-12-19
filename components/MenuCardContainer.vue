@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="px-2">
+  <div class="px-2 lg:px-0">
     <MobileMenuCard :day="day" />
 
     <DesktopMenuCard :day="day" />

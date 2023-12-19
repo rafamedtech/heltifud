@@ -16,6 +16,35 @@ export default {
           '2xl': '1124px',
         },
       },
+      colors: {
+        lima: {
+          50: '#f8fee7',
+          100: '#effccb',
+          200: '#def99d',
+          300: '#c5f264',
+          400: '#ace635',
+          500: '#7fb714',
+          600: '#6da30d',
+          700: '#537c0f',
+          800: '#436212',
+          900: '#395314',
+          950: '#1c2e05',
+        },
+        woodsmoke: {
+          50: '#f6f6f6',
+          100: '#e7e7e7',
+          200: '#d1d1d1',
+          300: '#b0b0b0',
+          400: '#888888',
+          500: '#6d6d6d',
+          600: '#5d5d5d',
+          700: '#4f4f4f',
+          800: '#454545',
+          900: '#3d3d3d',
+          950: '#1a1a1a',
+        },
+        dark: '#1a1a1a',
+      },
     },
   },
 
@@ -27,33 +56,33 @@ export default {
     placeholderOpacity: false,
     ringOpacity: false,
   },
-  plugins: [require('daisyui')],
+  plugins: [],
 
-  daisyui: {
-    themes: [
-      {
-        mytheme: {
-          primary: '#7FB714',
-          secondary: '#3b82f6',
-          accent: '#7FB714',
-          neutral: '#d1d5db',
-          'base-100': '#f3f4f6',
-          'base-300': '#1a1a1a',
-          info: '#3baee8',
-          success: '#1c978b',
-          warning: '#d8a118',
-          error: '#f45286',
-        },
-      },
-      {
-        forest: {
-          ...require('daisyui/src/theming/themes')['forest'],
-          primary: '#7FB714',
-          'base-300': '#1a1a1a',
-          '--rounded-btn': '0.5rem',
-          '--rounded-badge': '1rem',
-        },
-      },
-    ],
-  },
+  // daisyui: {
+  //   themes: [
+  //     {
+  //       mytheme: {
+  //         primary: '#7FB714',
+  //         secondary: '#3b82f6',
+  //         accent: '#7FB714',
+  //         neutral: '#d1d5db',
+  //         'base-100': '#f3f4f6',
+  //         'base-300': '#1a1a1a',
+  //         info: '#3baee8',
+  //         success: '#1c978b',
+  //         warning: '#d8a118',
+  //         error: '#f45286',
+  //       },
+  //     },
+  //     {
+  //       forest: {
+  //         ...require('daisyui/src/theming/themes')['forest'],
+  //         primary: '#7FB714',
+  //         'base-300': '#1a1a1a',
+  //         '--rounded-btn': '0.5rem',
+  //         '--rounded-badge': '1rem',
+  //       },
+  //     },
+  //   ],
+  // },
 };
