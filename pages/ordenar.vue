@@ -13,7 +13,9 @@ const getMealtypeByDay = (dayName: string, type: string): Course => {
 };
 
 const isLoading = ref(true);
+const btnLoading = ref(false);
 const isOpen = ref(false);
+const openModal = ref(false);
 
 const orderForm = reactive({
   name: 'Rafael Valenzuela',
@@ -21,6 +23,7 @@ const orderForm = reactive({
   address: 'San Patricio 6109, H14, Santa Fe I',
 });
 
+// Brea++=+
 const breakfastQty = ref('');
 const breakfastPrice = computed(() =>
   breakfastQty.value === '3' ? 400 : breakfastQty.value === '5' ? 600 : 0
@@ -68,6 +71,7 @@ const lunchOptions = [
     label: '5 días',
   },
 ];
+
 const dinnerQty = ref('');
 const editDinners = ref(false);
 const dinnerPrice = computed(() =>
@@ -104,22 +108,66 @@ const tabItems = [
   },
 ];
 
-const plans = ref([
-  {
-    name: `Plan de desayunos ${breakfastQty.value} días`,
-    price: breakfastPrice.value,
-  },
-  {
-    name: `Plan de comidas ${lunchQty.value} días`,
-    description: 'Desayuno y comida',
-    price: lunchPrice.value,
-  },
-  {
-    name: `Plan de cenas ${dinnerQty.value} días`,
-    description: 'Desayuno y cena',
-    price: dinnerPrice.value,
-  },
-]);
+const plans = ref<any>([]);
+
+watch(breakfastQty, (newValue, oldValue) => {
+  const planName = `Plan de desayunos (${oldValue} días)`;
+
+  // Remove the old plan if it exists
+  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
+  if (oldPlanIndex !== -1) {
+    plans.value.splice(oldPlanIndex, 1);
+  }
+
+  // Add a new plan if the new value is not an empty string
+  if (newValue) {
+    plans.value.push({
+      name: `Plan de desayunos (${newValue} días)`,
+      price: breakfastPrice.value,
+    });
+  }
+
+  console.log(plans.value);
+});
+watch(lunchQty, (newValue, oldValue) => {
+  const planName = `Plan de comidas (${oldValue} días)`;
+
+  // Remove the old plan if it exists
+  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
+  if (oldPlanIndex !== -1) {
+    plans.value.splice(oldPlanIndex, 1);
+  }
+
+  // Add a new plan if the new value is not an empty string
+  if (newValue) {
+    plans.value.push({
+      name: `Plan de comidas (${newValue} días)`,
+      price: lunchPrice.value,
+    });
+  }
+
+  console.log(plans.value);
+});
+watch(dinnerQty, (newValue, oldValue) => {
+  const planName = `Plan de cenas (${oldValue} días)`;
+
+  // Remove the old plan if it exists
+  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
+  if (oldPlanIndex !== -1) {
+    plans.value.splice(oldPlanIndex, 1);
+  }
+
+  // Add a new plan if the new value is not an empty string
+  if (newValue) {
+    plans.value.push({
+      name: `Plan de cenas (${newValue} días)`,
+      price: dinnerPrice.value,
+    });
+  }
+
+  console.log(plans.value);
+});
+
 const orderTotal = computed(() => {
   if (breakfastPrice.value + lunchPrice.value + dinnerPrice.value > 1900) {
     return 1900;
@@ -127,6 +175,15 @@ const orderTotal = computed(() => {
     return breakfastPrice.value + lunchPrice.value + dinnerPrice.value;
   }
 });
+
+function createOrder() {
+  btnLoading.value = true;
+  setTimeout(() => {
+    btnLoading.value = false;
+    // openModal.value = true;
+    return navigateTo('/menu');
+  }, 2000);
+}
 
 onMounted(() => {
   isLoading.value = false;
@@ -142,24 +199,76 @@ onMounted(() => {
       />
     </template>
     <template #content>
-      <UForm :state="orderForm" class="space-y-4 pb-24">
+      <UForm :state="orderForm" class="space-y-4 pb-24 lg:pb-0">
         <!-- Contact info section -->
-        <section class="flex flex-col gap-4 lg:w-1/2 px-2 lg:px-0 mb-8">
-          <h3 class="text-2xl text-primary-500">Información de contacto</h3>
-          <UFormGroup label="Tu nombre">
-            <UInput v-model="orderForm.name" size="xl" />
-          </UFormGroup>
+        <section class="lg:flex lg:justify-between lg:gap-8">
+          <UCard :ui="{ base: 'w-full' }">
+            <template #header>
+              <h3 class="text-2xl text-primary-500 lg:text-xl">Información de contacto</h3>
+            </template>
 
-          <UFormGroup label="Teléfono">
-            <UInput v-model="orderForm.phone" size="xl" />
-          </UFormGroup>
-          <UFormGroup label="Domicilio de entrega">
-            <UInput v-model="orderForm.address" size="xl" />
-          </UFormGroup>
+            <UFormGroup label="Tu nombre">
+              <UInput v-model="orderForm.name" size="xl" />
+            </UFormGroup>
+
+            <UFormGroup label="Teléfono">
+              <UInput v-model="orderForm.phone" size="xl" />
+            </UFormGroup>
+            <UFormGroup label="Domicilio de entrega">
+              <UInput v-model="orderForm.address" size="xl" />
+            </UFormGroup>
+          </UCard>
+
+          <section class="hidden lg:block w-full max-w-lg">
+            <UCard>
+              <template #header>
+                <div class="flex justify-between items-center">
+                  <span class="text-xl text-primary">Resumen del pedido</span>
+                  <!-- <UButton
+                    variant="ghost"
+                    size="lg"
+                    color="gray"
+                    @click="() => (openModal = !openModal)"
+                  >
+                    <template #trailing
+                      ><Icon name="i-heroicons-pencil-square-solid" size="20"
+                    /></template>
+                    <span>Editar</span>
+                  </UButton> -->
+                </div>
+              </template>
+
+              <div>
+                <!-- little table with order details -->
+
+                <h3 class="text-xl mb-4">Planes</h3>
+                <section class="flex flex-col" v-if="plans.length">
+                  <span class="text-base font-bold" v-for="plan in plans">{{ plan.name }}</span>
+                </section>
+
+                <section v-else class="flex justify-center">
+                  <span>No hay Planes agregados</span>
+                </section>
+
+                <span class="text-primary font-bold text-2xl text-center block my-8"
+                  >Tu total es: ${{ orderTotal }}</span
+                >
+                <section class="flex justify-center">
+                  <UButton
+                    size="lg"
+                    :label="btnLoading ? 'Creando pedido...' : 'Crear pedido'"
+                    :loading="btnLoading"
+                    @click="createOrder"
+                    :disabled="!plans.length"
+                  />
+                </section>
+              </div>
+            </UCard>
+          </section>
         </section>
 
         <!-- Plans section -->
-        <section class="flex flex-col gap-2 px-2 lg:px-0">
+        <section class="flex flex-col gap-2 px-2 lg:px-0 lg:pt-4">
           <h3 class="text-2xl text-primary-500">Elige tus planes</h3>
           <p class="mb-4 text-sm">
             Puedes elegir las recomendaciones de la semana o editar cada tipo de comida con el botón
@@ -168,23 +277,22 @@ onMounted(() => {
 
           <!-- Weeks menu slideover -->
           <section class="flex justify-center mb-4">
-            <UButton label="Ver menú" @click="isOpen = true" size="lg">
+            <UButton label="Ver menú" @click="isOpen = true" size="lg" color="black">
               <template #trailing><Icon name="i-heroicons-arrow-right" size="20" /></template>
             </UButton>
 
             <USlideover v-model="isOpen" prevent-close>
               <UCard
                 :ui="{
+                  base: 'overflow-auto',
                   header: { background: 'bg-gray-950' },
-                  body: { base: ' overflow-y-scroll', background: 'bg-[#f3f3f3]' },
+                  body: { background: 'bg-[#f3f3f3] min-h-screen' },
                   rounded: '',
                 }"
               >
                 <template #header>
                   <div class="flex items-center justify-between bg-gray-950 m-0">
-                    <h3 class="text-xl font-semibold leading-6 text-primary">
-                      Resumen de mis comidas
-                    </h3>
+                    <h3 class="text-xl font-semibold leading-6 text-primary">Menú de la semana</h3>
                     <UButton
                       variant="ghost"
                       icon="i-heroicons-x-mark-20-solid"
@@ -194,18 +302,20 @@ onMounted(() => {
                   </div>
                 </template>
                 <div class="p-4 flex-1 mb-24">
-                  <h3 class="text-xl text-primary-500">Estas son las comidas que recibirás</h3>
-                  <p class="mb-8 text-sm">
+                  <h3 class="text-xl mb-8">
+                    Este es el menú correspondiente a la semana del 25-29 de Diciembre
+                  </h3>
+                  <!-- <p class="mb-8 text-sm">
                     Puedes editar los platillo y/o agregar porciones extras del platillo,
                     guarniciones y proteína
-                  </p>
+                  </p> -->
                   <UAccordion
                     color="gray"
                     :items="items"
                     size="xl"
                     :ui="{
                       default: {
-                        class: 'py-6 shadow mb-1.5 w-full text-2xl text-black hover:bg-white',
+                        class: ' shadow mb-1.5 w-full text-2xl text-black hover:bg-white',
                         variant: 'soft',
                       },
                     }"
@@ -233,11 +343,12 @@ onMounted(() => {
             :items="tabItems"
             :default-index="1"
             :ui="{
+              wrapper: 'container max-w-screen-sm',
               list: {
                 background: 'bg-white',
                 tab: {
                   size: 'text-lg',
-                  active: 'bg-dark text-primary',
+                  active: 'bg-primary text-white',
                 },
               },
             }"
@@ -247,7 +358,7 @@ onMounted(() => {
                 <template #header>
                   <div class="flex justify-between items-center">
                     <span class="text-primary text-xl py-1.5">Detalle de desayunos</span>
-                    <UButton
+                    <!-- <UButton
                       v-show="breakfastQty !== ''"
                       :label="editBreakfasts ? 'Ocultar' : 'Editar'"
                       :variant="editBreakfasts ? 'soft' : 'ghost'"
@@ -263,7 +374,7 @@ onMounted(() => {
                           "
                           size="20"
                       /></template>
-                    </UButton>
+                    </UButton> -->
                   </div>
                 </template>
                 <URadioGroup
@@ -305,7 +416,7 @@ onMounted(() => {
                 <template #header>
                   <div class="flex justify-between">
                     <span class="text-primary text-xl py-1.5">Detalle de comidas</span>
-                    <UButton
+                    <!-- <UButton
                       v-show="lunchQty !== ''"
                       label="Editar"
                       variant="ghost"
@@ -313,9 +424,10 @@ onMounted(() => {
                       @click="() => (editLunchs = !editLunchs)"
                     >
                       <template #trailing><Icon name="i-heroicons-pencil-square-solid" /></template>
-                    </UButton>
+                    </UButton> -->
                   </div>
                 </template>
+
                 <URadioGroup
                   v-model="lunchQty"
                   legend="Para cuantos días?"
@@ -325,7 +437,8 @@ onMounted(() => {
                     label: 'text-base',
                   }"
                 />
-                <template v-if="editLunchs" #footer>
+
+                <template v-if="editLunchs && lunchQty !== ''" #footer>
                   <section>
                     <h3 class="text-lg text-primary mb-4">Editar comidas</h3>
                     <UAccordion
@@ -357,7 +470,7 @@ onMounted(() => {
                 <template #header>
                   <div class="flex justify-between">
                     <span class="text-primary text-xl py-1.5">Detalle de cenas</span>
-                    <UButton
+                    <!-- <UButton
                       v-show="dinnerQty !== ''"
                       label="Editar"
                       variant="ghost"
@@ -365,7 +478,7 @@ onMounted(() => {
                       @click="() => (editDinners = !editDinners)"
                     >
                       <template #trailing><Icon name="i-heroicons-pencil-square-solid" /></template>
-                    </UButton>
+                    </UButton> -->
                   </div>
                 </template>
                 <URadioGroup
@@ -408,12 +521,77 @@ onMounted(() => {
         </section>
       </UForm>
 
-      <section class="fixed bg-dark w-full inset-x-0 bottom-0 py-4 flex justify-end">
-        <div class="flex gap-2 text-primary pr-4 text-lg">
+      <section
+        class="fixed bg-dark w-full inset-x-0 bottom-0 py-4 flex justify-between px-4 lg:hidden"
+      >
+        <div class="flex gap-2 text-primary text-lg py-1.5">
           <span class="text-white">Total:</span>
           <span class="font-bold">${{ orderTotal }}</span>
         </div>
+        <UButton label="Ver resumen" @click="openModal = true" v-if="plans.length" />
       </section>
+
+      <UModal v-model="openModal">
+        <div class="p-4">
+          <UCard>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <span class="text-xl py-1.5">Resumen del pedido</span>
+                <UButton
+                  variant="ghost"
+                  size="lg"
+                  color="gray"
+                  @click="() => (openModal = !openModal)"
+                >
+                  <template #trailing
+                    ><Icon name="i-heroicons-pencil-square-solid" size="20"
+                  /></template>
+                  <span>Editar</span>
+                </UButton>
+              </div>
+            </template>
+
+            <div class="p-4">
+              <!-- little table with order details -->
+
+              <section>
+                <h3 class="text-xl text-primary mb-4">Información de contacto</h3>
+                <div class="flex flex-col mb-2">
+                  <span class="text-base">Tu nombre:</span>
+                  <span class="text-lg font-bold">{{ orderForm.name }}</span>
+                </div>
+
+                <div class="flex flex-col mb-2">
+                  <span class="text-base">Teléfono:</span>
+                  <span class="text-lg font-bold">{{ orderForm.phone }}</span>
+                </div>
+
+                <div class="flex flex-col">
+                  <span class="text-base">Domicilio de entrega:</span>
+                  <span class="text-lg font-bold">{{ orderForm.address }}</span>
+                </div>
+              </section>
+
+              <h3 class="text-xl text-primary mt-8 mb-4">Planes</h3>
+              <section class="flex justify-between gap-8" v-for="plan in plans">
+                <span class="text-base font-bold">{{ plan.name }}</span>
+              </section>
+
+              <span class="text-primary font-bold text-2xl text-center block my-8"
+                >Tu total es: ${{ orderTotal }}</span
+              >
+              <section class="flex justify-center">
+                <UButton
+                  size="lg"
+                  :label="btnLoading ? 'Creando pedido...' : 'Crear pedido'"
+                  :loading="btnLoading"
+                  @click="createOrder"
+                />
+              </section>
+            </div>
+          </UCard>
+        </div>
+      </UModal>
     </template>
   </MainSection>
 </template>

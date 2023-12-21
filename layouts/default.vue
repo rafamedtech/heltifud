@@ -45,7 +45,7 @@ const links = [
           </li>
         </ul>
 
-        <UButton label="Ordenar" class="hidden lg:flex">
+        <UButton label="Ordenar" class="hidden lg:flex" to="/ordenar">
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
         </UButton>
 
