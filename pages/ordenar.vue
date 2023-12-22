@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { DayWithMeals, Course } from '~/types/Menu';
+import type { DayWithMeals, Course } from '@/types/Menu';
+import type { FormError, FormSubmitEvent } from '#ui/types';
 
 const { data: days } = await useFetch<DayWithMeals[] | null>('/api/menu');
 
@@ -18,10 +19,16 @@ const isOpen = ref(false);
 const openModal = ref(false);
 
 const orderForm = reactive({
-  name: 'Rafael Valenzuela',
+  name: '',
   phone: '6642591920',
   address: 'San Patricio 6109, H14, Santa Fe I',
 });
+
+const validate = (state: any): FormError[] => {
+  const errors = [];
+  if (!state.name) errors.push({ path: 'name', message: 'Required' });
+  return errors;
+};
 
 // Brea++=+
 const breakfastQty = ref('');
@@ -126,8 +133,6 @@ watch(breakfastQty, (newValue, oldValue) => {
       price: breakfastPrice.value,
     });
   }
-
-  console.log(plans.value);
 });
 watch(lunchQty, (newValue, oldValue) => {
   const planName = `Plan de comidas (${oldValue} días)`;
@@ -145,8 +150,6 @@ watch(lunchQty, (newValue, oldValue) => {
       price: lunchPrice.value,
     });
   }
-
-  console.log(plans.value);
 });
 watch(dinnerQty, (newValue, oldValue) => {
   const planName = `Plan de cenas (${oldValue} días)`;
@@ -164,8 +167,6 @@ watch(dinnerQty, (newValue, oldValue) => {
       price: dinnerPrice.value,
     });
   }
-
-  console.log(plans.value);
 });
 
 const orderTotal = computed(() => {
@@ -195,11 +196,11 @@ onMounted(() => {
     <template #heading>
       <AppHeading
         title="Ingresar una orden"
-        description="Elige la cantidad de días y platillos que deseas ordenar"
+        description="Llena todos los campos y elige por lo menos un plan para ingresar un pedido"
       />
     </template>
     <template #content>
-      <UForm :state="orderForm" class="space-y-4 pb-24 lg:pb-0">
+      <UForm :state="orderForm" :validate="validate" class="space-y-4 pb-24 lg:pb-0">
         <!-- Contact info section -->
         <section class="lg:flex lg:justify-between lg:gap-8">
           <UCard :ui="{ base: 'w-full' }">
@@ -207,20 +208,22 @@ onMounted(() => {
               <h3 class="text-2xl text-primary-500 lg:text-xl">Información de contacto</h3>
             </template>
 
-            <UFormGroup label="Tu nombre">
-              <UInput v-model="orderForm.name" size="xl" />
-            </UFormGroup>
+            <section class="min-h-[15rem] flex flex-col justify-between gap-4">
+              <UFormGroup label="Tu nombre">
+                <UInput v-model="orderForm.name" size="xl" />
+              </UFormGroup>
 
-            <UFormGroup label="Teléfono">
-              <UInput v-model="orderForm.phone" size="xl" />
-            </UFormGroup>
-            <UFormGroup label="Domicilio de entrega">
-              <UInput v-model="orderForm.address" size="xl" />
-            </UFormGroup>
+              <UFormGroup label="Teléfono">
+                <UInput v-model="orderForm.phone" size="xl" />
+              </UFormGroup>
+              <UFormGroup label="Domicilio de entrega">
+                <UInput v-model="orderForm.address" size="xl" />
+              </UFormGroup>
+            </section>
           </UCard>
 
           <section class="hidden lg:block w-full max-w-lg">
-            <UCard>
+            <UCard :iu="{ base: 'min-h-[20rem]' }">
               <template #header>
                 <div class="flex justify-between items-center">
                   <span class="text-xl text-primary">Resumen del pedido</span>
@@ -238,20 +241,20 @@ onMounted(() => {
                 </div>
               </template>
 
-              <div>
+              <div class="min-h-[15rem]">
                 <!-- little table with order details -->
 
                 <h3 class="text-xl mb-4">Planes</h3>
-                <section class="flex flex-col" v-if="plans.length">
+                <section class="flex flex-col min-h-[5rem]" v-if="plans.length">
                   <span class="text-base font-bold" v-for="plan in plans">{{ plan.name }}</span>
                 </section>
 
-                <section v-else class="flex justify-center">
+                <section v-else class="flex justify-center min-h-[5rem] items-center">
                   <span>No hay Planes agregados</span>
                 </section>
 
-                <span class="text-primary font-bold text-2xl text-center block my-8"
-                  >Tu total es: ${{ orderTotal }}</span
+                <span class="font-bold text-2xl text-center block my-8"
+                  >Tu total es: <span class="text-primary">${{ orderTotal }}</span></span
                 >
                 <section class="flex justify-center">
                   <UButton
@@ -277,7 +280,13 @@ onMounted(() => {
 
           <!-- Weeks menu slideover -->
           <section class="flex justify-center mb-4">
-            <UButton label="Ver menú" @click="isOpen = true" size="lg" color="black">
+            <UButton
+              label="Ver menú"
+              @click="isOpen = true"
+              size="lg"
+              color="black"
+              :ui="{ color: { black: { solid: 'text-primary' } } }"
+            >
               <template #trailing><Icon name="i-heroicons-arrow-right" size="20" /></template>
             </UButton>
 
@@ -345,7 +354,7 @@ onMounted(() => {
             :ui="{
               wrapper: 'container max-w-screen-sm',
               list: {
-                background: 'bg-white',
+                background: 'bg-white border',
                 tab: {
                   size: 'text-lg',
                   active: 'bg-primary text-white',
@@ -381,8 +390,8 @@ onMounted(() => {
                   v-model="breakfastQty"
                   legend="Para cuantos días?"
                   :options="breakfastOptions"
-                  :ui="{ legend: 'text-base' }"
-                  :ui-radio="{ label: 'text-base' }"
+                  :ui="{ legend: 'text-lg' }"
+                  :ui-radio="{ label: 'text-lg' }"
                 />
                 <template v-if="editBreakfasts && breakfastQty !== ''" #footer>
                   <section>
@@ -432,9 +441,9 @@ onMounted(() => {
                   v-model="lunchQty"
                   legend="Para cuantos días?"
                   :options="lunchOptions"
-                  :ui="{ legend: 'text-base' }"
+                  :ui="{ legend: 'text-lg' }"
                   :ui-radio="{
-                    label: 'text-base',
+                    label: 'text-lg',
                   }"
                 />
 
@@ -485,9 +494,9 @@ onMounted(() => {
                   v-model="dinnerQty"
                   legend="Para cuantos días?"
                   :options="dinnerOptions"
-                  :ui="{ legend: 'text-base' }"
+                  :ui="{ legend: 'text-lg' }"
                   :ui-radio="{
-                    label: 'text-base',
+                    label: 'text-lg',
                   }"
                 />
 
@@ -528,7 +537,11 @@ onMounted(() => {
           <span class="text-white">Total:</span>
           <span class="font-bold">${{ orderTotal }}</span>
         </div>
-        <UButton label="Ver resumen" @click="openModal = true" v-if="plans.length" />
+        <UButton
+          label="Ver resumen"
+          @click="openModal = true"
+          v-if="plans.length && orderForm.name && orderForm.phone && orderForm.address"
+        />
       </section>
 
       <UModal v-model="openModal">
@@ -558,7 +571,7 @@ onMounted(() => {
                 <h3 class="text-xl text-primary mb-4">Información de contacto</h3>
                 <div class="flex flex-col mb-2">
                   <span class="text-base">Tu nombre:</span>
-                  <span class="text-lg font-bold">{{ orderForm.name }}</span>
+                  <span class="text-lg font-bold capitalize">{{ orderForm.name }}</span>
                 </div>
 
                 <div class="flex flex-col mb-2">
@@ -577,11 +590,12 @@ onMounted(() => {
                 <span class="text-base font-bold">{{ plan.name }}</span>
               </section>
 
-              <span class="text-primary font-bold text-2xl text-center block my-8"
-                >Tu total es: ${{ orderTotal }}</span
+              <span class="font-bold text-2xl text-center block my-8"
+                >Tu total es: <span class="text-primary">${{ orderTotal }}</span></span
               >
               <section class="flex justify-center">
                 <UButton
+                  type="submit"
                   size="lg"
                   :label="btnLoading ? 'Creando pedido...' : 'Crear pedido'"
                   :loading="btnLoading"

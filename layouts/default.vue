@@ -22,9 +22,9 @@ const links = [
 
 <template>
   <main>
-    <div class="bg-primary-500 text-xs text-white text-center py-3">
+    <!-- <div class="bg-primary-500 text-xs text-white text-center py-3">
       <p class="tracking-widest">Servicio disponible únicamente para Tijuana, B.C.</p>
-    </div>
+    </div> -->
     <section class="bg-gray-950">
       <UContainer
         as="section"

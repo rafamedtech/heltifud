@@ -58,7 +58,7 @@ useHead({
     <!-- Page content -->
     <template #content>
       <section class="lg:hidden flex justify-center">
-        <UButton label="Ordenar" size="lg">
+        <UButton label="Ordenar" size="lg" to="/ordenar">
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
         </UButton>
       </section>
