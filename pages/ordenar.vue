@@ -20,8 +20,8 @@ const openModal = ref(false);
 
 const orderForm = reactive({
   name: '',
-  phone: '6642591920',
-  address: 'San Patricio 6109, H14, Santa Fe I',
+  phone: '',
+  address: '',
 });
 
 const validate = (state: any): FormError[] => {
@@ -30,7 +30,7 @@ const validate = (state: any): FormError[] => {
   return errors;
 };
 
-// Brea++=+
+// Breakfast state
 const breakfastQty = ref('');
 const breakfastPrice = computed(() =>
   breakfastQty.value === '3' ? 400 : breakfastQty.value === '5' ? 600 : 0
@@ -50,15 +50,32 @@ const breakfastOptions = [
     label: '5 días',
   },
 ];
-
-const getMealNamesForWeek = (
-  days: DayWithMeals[] | null,
-  mealType: 'breakfast' | 'lunch' | 'dinner'
-): string[] => {
-  return days?.flatMap((day) => day?.[mealType]).map((meal) => meal?.name) as string[];
-};
 const breakfastList = computed(() => getMealNamesForWeek(days.value, 'breakfast'));
 
+watch(breakfastQty, (newValue, oldValue) => {
+  const planName = `Plan de desayunos (${oldValue} días)`;
+  // Remove the old plan if it exists
+  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
+  if (oldPlanIndex !== -1) {
+    plans.value.splice(oldPlanIndex, 1);
+  }
+  // Add a new plan if the new value is not an empty string
+  if (newValue) {
+    plans.value.push({
+      name: `Plan de desayunos (${newValue} días)`,
+      price: breakfastPrice.value,
+    });
+  }
+});
+
+function getMealNamesForWeek(
+  days: DayWithMeals[] | null,
+  mealType: 'breakfast' | 'lunch' | 'dinner'
+): string[] {
+  return days?.flatMap((day) => day?.[mealType]).map((meal) => meal?.name) as string[];
+}
+
+// lunch state
 const lunchQty = ref('');
 const editLunchs = ref(false);
 const lunchPrice = computed(() =>
@@ -78,7 +95,23 @@ const lunchOptions = [
     label: '5 días',
   },
 ];
+watch(lunchQty, (newValue, oldValue) => {
+  const planName = `Plan de comidas (${oldValue} días)`;
+  // Remove the old plan if it exists
+  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
+  if (oldPlanIndex !== -1) {
+    plans.value.splice(oldPlanIndex, 1);
+  }
+  // Add a new plan if the new value is not an empty string
+  if (newValue) {
+    plans.value.push({
+      name: `Plan de comidas (${newValue} días)`,
+      price: lunchPrice.value,
+    });
+  }
+});
 
+// dinner state
 const dinnerQty = ref('');
 const editDinners = ref(false);
 const dinnerPrice = computed(() =>
@@ -98,11 +131,25 @@ const dinnerOptions = [
     label: '5 días',
   },
 ];
+watch(dinnerQty, (newValue, oldValue) => {
+  const planName = `Plan de cenas (${oldValue} días)`;
+  // Remove the old plan if it exists
+  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
+  if (oldPlanIndex !== -1) {
+    plans.value.splice(oldPlanIndex, 1);
+  }
+  // Add a new plan if the new value is not an empty string
+  if (newValue) {
+    plans.value.push({
+      name: `Plan de cenas (${newValue} días)`,
+      price: dinnerPrice.value,
+    });
+  }
+});
 
 const tabItems = [
   {
     label: 'Desayuno',
-
     slot: 'breakfast',
   },
   {
@@ -117,58 +164,6 @@ const tabItems = [
 
 const plans = ref<any>([]);
 
-watch(breakfastQty, (newValue, oldValue) => {
-  const planName = `Plan de desayunos (${oldValue} días)`;
-
-  // Remove the old plan if it exists
-  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
-  if (oldPlanIndex !== -1) {
-    plans.value.splice(oldPlanIndex, 1);
-  }
-
-  // Add a new plan if the new value is not an empty string
-  if (newValue) {
-    plans.value.push({
-      name: `Plan de desayunos (${newValue} días)`,
-      price: breakfastPrice.value,
-    });
-  }
-});
-watch(lunchQty, (newValue, oldValue) => {
-  const planName = `Plan de comidas (${oldValue} días)`;
-
-  // Remove the old plan if it exists
-  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
-  if (oldPlanIndex !== -1) {
-    plans.value.splice(oldPlanIndex, 1);
-  }
-
-  // Add a new plan if the new value is not an empty string
-  if (newValue) {
-    plans.value.push({
-      name: `Plan de comidas (${newValue} días)`,
-      price: lunchPrice.value,
-    });
-  }
-});
-watch(dinnerQty, (newValue, oldValue) => {
-  const planName = `Plan de cenas (${oldValue} días)`;
-
-  // Remove the old plan if it exists
-  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
-  if (oldPlanIndex !== -1) {
-    plans.value.splice(oldPlanIndex, 1);
-  }
-
-  // Add a new plan if the new value is not an empty string
-  if (newValue) {
-    plans.value.push({
-      name: `Plan de cenas (${newValue} días)`,
-      price: dinnerPrice.value,
-    });
-  }
-});
-
 const orderTotal = computed(() => {
   if (breakfastPrice.value + lunchPrice.value + dinnerPrice.value > 1900) {
     return 1900;
@@ -177,12 +172,11 @@ const orderTotal = computed(() => {
   }
 });
 
-function createOrder() {
+function createOrder(event: FormSubmitEvent<any>) {
   btnLoading.value = true;
   setTimeout(() => {
     btnLoading.value = false;
-    // openModal.value = true;
-    return navigateTo('/menu');
+    return navigateTo('/confirmacion');
   }, 2000);
 }
 
@@ -199,6 +193,7 @@ onMounted(() => {
         description="Llena todos los campos y elige por lo menos un plan para ingresar un pedido"
       />
     </template>
+
     <template #content>
       <UForm :state="orderForm" :validate="validate" class="space-y-4 pb-24 lg:pb-0">
         <!-- Contact info section -->
@@ -222,6 +217,7 @@ onMounted(() => {
             </section>
           </UCard>
 
+          <!-- Order summary (Desktop only) -->
           <section class="hidden lg:block w-full max-w-lg">
             <UCard :iu="{ base: 'min-h-[20rem]' }">
               <template #header>
@@ -242,8 +238,6 @@ onMounted(() => {
               </template>
 
               <div class="min-h-[15rem]">
-                <!-- little table with order details -->
-
                 <h3 class="text-xl mb-4">Planes</h3>
                 <section class="flex flex-col min-h-[5rem]" v-if="plans.length">
                   <span class="text-base font-bold" v-for="plan in plans">{{ plan.name }}</span>
@@ -286,9 +280,7 @@ onMounted(() => {
               size="lg"
               color="black"
               :ui="{ color: { black: { solid: 'text-primary' } } }"
-            >
-              <template #trailing><Icon name="i-heroicons-arrow-right" size="20" /></template>
-            </UButton>
+            />
 
             <USlideover v-model="isOpen" prevent-close>
               <UCard
@@ -537,11 +529,28 @@ onMounted(() => {
           <span class="text-white">Total:</span>
           <span class="font-bold">${{ orderTotal }}</span>
         </div>
-        <UButton
-          label="Ver resumen"
-          @click="openModal = true"
-          v-if="plans.length && orderForm.name && orderForm.phone && orderForm.address"
-        />
+        <div class="flex gap-2">
+          <UButton
+            label="Ver resumen"
+            @click="openModal = true"
+            variant="outline"
+            v-show="plans.length && orderForm.name && orderForm.phone && orderForm.address"
+          />
+
+          <UButton
+            type="submit"
+            size="lg"
+            :label="btnLoading ? 'Creando' : 'Crear pedido'"
+            :loading="btnLoading"
+            @click="createOrder"
+            :disabled="
+              !plans.length ||
+              orderForm.name === '' ||
+              orderForm.phone === '' ||
+              orderForm.address === ''
+            "
+          />
+        </div>
       </section>
 
       <UModal v-model="openModal">
@@ -565,8 +574,6 @@ onMounted(() => {
             </template>
 
             <div class="p-4">
-              <!-- little table with order details -->
-
               <section>
                 <h3 class="text-xl text-primary mb-4">Información de contacto</h3>
                 <div class="flex flex-col mb-2">
@@ -590,18 +597,9 @@ onMounted(() => {
                 <span class="text-base font-bold">{{ plan.name }}</span>
               </section>
 
-              <span class="font-bold text-2xl text-center block my-8"
+              <span class="font-bold text-2xl text-center block mt-8"
                 >Tu total es: <span class="text-primary">${{ orderTotal }}</span></span
               >
-              <section class="flex justify-center">
-                <UButton
-                  type="submit"
-                  size="lg"
-                  :label="btnLoading ? 'Creando pedido...' : 'Crear pedido'"
-                  :loading="btnLoading"
-                  @click="createOrder"
-                />
-              </section>
             </div>
           </UCard>
         </div>

@@ -2,6 +2,7 @@
 import type { DayWithMeals, Course, MealType } from '~/types/Menu';
 
 const { data: days } = await useFetch<DayWithMeals[]>('/api/menu');
+console.log(days.value);
 
 const items = days.value?.map((day: DayWithMeals) => ({
   label: day.name,

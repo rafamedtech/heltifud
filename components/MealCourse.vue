@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <li class="h-1/3 text-black">
-    <h3 class="text-2xl lg:text-lg text-lime-500">{{ title }}</h3>
+    <h3 class="text-2xl lg:text-lg text-primary">{{ title }}</h3>
     <ul class="mt-2">
       <li v-for="meal in course">
         <ul class="flex flex-col gap-2">

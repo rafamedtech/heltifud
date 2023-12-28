@@ -11,5 +11,8 @@ export default defineEventHandler(async (event) => {
       lunch: true,
       dinner: true,
     },
+    orderBy: {
+      createdAt: 'asc',
+    },
   });
 });

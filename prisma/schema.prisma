@@ -24,21 +24,26 @@ model Expense {
 }
 
 model Day {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   name      String
-  breakfast Meal[] @relation("BreakfastMeals")
-  lunch     Meal[] @relation("LunchMeals")
-  dinner    Meal[] @relation("DinnerMeals")
+  breakfast Meal[]   @relation("BreakfastMeals")
+  lunch     Meal[]   @relation("LunchMeals")
+  dinner    Meal[]   @relation("DinnerMeals")
 }
 
 model Meal {
-  id             String  @id @default(uuid())
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
   name           String
   calories       Int
+  type           String
   breakfastDayId String?
   lunchDayId     String?
   dinnerDayId    String?
-  breakfastDay   Day?    @relation("BreakfastMeals", fields: [breakfastDayId], references: [id])
-  lunchDay       Day?    @relation("LunchMeals", fields: [lunchDayId], references: [id])
-  dinnerDay      Day?    @relation("DinnerMeals", fields: [dinnerDayId], references: [id])
+  breakfastDay   Day?     @relation("BreakfastMeals", fields: [breakfastDayId], references: [id])
+  lunchDay       Day?     @relation("LunchMeals", fields: [lunchDayId], references: [id])
+  dinnerDay      Day?     @relation("DinnerMeals", fields: [dinnerDayId], references: [id])
 }
