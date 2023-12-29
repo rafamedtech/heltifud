@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['@/assets/css/tailwind.css'],
-  modules: ['@nuxt/ui', 'nuxt-icon', '@pinia/nuxt'],
+  modules: ['@nuxt/ui', 'nuxt-icon', '@pinia/nuxt', "@nuxtjs/supabase"],
 
   app: {
     head: {

@@ -10,7 +10,7 @@ const links = [
   {
     label: 'Nuestros planes',
     icon: 'i-heroicons-list-bullet-20-solid',
-    to: '/',
+    to: '/nuestros-planes',
   },
   {
     label: 'Menú',

@@ -13,20 +13,19 @@ export default defineEventHandler(async (event) => {
   assertMethod(event, ['POST']);
   const { days } = await readBody(event);
 
-  const daysWithoutId = days.map(({ id, ...rest }: { id: string }) => rest);
-
-  const deleteDays = await prisma.day.deleteMany();
   const deleteMeals = await prisma.meal.deleteMany();
 
-  return daysWithoutId.forEach(async (day: any) => {
-    await prisma.day.create({
+  return days.forEach(async (day: any) => {
+    await prisma.day.update({
+      where: {
+        id: day.id,
+      },
       include: {
         breakfast: true,
         lunch: true,
         dinner: true,
       },
       data: {
-        name: day.name,
         breakfast: {
           create: day.breakfast.map(
             ({ id, breakfastDayId, lunchDayId, dinnerDayId, ...rest }: Day) => rest

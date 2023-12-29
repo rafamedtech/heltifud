@@ -132,6 +132,21 @@ export const lunchOptions = [
     calories: 650,
     type: 'main',
   },
+  {
+    name: 'Sopa de lentejas y pollo',
+    calories: 450,
+    type: 'main',
+  },
+  {
+    name: 'Pasta con pollo en crema de cilantro',
+    calories: 615,
+    type: 'main',
+  },
+  {
+    name: 'Enchiladas al horno',
+    calories: 432,
+    type: 'main',
+  },
 ];
 
 export const sideOptions = [
@@ -184,5 +199,56 @@ export const sideOptions = [
     name: 'Papas horneadas',
     calories: 131,
     type: 'side',
+  },
+];
+
+export const plans = [
+  {
+    title: 'Plan de desayunos',
+    cover:
+      'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    description: 'Desayunos nutritivos para comenzar el día con energía.',
+    prices: [
+      {
+        name: '3 días',
+        price: 400,
+      },
+      {
+        name: '5 días',
+        price: 600,
+      },
+    ],
+  },
+  {
+    title: 'Plan de comidas',
+    cover:
+      'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    description: 'Comidas saludables para disfrutar en la oficina o en casa.',
+    prices: [
+      {
+        name: '3 días',
+        price: 500,
+      },
+      {
+        name: '5 días',
+        price: 700,
+      },
+    ],
+  },
+  {
+    title: 'Plan de cenas',
+    cover:
+      'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    description: 'Termina el día con una cena casera, ligera y saludable.',
+    prices: [
+      {
+        name: '3 días',
+        price: 450,
+      },
+      {
+        name: '5 días',
+        price: 650,
+      },
+    ],
   },
 ];

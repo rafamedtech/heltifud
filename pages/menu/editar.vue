@@ -210,20 +210,28 @@ const menu = ref([
   },
 ]);
 
+function removeMeal(dayName: string, mealName: string, mealType: 'breakfast' | 'lunch' | 'dinner') {
+  const day = ref(menu.value.find((day) => day.name === dayName));
+
+  if (day.value) {
+    const newArray = day.value?.[mealType].filter((meal) => meal.name !== mealName);
+
+    day.value[mealType] = newArray;
+  }
+}
+
 const toast = useToast();
 
 async function updateMenu() {
   try {
-    await $fetch(`/api/menu/update`, {
+    await $fetch('/api/menu/update', {
       method: 'POST',
-      // Automatically stringified by ofetch
       body: {
         days: menu.value,
       },
     });
   } catch (error) {
     console.error(error);
-    isLoading.value = false;
   }
 }
 
@@ -274,6 +282,10 @@ useHead({
     },
   ],
 });
+
+definePageMeta({
+  middleware: 'auth',
+});
 </script>
 
 <template>
@@ -321,22 +333,39 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[0].breakfast[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[0].breakfast[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[0].name, menu[0].breakfast[1].name, 'breakfast')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[0].breakfast[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[0].breakfast[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[0].breakfast[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[0].name, menu[0].breakfast[2].name, 'breakfast')"
                   />
-                </UFormGroup>
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[0].breakfast[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -351,22 +380,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[0].lunch[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[0].lunch[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[0].name, menu[0].lunch[1].name, 'lunch')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[0].lunch[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[0].lunch[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[0].lunch[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[0].name, menu[0].lunch[2].name, 'lunch')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[0].lunch[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -381,22 +429,39 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[0].dinner[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[0].dinner[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[0].name, menu[0].dinner[1].name, 'dinner')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[0].dinner[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[0].dinner[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[0].dinner[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[0].name, menu[0].dinner[2].name, 'dinner')"
                   />
-                </UFormGroup>
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[0].dinner[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
           </UCard>
@@ -428,22 +493,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[1].breakfast[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[1].breakfast[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[1].name, menu[1].breakfast[1].name, 'breakfast')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[1].breakfast[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[1].breakfast[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[1].breakfast[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[1].name, menu[1].breakfast[2].name, 'breakfast')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[1].breakfast[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -458,22 +542,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[1].lunch[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[1].lunch[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[1].name, menu[1].lunch[1].name, 'lunch')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[1].lunch[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[1].lunch[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[1].lunch[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[1].name, menu[1].lunch[2].name, 'lunch')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[1].lunch[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -488,22 +591,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[1].dinner[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[1].dinner[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[1].name, menu[1].dinner[1].name, 'dinner')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[1].dinner[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[1].dinner[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[1].dinner[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[1].name, menu[1].dinner[2].name, 'dinner')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[1].dinner[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
           </UCard>
@@ -535,22 +657,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[2].breakfast[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[2].breakfast[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[2].name, menu[2].breakfast[1].name, 'breakfast')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[2].breakfast[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[2].breakfast[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[2].breakfast[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[2].name, menu[2].breakfast[2].name, 'breakfast')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[2].breakfast[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -565,22 +706,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[2].lunch[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[2].lunch[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[2].name, menu[2].lunch[1].name, 'lunch')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[2].lunch[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[2].lunch[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[2].lunch[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[2].name, menu[2].lunch[2].name, 'lunch')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[2].lunch[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -595,22 +755,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[2].dinner[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[2].dinner[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[2].name, menu[2].dinner[1].name, 'dinner')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[2].dinner[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[2].dinner[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[2].dinner[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[2].name, menu[2].dinner[2].name, 'dinner')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[2].dinner[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
           </UCard>
@@ -642,22 +821,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[3].breakfast[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[3].breakfast[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[3].name, menu[3].breakfast[1].name, 'breakfast')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[3].breakfast[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[3].breakfast[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[3].breakfast[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[3].name, menu[3].breakfast[2].name, 'breakfast')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[3].breakfast[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -672,22 +870,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[3].lunch[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[3].lunch[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[3].name, menu[3].lunch[1].name, 'lunch')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[3].lunch[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[3].lunch[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[3].lunch[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[3].name, menu[3].lunch[2].name, 'lunch')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[3].lunch[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -702,22 +919,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[3].dinner[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[3].dinner[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[3].name, menu[3].dinner[1].name, 'dinner')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[3].dinner[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[3].dinner[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[3].dinner[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[3].name, menu[3].dinner[2].name, 'dinner')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[3].dinner[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
           </UCard>
@@ -749,22 +985,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[4].breakfast[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[4].breakfast[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[4].name, menu[4].breakfast[1].name, 'breakfast')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[4].breakfast[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[4].breakfast[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[4].breakfast[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[4].name, menu[4].breakfast[2].name, 'breakfast')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[4].breakfast[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -779,22 +1034,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[4].lunch[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[4].lunch[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[4].name, menu[4].lunch[1].name, 'lunch')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[4].lunch[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[4].lunch[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[4].lunch[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[4].name, menu[4].lunch[2].name, 'lunch')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[4].lunch[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
             <section class="mb-4">
@@ -809,22 +1083,41 @@ useHead({
                   />
                 </UFormGroup>
 
-                <UFormGroup label="Guarnición">
-                  <USelectMenu
-                    v-model="menu[4].dinner[1]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+                <section class="relative">
+                  <Icon
+                    v-if="menu[4].dinner[1]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[4].name, menu[4].dinner[1].name, 'dinner')"
                   />
-                </UFormGroup>
-                <UFormGroup label="Guarnición 2">
-                  <USelectMenu
-                    v-model="menu[4].dinner[2]"
-                    :options="sideOptions"
-                    placeholder="Selecciona una"
-                    option-attribute="name"
+
+                  <UFormGroup label="Guarnición">
+                    <USelectMenu
+                      v-model="menu[4].dinner[1]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
+
+                <section class="relative">
+                  <Icon
+                    v-if="menu[4].dinner[2]"
+                    name="heroicons:x-mark"
+                    class="absolute text-red-500 right-0 top-1 cursor-pointer"
+                    @click="removeMeal(menu[4].name, menu[4].dinner[2].name, 'dinner')"
                   />
-                </UFormGroup>
+
+                  <UFormGroup label="Guarnición 2">
+                    <USelectMenu
+                      v-model="menu[4].dinner[2]"
+                      :options="sideOptions"
+                      placeholder="Selecciona una"
+                      option-attribute="name"
+                    />
+                  </UFormGroup>
+                </section>
               </section>
             </section>
           </UCard>
