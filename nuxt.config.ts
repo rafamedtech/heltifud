@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['@/assets/css/tailwind.css'],
-  modules: ['@nuxt/ui', 'nuxt-icon', '@pinia/nuxt', "@nuxtjs/supabase"],
+  modules: ['@nuxt/ui', 'nuxt-icon', '@pinia/nuxt', '@nuxtjs/supabase'],
 
   app: {
     head: {
@@ -14,5 +14,9 @@ export default defineNuxtConfig({
 
   colorMode: {
     preference: 'light',
+  },
+
+  supabase: {
+    redirect: false,
   },
 });

@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import type { DayWithMeals, Course } from '@/types/Menu';
+import type { DayWithMeals, Course, Order, OrderPlan } from '@/types/Menu';
 import type { FormError, FormSubmitEvent } from '#ui/types';
 
 const { data: days } = await useFetch<DayWithMeals[] | null>('/api/menu');
 
-const items = days.value?.map((day: DayWithMeals) => ({
-  label: day.name,
-}));
+const items = ref(
+  days.value?.map((day: DayWithMeals) => ({
+    label: day.name,
+  }))
+);
 
 const getMealtypeByDay = (dayName: string, type: string): Course => {
   const day = days.value?.find((day: DayWithMeals) => day.name === dayName);
@@ -17,12 +19,6 @@ const isLoading = ref(true);
 const btnLoading = ref(false);
 const isOpen = ref(false);
 const openModal = ref(false);
-
-const orderForm = reactive({
-  name: '',
-  phone: '',
-  address: '',
-});
 
 const validate = (state: any): FormError[] => {
   const errors = [];
@@ -52,21 +48,74 @@ const breakfastOptions = [
 ];
 const breakfastList = computed(() => getMealNamesForWeek(days.value, 'breakfast'));
 
-watch(breakfastQty, (newValue, oldValue) => {
-  const planName = `Plan de desayunos (${oldValue} días)`;
-  // Remove the old plan if it exists
-  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
-  if (oldPlanIndex !== -1) {
-    plans.value.splice(oldPlanIndex, 1);
-  }
-  // Add a new plan if the new value is not an empty string
-  if (newValue) {
-    plans.value.push({
-      name: `Plan de desayunos (${newValue} días)`,
-      price: breakfastPrice.value,
-    });
-  }
+const breakfastPlan = computed(() => {
+  const planName =
+    breakfastQty.value === '3'
+      ? 'Plan 3 days'
+      : breakfastQty.value === '5'
+        ? 'Plan 5 days'
+        : 'No plan';
+  const meals = days.value
+    ?.slice(0, parseInt(breakfastQty.value))
+    .map((day) => ({ ...day, lunch: undefined, dinner: undefined }));
+
+  return {
+    name: planName,
+    price: breakfastPrice.value,
+    meals,
+  };
 });
+
+function createMealPlan(mealType: 'desayunos' | 'comidas' | 'cenas'): OrderPlan {
+  const mealQty =
+    mealType === 'desayunos'
+      ? breakfastQty.value
+      : mealType === 'comidas'
+        ? lunchQty.value
+        : dinnerQty.value;
+  const mealPrice =
+    mealType === 'desayunos'
+      ? breakfastPrice.value
+      : mealType === 'comidas'
+        ? lunchPrice.value
+        : dinnerPrice.value;
+  const planName =
+    mealQty === '3'
+      ? `Plan de ${mealType} (3 días)`
+      : mealQty === '5'
+        ? `Plan de ${mealType} (5 días)`
+        : 'No plan';
+  const meals = days.value?.slice(0, parseInt(mealQty)).map((day) => {
+    if (mealType === 'desayunos') {
+      return { ...day, lunch: undefined, dinner: undefined };
+    } else if (mealType === 'comidas') {
+      return { ...day, breakfast: undefined, dinner: undefined };
+    } else {
+      return { ...day, breakfast: undefined, lunch: undefined };
+    }
+  });
+  // .map((day) => ({ ...day, breakfast: undefined, dinner: undefined }));
+
+  return {
+    name: planName,
+    price: mealPrice,
+    meals,
+  };
+}
+
+// watch(breakfastQty, (newValue, oldValue) => {
+//   const oldPlanName = `Plan de desayunos (${oldValue} días)`;
+//   // Remove the old plan if it exists
+//   const oldPlanIndex = plans.value.findIndex((plan: OrderPlan) => plan.name === oldPlanName);
+//   if (oldPlanIndex !== -1) {
+//     plans.value.splice(oldPlanIndex, 1);
+//   }
+//   // Add the existing breakfastPlan if the new value is not an empty string
+//   if (newValue) {
+//     // breakfastPlan.value.name = `Plan de desayunos (${newValue} días)`;
+//     plans.value.push(createMealPlan('desayunos'));
+//   }
+// });
 
 function getMealNamesForWeek(
   days: DayWithMeals[] | null,
@@ -95,21 +144,20 @@ const lunchOptions = [
     label: '5 días',
   },
 ];
-watch(lunchQty, (newValue, oldValue) => {
-  const planName = `Plan de comidas (${oldValue} días)`;
-  // Remove the old plan if it exists
-  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
-  if (oldPlanIndex !== -1) {
-    plans.value.splice(oldPlanIndex, 1);
-  }
-  // Add a new plan if the new value is not an empty string
-  if (newValue) {
-    plans.value.push({
-      name: `Plan de comidas (${newValue} días)`,
-      price: lunchPrice.value,
-    });
-  }
-});
+
+// watch(lunchQty, (newValue, oldValue) => {
+//   const oldPlanName = `Plan de comidas (${oldValue} días)`;
+//   // Remove the old plan if it exists
+//   const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === oldPlanName);
+//   if (oldPlanIndex !== -1) {
+//     plans.value.splice(oldPlanIndex, 1);
+//   }
+//   // Add the existing breakfastPlan if the new value is not an empty string
+//   if (newValue) {
+//     breakfastPlan.value.name = `Plan de desayunos (${newValue} días)`;
+//     plans.value.push(breakfastPlan.value as never);
+//   }
+// });
 
 // dinner state
 const dinnerQty = ref('');
@@ -131,21 +179,21 @@ const dinnerOptions = [
     label: '5 días',
   },
 ];
-watch(dinnerQty, (newValue, oldValue) => {
-  const planName = `Plan de cenas (${oldValue} días)`;
-  // Remove the old plan if it exists
-  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
-  if (oldPlanIndex !== -1) {
-    plans.value.splice(oldPlanIndex, 1);
-  }
-  // Add a new plan if the new value is not an empty string
-  if (newValue) {
-    plans.value.push({
-      name: `Plan de cenas (${newValue} días)`,
-      price: dinnerPrice.value,
-    });
-  }
-});
+// watch(dinnerQty, (newValue, oldValue) => {
+//   const planName = `Plan de cenas (${oldValue} días)`;
+//   // Remove the old plan if it exists
+//   const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
+//   if (oldPlanIndex !== -1) {
+//     plans.value.splice(oldPlanIndex, 1);
+//   }
+//   // Add a new plan if the new value is not an empty string
+//   if (newValue) {
+//     plans.value.push({
+//       name: `Plan de cenas (${newValue} días)`,
+//       price: dinnerPrice.value,
+//     });
+//   }
+// });
 
 const tabItems = [
   {
@@ -162,14 +210,52 @@ const tabItems = [
   },
 ];
 
-const plans = ref<any>([]);
+function handleWatch(oldValue: any, newValue: any, mealType: 'desayunos' | 'comidas' | 'cenas') {
+  // console.log({
+  //   oldValue,
+  //   newValue,
+  //   mealType,
+  // });
+  const oldPlanName = `Plan de ${mealType} (${oldValue} días)`;
+  // Remove the old plan if it exists
+  const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === oldPlanName);
+  if (oldPlanIndex !== -1) {
+    plans.value.splice(oldPlanIndex, 1);
+  }
+  // Add the existing breakfastPlan if the new value is not an empty string
+  if (newValue) {
+    plans.value.push(createMealPlan(mealType));
+  }
+}
+watch([breakfastQty, lunchQty, dinnerQty], (oldValue, newValue) => {
+  // get the property index that changed
+  const changedProp = Object.keys(newValue).findIndex(
+    (key: any) => newValue[key] !== oldValue[key]
+  );
+
+  // get the meal type
+  const mealType = changedProp === 0 ? 'desayunos' : changedProp === 1 ? 'comidas' : 'cenas';
+
+  // run the handlwatch function
+  handleWatch(newValue[changedProp], oldValue[changedProp], mealType);
+});
+
+const plans = ref<OrderPlan[]>([]);
 
 const orderTotal = computed(() => {
-  if (breakfastPrice.value + lunchPrice.value + dinnerPrice.value > 1900) {
-    return 1900;
-  } else {
-    return breakfastPrice.value + lunchPrice.value + dinnerPrice.value;
-  }
+  return plans.value.reduce((acc, plan) => acc + plan.price, 0);
+});
+
+const orderForm = reactive<Order>({
+  name: '',
+  phone: '',
+  address: '',
+  plans: plans.value,
+  total: 0,
+});
+
+watch(orderForm, (oldValue, newValue) => {
+  console.log(newValue, orderTotal.value);
 });
 
 function createOrder(event: FormSubmitEvent<any>) {
@@ -304,7 +390,7 @@ onMounted(() => {
                 </template>
                 <div class="p-4 flex-1 mb-24">
                   <h3 class="text-xl mb-8">
-                    Este es el menú correspondiente a la semana del 25-29 de Diciembre
+                    Este es el menú correspondiente a la semana del 1-5 de Enero
                   </h3>
                   <!-- <p class="mb-8 text-sm">
                     Puedes editar los platillo y/o agregar porciones extras del platillo,
