@@ -10,9 +10,10 @@ const items = ref(
   }))
 );
 
-const getMealtypeByDay = (dayName: string, type: string): Course => {
-  const day = days.value?.find((day: DayWithMeals) => day.name === dayName);
-  return type === 'breakfast' ? day?.breakfast : type === 'lunch' ? day?.lunch : day?.dinner || [];
+// a function that returns the days of the week based on the qty of days
+const getDays = (qty: string) => {
+  const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+  return days.slice(0, parseInt(qty)).map((day) => ({ label: day }));
 };
 
 const isLoading = ref(true);
@@ -23,8 +24,22 @@ const openModal = ref(false);
 const validate = (state: any): FormError[] => {
   const errors = [];
   if (!state.name) errors.push({ path: 'name', message: 'Required' });
+  if (!state.phone) errors.push({ path: 'phone', message: 'Required' });
+  if (!state.address) errors.push({ path: 'address', message: 'Required' });
   return errors;
 };
+
+const getMealtypeByDay = (dayName: string, type: string): Course => {
+  const day = days.value?.find((day: DayWithMeals) => day.name === dayName);
+  return type === 'breakfast' ? day?.breakfast : type === 'lunch' ? day?.lunch : day?.dinner || [];
+};
+
+function getMealNamesForWeek(
+  days: DayWithMeals[] | null,
+  mealType: 'breakfast' | 'lunch' | 'dinner'
+): string[] {
+  return days?.flatMap((day) => day?.[mealType]).map((meal) => meal?.name) as string[];
+}
 
 // Breakfast state
 const breakfastQty = ref('');
@@ -48,23 +63,62 @@ const breakfastOptions = [
 ];
 const breakfastList = computed(() => getMealNamesForWeek(days.value, 'breakfast'));
 
-const breakfastPlan = computed(() => {
-  const planName =
-    breakfastQty.value === '3'
-      ? 'Plan 3 days'
-      : breakfastQty.value === '5'
-        ? 'Plan 5 days'
-        : 'No plan';
-  const meals = days.value
-    ?.slice(0, parseInt(breakfastQty.value))
-    .map((day) => ({ ...day, lunch: undefined, dinner: undefined }));
+// lunch state
+const lunchQty = ref('');
+const editLunchs = ref(false);
+const lunchPrice = computed(() =>
+  lunchQty.value === '3' ? 500 : lunchQty.value === '5' ? 700 : 0
+);
+const lunchOptions = [
+  {
+    value: '',
+    label: 'No quiero comidas',
+  },
+  {
+    value: '3',
+    label: '3 días',
+  },
+  {
+    value: '5',
+    label: '5 días',
+  },
+];
 
-  return {
-    name: planName,
-    price: breakfastPrice.value,
-    meals,
-  };
-});
+// dinner state
+const dinnerQty = ref('');
+const editDinners = ref(false);
+const dinnerPrice = computed(() =>
+  dinnerQty.value === '3' ? 450 : dinnerQty.value === '5' ? 650 : 0
+);
+const dinnerOptions = [
+  {
+    value: '',
+    label: 'No quiero cenas',
+  },
+  {
+    value: '3',
+    label: '3 días',
+  },
+  {
+    value: '5',
+    label: '5 días',
+  },
+];
+
+const tabItems = [
+  {
+    label: 'Desayuno',
+    slot: 'breakfast',
+  },
+  {
+    label: 'Comida',
+    slot: 'lunch',
+  },
+  {
+    label: 'Cena',
+    slot: 'dinner',
+  },
+];
 
 function createMealPlan(mealType: 'desayunos' | 'comidas' | 'cenas'): OrderPlan {
   const mealQty =
@@ -94,7 +148,6 @@ function createMealPlan(mealType: 'desayunos' | 'comidas' | 'cenas'): OrderPlan 
       return { ...day, breakfast: undefined, lunch: undefined };
     }
   });
-  // .map((day) => ({ ...day, breakfast: undefined, dinner: undefined }));
 
   return {
     name: planName,
@@ -103,119 +156,7 @@ function createMealPlan(mealType: 'desayunos' | 'comidas' | 'cenas'): OrderPlan 
   };
 }
 
-// watch(breakfastQty, (newValue, oldValue) => {
-//   const oldPlanName = `Plan de desayunos (${oldValue} días)`;
-//   // Remove the old plan if it exists
-//   const oldPlanIndex = plans.value.findIndex((plan: OrderPlan) => plan.name === oldPlanName);
-//   if (oldPlanIndex !== -1) {
-//     plans.value.splice(oldPlanIndex, 1);
-//   }
-//   // Add the existing breakfastPlan if the new value is not an empty string
-//   if (newValue) {
-//     // breakfastPlan.value.name = `Plan de desayunos (${newValue} días)`;
-//     plans.value.push(createMealPlan('desayunos'));
-//   }
-// });
-
-function getMealNamesForWeek(
-  days: DayWithMeals[] | null,
-  mealType: 'breakfast' | 'lunch' | 'dinner'
-): string[] {
-  return days?.flatMap((day) => day?.[mealType]).map((meal) => meal?.name) as string[];
-}
-
-// lunch state
-const lunchQty = ref('');
-const editLunchs = ref(false);
-const lunchPrice = computed(() =>
-  lunchQty.value === '3' ? 500 : lunchQty.value === '5' ? 700 : 0
-);
-const lunchOptions = [
-  {
-    value: '',
-    label: 'No quiero comidas',
-  },
-  {
-    value: '3',
-    label: '3 días',
-  },
-  {
-    value: '5',
-    label: '5 días',
-  },
-];
-
-// watch(lunchQty, (newValue, oldValue) => {
-//   const oldPlanName = `Plan de comidas (${oldValue} días)`;
-//   // Remove the old plan if it exists
-//   const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === oldPlanName);
-//   if (oldPlanIndex !== -1) {
-//     plans.value.splice(oldPlanIndex, 1);
-//   }
-//   // Add the existing breakfastPlan if the new value is not an empty string
-//   if (newValue) {
-//     breakfastPlan.value.name = `Plan de desayunos (${newValue} días)`;
-//     plans.value.push(breakfastPlan.value as never);
-//   }
-// });
-
-// dinner state
-const dinnerQty = ref('');
-const editDinners = ref(false);
-const dinnerPrice = computed(() =>
-  dinnerQty.value === '3' ? 450 : dinnerQty.value === '5' ? 650 : 0
-);
-const dinnerOptions = [
-  {
-    value: '',
-    label: 'No quiero cenas',
-  },
-  {
-    value: '3',
-    label: '3 días',
-  },
-  {
-    value: '5',
-    label: '5 días',
-  },
-];
-// watch(dinnerQty, (newValue, oldValue) => {
-//   const planName = `Plan de cenas (${oldValue} días)`;
-//   // Remove the old plan if it exists
-//   const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === planName);
-//   if (oldPlanIndex !== -1) {
-//     plans.value.splice(oldPlanIndex, 1);
-//   }
-//   // Add a new plan if the new value is not an empty string
-//   if (newValue) {
-//     plans.value.push({
-//       name: `Plan de cenas (${newValue} días)`,
-//       price: dinnerPrice.value,
-//     });
-//   }
-// });
-
-const tabItems = [
-  {
-    label: 'Desayuno',
-    slot: 'breakfast',
-  },
-  {
-    label: 'Comida',
-    slot: 'lunch',
-  },
-  {
-    label: 'Cena',
-    slot: 'dinner',
-  },
-];
-
 function handleWatch(oldValue: any, newValue: any, mealType: 'desayunos' | 'comidas' | 'cenas') {
-  // console.log({
-  //   oldValue,
-  //   newValue,
-  //   mealType,
-  // });
   const oldPlanName = `Plan de ${mealType} (${oldValue} días)`;
   // Remove the old plan if it exists
   const oldPlanIndex = plans.value.findIndex((plan: any) => plan.name === oldPlanName);
@@ -227,6 +168,7 @@ function handleWatch(oldValue: any, newValue: any, mealType: 'desayunos' | 'comi
     plans.value.push(createMealPlan(mealType));
   }
 }
+
 watch([breakfastQty, lunchQty, dinnerQty], (oldValue, newValue) => {
   // get the property index that changed
   const changedProp = Object.keys(newValue).findIndex(
@@ -236,14 +178,24 @@ watch([breakfastQty, lunchQty, dinnerQty], (oldValue, newValue) => {
   // get the meal type
   const mealType = changedProp === 0 ? 'desayunos' : changedProp === 1 ? 'comidas' : 'cenas';
 
-  // run the handlwatch function
+  // run the handle function
   handleWatch(newValue[changedProp], oldValue[changedProp], mealType);
 });
 
 const plans = ref<OrderPlan[]>([]);
 
+const breakfastMeals = computed(() => {
+  if (breakfastQty.value !== '') {
+    return days.value?.slice(0, parseInt(breakfastQty.value)).map((day) => day.breakfast);
+  }
+});
+
 const orderTotal = computed(() => {
-  return plans.value.reduce((acc, plan) => acc + plan.price, 0);
+  if (breakfastQty.value === '5' && lunchQty.value === '5' && dinnerQty.value === '5') {
+    return 1900;
+  } else {
+    return plans.value.reduce((acc, plan) => acc + plan.price, 0);
+  }
 });
 
 const orderForm = reactive<Order>({
@@ -252,10 +204,6 @@ const orderForm = reactive<Order>({
   address: '',
   plans: plans.value,
   total: 0,
-});
-
-watch(orderForm, (oldValue, newValue) => {
-  console.log(newValue, orderTotal.value);
 });
 
 function createOrder(event: FormSubmitEvent<any>) {
@@ -295,7 +243,7 @@ onMounted(() => {
               </UFormGroup>
 
               <UFormGroup label="Teléfono">
-                <UInput v-model="orderForm.phone" size="xl" />
+                <UInput v-model="orderForm.phone" size="xl" type="number" />
               </UFormGroup>
               <UFormGroup label="Domicilio de entrega">
                 <UInput v-model="orderForm.address" size="xl" />
@@ -445,7 +393,7 @@ onMounted(() => {
                 <template #header>
                   <div class="flex justify-between items-center">
                     <span class="text-primary text-xl py-1.5">Detalle de desayunos</span>
-                    <!-- <UButton
+                    <UButton
                       v-show="breakfastQty !== ''"
                       :label="editBreakfasts ? 'Ocultar' : 'Editar'"
                       :variant="editBreakfasts ? 'soft' : 'ghost'"
@@ -461,7 +409,7 @@ onMounted(() => {
                           "
                           size="20"
                       /></template>
-                    </UButton> -->
+                    </UButton>
                   </div>
                 </template>
                 <URadioGroup
@@ -476,7 +424,7 @@ onMounted(() => {
                     <h3 class="text-lg text-primary mb-4">Editar desayunos</h3>
                     <UAccordion
                       color="gray"
-                      :items="items"
+                      :items="getDays(breakfastQty)"
                       size="xl"
                       :ui="{
                         default: {
@@ -486,9 +434,17 @@ onMounted(() => {
                       }"
                     >
                       <template #item="{ item }">
-                        <div v-for="meal in getMealtypeByDay(item.label, 'breakfast')">
-                          <UFormGroup label="Platillo principal">
-                            <USelectMenu :options="breakfastList" size="lg" />
+                        <div
+                          v-for="meal in getMealtypeByDay(item.label, 'breakfast')"
+                          class="flex flex-col gap-2 p-2"
+                        >
+                          <UFormGroup>
+                            <USelectMenu
+                              v-model="meal.name"
+                              :options="breakfastList"
+                              value-attribute="name"
+                              size="lg"
+                            />
                           </UFormGroup>
                         </div>
                       </template>

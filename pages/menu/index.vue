@@ -58,9 +58,9 @@ useHead({
     <!-- Page content -->
     <template #content>
       <section class="lg:hidden flex justify-center">
-        <UButton label="Ordenar" size="lg" to="/ordenar">
+        <!-- <UButton label="Ordenar" size="lg" to="/ordenar">
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
-        </UButton>
+        </UButton> -->
       </section>
       <section class="mt-8">
         <section class="grid gap-2 lg:grid-cols-5">
