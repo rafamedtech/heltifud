@@ -3,6 +3,7 @@ import type { DayWithMeals, Course } from '@/types/Menu';
 import background from '@/assets/img/background.jpg';
 
 const { data: days } = await useFetch<DayWithMeals[]>('/api/menu');
+// console.log(days.value);
 
 const items = days.value?.map((day: DayWithMeals) => ({
   label: day.name,
@@ -53,7 +54,7 @@ useHead({
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Menú de la próxima semana" description="1 Enero - 5 Enero" />
+      <AppHeading title="Menú de la próxima semana" description="8 Enero - 12 Enero" />
     </template>
 
     <!-- Page content -->
@@ -93,7 +94,7 @@ useHead({
             :ui="{
               base: 'overflow-hidden',
               background: 'bg-white dark:bg-white',
-              body: { base: 'min-h-[30rem] max-h-[30rem] h-full text-sm', padding: 'sm:p-3' },
+              body: { base: 'min-h-[35rem] max-h-[35rem] h-full text-sm', padding: 'sm:p-3' },
               header: { padding: 'sm:px-3' },
               ring: '',
               divide: '',
