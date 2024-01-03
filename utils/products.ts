@@ -103,6 +103,11 @@ export const lunchOptions = [
     type: 'main',
   },
   {
+    name: 'Pescado al limón',
+    calories: 263,
+    type: 'main',
+  },
+  {
     name: 'Pechuga de pollo a la plancha',
     calories: 261,
     type: 'main',
@@ -145,6 +150,16 @@ export const lunchOptions = [
   {
     name: 'Enchiladas al horno',
     calories: 432,
+    type: 'main',
+  },
+  {
+    name: 'Hamburguesa de pavo',
+    calories: 448,
+    type: 'main',
+  },
+  {
+    name: 'Pierna de pollo al vapor',
+    calories: 317,
     type: 'main',
   },
 ];
@@ -205,6 +220,7 @@ export const sideOptions = [
 export const plans = [
   {
     title: 'Plan de desayunos',
+    type: 'breakfast',
     cover:
       'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
     description: 'Desayunos nutritivos para comenzar el día con energía.',
@@ -221,6 +237,7 @@ export const plans = [
   },
   {
     title: 'Plan de comidas',
+    type: 'lunch',
     cover:
       'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
     description: 'Comidas saludables para disfrutar en la oficina o en casa.',
@@ -237,6 +254,7 @@ export const plans = [
   },
   {
     title: 'Plan de cenas',
+    type: 'dinner',
     cover:
       'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
     description: 'Termina el día con una cena casera, ligera y saludable.',

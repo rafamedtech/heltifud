@@ -36,7 +36,7 @@ const links = [
           <li v-for="{ to, label, icon } in links">
             <NuxtLink
               :to="to"
-              class="flex gap-2 items-center"
+              class="flex gap-2 items-center hover:text-primary-500 transition-colors"
               active-class="text-primary-500 border-b border-primary-500"
             >
               <Icon :name="icon" />

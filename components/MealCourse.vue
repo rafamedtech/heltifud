@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import type { Course } from '@/types/Menu';
 
-defineProps<{
+const {
+  title,
+  course,
+  color = 'dark',
+} = defineProps<{
   title: string;
   course: Course;
+  color?: string;
 }>();
 </script>
 
 <template>
-  <li class="h-1/3 text-black">
+  <li
+    class="h-1/3"
+    :class="{ 'text-gray-300': color === 'light', 'text-gray-950': color === 'dark' }"
+  >
     <h3 class="text-2xl lg:text-lg text-primary">{{ title }}</h3>
     <ul class="mt-2">
       <li v-for="meal in course">

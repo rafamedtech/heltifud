@@ -10,10 +10,12 @@ const items = ref(
   }))
 );
 
+const store = useMainStore();
+const { breakfastQty, lunchQty, dinnerQty } = storeToRefs(store);
+
 // a function that returns the days of the week based on the qty of days
-const getDays = (qty: string) => {
-  const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-  return days.slice(0, parseInt(qty)).map((day) => ({ label: day }));
+const getDays = (qty: string, type?: 'breakfast' | 'main' | 'side') => {
+  return items.value?.slice(0, parseInt(qty));
 };
 
 const isLoading = ref(true);
@@ -36,13 +38,18 @@ const getMealtypeByDay = (dayName: string, type: string): Course => {
 
 function getMealNamesForWeek(
   days: DayWithMeals[] | null,
-  mealType: 'breakfast' | 'lunch' | 'dinner'
+  mealType: 'breakfast' | 'lunch' | 'dinner',
+  category?: string
 ): string[] {
-  return days?.flatMap((day) => day?.[mealType]).map((meal) => meal?.name) as string[];
+  const meals = days
+    ?.flatMap((day) => day?.[mealType])
+    .filter((item) => category && item?.type === category)
+    .map((meal) => meal?.name) as string[];
+
+  return [...new Set(meals)];
 }
 
 // Breakfast state
-const breakfastQty = ref('');
 const breakfastPrice = computed(() =>
   breakfastQty.value === '3' ? 400 : breakfastQty.value === '5' ? 600 : 0
 );
@@ -64,7 +71,6 @@ const breakfastOptions = [
 const breakfastList = computed(() => getMealNamesForWeek(days.value, 'breakfast'));
 
 // lunch state
-const lunchQty = ref('');
 const editLunchs = ref(false);
 const lunchPrice = computed(() =>
   lunchQty.value === '3' ? 500 : lunchQty.value === '5' ? 700 : 0
@@ -85,7 +91,6 @@ const lunchOptions = [
 ];
 
 // dinner state
-const dinnerQty = ref('');
 const editDinners = ref(false);
 const dinnerPrice = computed(() =>
   dinnerQty.value === '3' ? 450 : dinnerQty.value === '5' ? 650 : 0
@@ -184,12 +189,6 @@ watch([breakfastQty, lunchQty, dinnerQty], (oldValue, newValue) => {
 
 const plans = ref<OrderPlan[]>([]);
 
-const breakfastMeals = computed(() => {
-  if (breakfastQty.value !== '') {
-    return days.value?.slice(0, parseInt(breakfastQty.value)).map((day) => day.breakfast);
-  }
-});
-
 const orderTotal = computed(() => {
   if (breakfastQty.value === '5' && lunchQty.value === '5' && dinnerQty.value === '5') {
     return 1900;
@@ -257,17 +256,6 @@ onMounted(() => {
               <template #header>
                 <div class="flex justify-between items-center">
                   <span class="text-xl text-primary">Resumen del pedido</span>
-                  <!-- <UButton
-                    variant="ghost"
-                    size="lg"
-                    color="gray"
-                    @click="() => (openModal = !openModal)"
-                  >
-                    <template #trailing
-                      ><Icon name="i-heroicons-pencil-square-solid" size="20"
-                    /></template>
-                    <span>Editar</span>
-                  </UButton> -->
                 </div>
               </template>
 
@@ -340,18 +328,15 @@ onMounted(() => {
                   <h3 class="text-xl mb-8">
                     Este es el menú correspondiente a la semana del 1-5 de Enero
                   </h3>
-                  <!-- <p class="mb-8 text-sm">
-                    Puedes editar los platillo y/o agregar porciones extras del platillo,
-                    guarniciones y proteína
-                  </p> -->
+
                   <UAccordion
-                    color="gray"
+                    color="black"
                     :items="items"
                     size="xl"
                     :ui="{
                       default: {
-                        class: ' shadow mb-1.5 w-full text-2xl text-black hover:bg-white',
-                        variant: 'soft',
+                        class: ' shadow mb-1.5 w-full text-2xl text-primary hover:bg-gray-950',
+                        variant: 'solid',
                       },
                     }"
                   >
@@ -414,7 +399,7 @@ onMounted(() => {
                 </template>
                 <URadioGroup
                   v-model="breakfastQty"
-                  legend="Para cuantos días?"
+                  legend="¿Para cuantos días?"
                   :options="breakfastOptions"
                   :ui="{ legend: 'text-lg' }"
                   :ui-radio="{ label: 'text-lg' }"
@@ -423,13 +408,13 @@ onMounted(() => {
                   <section>
                     <h3 class="text-lg text-primary mb-4">Editar desayunos</h3>
                     <UAccordion
-                      color="gray"
+                      color="black"
                       :items="getDays(breakfastQty)"
                       size="xl"
                       :ui="{
                         default: {
-                          class: ' shadow mb-1.5 w-full text-2xl text-black ',
-                          variant: 'soft',
+                          class: ' shadow mb-1.5 w-full text-2xl text-primary ',
+                          variant: 'solid',
                         },
                       }"
                     >
@@ -441,7 +426,7 @@ onMounted(() => {
                           <UFormGroup>
                             <USelectMenu
                               v-model="meal.name"
-                              :options="breakfastList"
+                              :options="getMealNamesForWeek(days, 'breakfast', meal.type)"
                               value-attribute="name"
                               size="lg"
                             />
@@ -459,21 +444,21 @@ onMounted(() => {
                 <template #header>
                   <div class="flex justify-between">
                     <span class="text-primary text-xl py-1.5">Detalle de comidas</span>
-                    <!-- <UButton
+                    <UButton
                       v-show="lunchQty !== ''"
-                      label="Editar"
-                      variant="ghost"
+                      :label="editLunchs ? 'Ocultar' : 'Editar'"
+                      :variant="editLunchs ? 'soft' : 'ghost'"
                       color="gray"
                       @click="() => (editLunchs = !editLunchs)"
                     >
                       <template #trailing><Icon name="i-heroicons-pencil-square-solid" /></template>
-                    </UButton> -->
+                    </UButton>
                   </div>
                 </template>
 
                 <URadioGroup
                   v-model="lunchQty"
-                  legend="Para cuantos días?"
+                  legend="¿Para cuantos días?"
                   :options="lunchOptions"
                   :ui="{ legend: 'text-lg' }"
                   :ui-radio="{
@@ -526,7 +511,7 @@ onMounted(() => {
                 </template>
                 <URadioGroup
                   v-model="dinnerQty"
-                  legend="Para cuantos días?"
+                  legend="¿Para cuantos días?"
                   :options="dinnerOptions"
                   :ui="{ legend: 'text-lg' }"
                   :ui-radio="{
