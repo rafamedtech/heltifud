@@ -63,7 +63,7 @@ onMounted(() => {
                   size="lg"
                   class="justify-center w-full mx-auto text-lg z-10"
                   color="primary"
-                  to="/ordenar"
+                  to="https://wa.me/c/5216648161284"
                 >
                   <template #trailing>
                     <Icon name="heroicons:rocket-launch" size="24" />
