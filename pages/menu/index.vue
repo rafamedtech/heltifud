@@ -3,7 +3,6 @@ import type { DayWithMeals, Course } from '@/types/Menu';
 import background from '@/assets/img/background.jpg';
 
 const { data: days } = await useFetch<DayWithMeals[]>('/api/menu');
-// console.log(days.value);
 
 const items = days.value?.map((day: DayWithMeals) => ({
   label: day.name,
@@ -60,13 +59,12 @@ useHead({
     <!-- Page content -->
     <template #content>
       <section class="lg:hidden flex justify-center">
-        <!-- <UButton label="Ordenar" size="lg" to="/ordenar">
+        <UButton label="Ordenar" size="lg" to="https://wa.me/c/5216648161284">
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
-        </UButton> -->
+        </UButton>
       </section>
       <section class="mt-8">
         <section class="grid gap-2 lg:grid-cols-5">
-          <!-- <MenuCardContainer v-for="day in days" :day="day" /> -->
           <UAccordion
             class="lg:hidden"
             color="black"
@@ -100,9 +98,6 @@ useHead({
               divide: '',
             }"
           >
-            <!-- <template #header>
-              <h3 class="text-2xl">{{ day.name }}</h3>
-            </template> -->
             <h3 class="text-2xl text-gray-300 z-10 relative py-2">{{ day.name }}</h3>
             <img :src="background" alt="" class="absolute w-full h-full object-cover inset-0 z-0" />
             <ul class="h-full z-10 relative text-gray-300">

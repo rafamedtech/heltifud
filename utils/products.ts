@@ -73,7 +73,7 @@ export const lunchOptions = [
     type: 'main',
   },
   {
-    name: 'Carne molida con verduras',
+    name: 'Picadillo a la mexicana',
     calories: 242,
     type: 'main',
   },
@@ -148,6 +148,11 @@ export const lunchOptions = [
     type: 'main',
   },
   {
+    name: 'Pollo en crema de cilantro',
+    calories: 237,
+    type: 'main',
+  },
+  {
     name: 'Enchiladas al horno',
     calories: 432,
     type: 'main',
@@ -160,6 +165,11 @@ export const lunchOptions = [
   {
     name: 'Pierna de pollo al vapor',
     calories: 317,
+    type: 'main',
+  },
+  {
+    name: 'Pasta alfredo con camarones',
+    calories: 688,
     type: 'main',
   },
 ];

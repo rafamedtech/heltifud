@@ -3,7 +3,6 @@ import { plans } from '@/utils/products';
 import background from '@/assets/img/background.jpg';
 
 const isLoading = ref(true);
-const store = useMainStore();
 
 onMounted(() => {
   isLoading.value = false;
@@ -23,21 +22,15 @@ onMounted(() => {
       <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <UCard
-            v-for="{ title, type, cover, description, prices } in plans"
+            v-for="{ title, description, prices } in plans"
             :ui="{
               header: { padding: 'py-0 px-0 sm:p-0' },
               body: { base: 'min-h-full ' },
             }"
             class="relative flex-col justify-center"
           >
-            <img :src="background" alt="" class="absolute w-full h-full object-cover inset-0 z-0" />
+            <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
 
-            <!-- <template #header>
-              <section class="relative flex justify-center items-center h-24">
-
-                <h3 class="text-2xl font-bold text-primary-500 z-50 relative">{{ title }}</h3>
-              </section>
-            </template> -->
             <section class="min-h-full flex flex-col justify-between lg:h-[20rem]">
               <div>
                 <h3 class="text-2xl font-bold text-primary-500 z-50 relative">{{ title }}</h3>
