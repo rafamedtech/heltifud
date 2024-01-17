@@ -53,7 +53,7 @@ useHead({
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Menú de la próxima semana" description="15 Enero - 19 Enero" />
+      <AppHeading title="Menú de la próxima semana" description="22 Enero - 26 Enero" />
     </template>
 
     <!-- Page content -->

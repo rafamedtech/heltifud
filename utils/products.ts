@@ -20,6 +20,11 @@ export const breakfastOptions = [
     type: 'breakfast',
   },
   {
+    name: 'Omelette de champiñones',
+    calories: 214,
+    type: 'breakfast',
+  },
+  {
     name: 'Papa con chorizo y huevo',
     calories: 536,
     type: 'breakfast',
@@ -36,6 +41,11 @@ export const breakfastOptions = [
   },
   {
     name: 'Waffle de avena',
+    calories: 447,
+    type: 'breakfast',
+  },
+  {
+    name: 'Pancakes de avena',
     calories: 447,
     type: 'breakfast',
   },
@@ -113,6 +123,11 @@ export const lunchOptions = [
     type: 'main',
   },
   {
+    name: 'Pechuga de pollo Buffalo',
+    calories: 261,
+    type: 'main',
+  },
+  {
     name: 'Teriyaki de pollo',
     calories: 256,
     type: 'main',
@@ -125,6 +140,11 @@ export const lunchOptions = [
   {
     name: 'Sandwich de pollo',
     calories: 423,
+    type: 'main',
+  },
+  {
+    name: 'Sandwich de pollo pesto',
+    calories: 486,
     type: 'main',
   },
   {
@@ -153,13 +173,23 @@ export const lunchOptions = [
     type: 'main',
   },
   {
-    name: 'Enchiladas al horno',
+    name: 'Enchiladas de pollo',
     calories: 432,
+    type: 'main',
+  },
+  {
+    name: 'Chilaquiles con pollo',
+    calories: 249,
     type: 'main',
   },
   {
     name: 'Hamburguesa de pavo',
     calories: 448,
+    type: 'main',
+  },
+  {
+    name: 'Hamburguesa de res',
+    calories: 580,
     type: 'main',
   },
   {
@@ -223,6 +253,16 @@ export const sideOptions = [
   {
     name: 'Papas horneadas',
     calories: 131,
+    type: 'side',
+  },
+  {
+    name: 'Yoghurt con fruta',
+    calories: 234,
+    type: 'side',
+  },
+  {
+    name: 'Ensalada verde',
+    calories: 19,
     type: 'side',
   },
 ];
