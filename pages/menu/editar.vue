@@ -310,7 +310,6 @@ definePageMeta({
           <UCard
             :ui="{
               base: 'overflow-hidden',
-              background: 'bg-white dark:bg-white',
               body: { base: 'min-h-[30rem]  h-full text-sm gap-4', padding: 'sm:p-3' },
               header: { padding: 'sm:px-3' },
               ring: '',
@@ -470,7 +469,6 @@ definePageMeta({
           <UCard
             :ui="{
               base: 'overflow-hidden',
-              background: 'bg-white dark:bg-white',
               body: { base: 'min-h-[30rem]  h-full text-sm gap-4', padding: 'sm:p-3' },
               header: { padding: 'sm:px-3' },
               ring: '',
@@ -634,7 +632,6 @@ definePageMeta({
           <UCard
             :ui="{
               base: 'overflow-hidden',
-              background: 'bg-white dark:bg-white',
               body: { base: 'min-h-[30rem]  h-full text-sm gap-4', padding: 'sm:p-3' },
               header: { padding: 'sm:px-3' },
               ring: '',
@@ -798,7 +795,6 @@ definePageMeta({
           <UCard
             :ui="{
               base: 'overflow-hidden',
-              background: 'bg-white dark:bg-white',
               body: { base: 'min-h-[30rem]  h-full text-sm gap-4', padding: 'sm:p-3' },
               header: { padding: 'sm:px-3' },
               ring: '',
@@ -962,7 +958,6 @@ definePageMeta({
           <UCard
             :ui="{
               base: 'overflow-hidden',
-              background: 'bg-white dark:bg-white',
               body: { base: 'min-h-[30rem]  h-full text-sm gap-4', padding: 'sm:p-3' },
               header: { padding: 'sm:px-3' },
               ring: '',
