@@ -129,7 +129,7 @@ useHead({
             item: 'basis-full',
             container: 'rounded-lg',
             indicators: {
-              wrapper: 'relative bottom-0 mt-4',
+              wrapper: 'relative bottom-0 mt-4 gap-2 max-w-full',
             },
           }"
           indicators
