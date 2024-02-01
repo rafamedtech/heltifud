@@ -16,7 +16,7 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/supabase": "^1.1.5",
     "@pinia/nuxt": "^0.5.1",
-    "nuxt": "^3.8.0",
+    "nuxt": "^3.10.0",
     "nuxt-icon": "^0.6.6",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@fawmi/vue-google-maps": "^0.9.79",
-    "@nuxt/ui": "^2.11.1",
+    "@nuxt/ui": "^2.13.0",
     "@prisma/client": "^5.7.0",
     "cloudinary": "^1.41.0",
     "vue3-google-address-autocomplete": "^1.1.3"

@@ -2,16 +2,32 @@
 import type { DayWithMeals, Course } from '@/types/Menu';
 import background from '@/assets/img/background.jpg';
 
-const { data: days } = await useFetch<DayWithMeals[]>('/api/menu');
+// const { data: days } = await useFetch<DayWithMeals[]>('/api/menu');
 
-const items = days.value?.map((day: DayWithMeals) => ({
-  label: day.name,
-}));
+// const items = days.value?.map((day: DayWithMeals) => ({
+//   label: day.name,
+// }));
 
-const getMealtypeByDay = (dayName: string, type: string): Course => {
-  const day = days.value?.find((day: DayWithMeals) => day.name === dayName);
-  return type === 'breakfast' ? day?.breakfast : type === 'lunch' ? day?.lunch : day?.dinner || [];
-};
+// const getMealtypeByDay = (dayName: string, type: string): Course => {
+//   const day = days.value?.find((day: DayWithMeals) => day.name === dayName);
+//   return type === 'breakfast' ? day?.breakfast : type === 'lunch' ? day?.lunch : day?.dinner || [];
+// };
+
+const items = [
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824838/heltifud/5%20Feb%20-%209%20Feb/Lunes_tdob8u.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824838/heltifud/5%20Feb%20-%209%20Feb/Martes_orhgif.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824839/heltifud/5%20Feb%20-%209%20Feb/Miercoles_bgblmq.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824838/heltifud/5%20Feb%20-%209%20Feb/Jueves_gw4zjx.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824839/heltifud/5%20Feb%20-%209%20Feb/Viernes_uagrut.png',
+];
+
+function indexName(index: number) {
+  if (index === 1) return 'Lunes';
+  if (index === 2) return 'Martes';
+  if (index === 3) return 'Miércoles';
+  if (index === 4) return 'Jueves';
+  if (index === 5) return 'Viernes';
+}
 
 const isLoading = ref(true);
 
@@ -53,7 +69,7 @@ useHead({
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Menú de la próxima semana" description="29 Enero - 2 Febrero" />
+      <AppHeading title="Menú de la próxima semana" description="5 Febrero - 9 Febrero" />
     </template>
 
     <!-- Page content -->
@@ -63,8 +79,8 @@ useHead({
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
         </UButton>
       </section>
-      <section class="mt-8">
-        <section class="grid gap-2 lg:grid-cols-5">
+      <section class="mt-8 pb-8">
+        <!-- <section class="grid gap-2 lg:grid-cols-5">
           <UAccordion
             class="lg:hidden"
             color="black"
@@ -106,7 +122,34 @@ useHead({
               <MealCourse title="Cena" :course="getMealtypeByDay(day.name, 'dinner')" />
             </ul>
           </UCard>
-        </section>
+        </section> -->
+        <UCarousel
+          :items="items"
+          :ui="{
+            item: 'basis-full',
+            container: 'rounded-lg',
+            indicators: {
+              wrapper: 'relative bottom-0 mt-4',
+            },
+          }"
+          indicators
+          class="min-w-full max-w-screen-md mx-auto"
+        >
+          <template #default="{ item }">
+            <img :src="item" class="w-full rounded-xl" draggable="false" />
+          </template>
+
+          <template #indicator="{ onClick, index, active }">
+            <UButton
+              :label="indexName(index)"
+              :variant="active ? 'solid' : 'outline'"
+              size="sm"
+              class="rounded-xl min-w-6 justify-center"
+              :color="active ? 'primary' : 'gray'"
+              @click="onClick(index)"
+            />
+          </template>
+        </UCarousel>
       </section>
     </template>
   </MainSection>

@@ -49,6 +49,26 @@ export const breakfastOptions = [
     calories: 447,
     type: 'breakfast',
   },
+  {
+    name: 'Shakshuka',
+    calories: 439,
+    type: 'breakfast',
+  },
+  {
+    name: 'Omelette de espinacas',
+    calories: 309,
+    type: 'breakfast',
+  },
+  {
+    name: 'Chilaquiles con pollo',
+    calories: 249,
+    type: 'breakfast',
+  },
+  {
+    name: 'Pan francés',
+    calories: 584,
+    type: 'breakfast',
+  },
 ];
 
 export const lunchOptions = [
@@ -202,6 +222,36 @@ export const lunchOptions = [
     calories: 688,
     type: 'main',
   },
+  {
+    name: 'Pasta con pesto y pollo',
+    calories: 621,
+    type: 'main',
+  },
+  {
+    name: 'Ciabatta de carne asada',
+    calories: 428,
+    type: 'main',
+  },
+  {
+    name: 'Pollo en mole',
+    calories: 460,
+    type: 'main',
+  },
+  {
+    name: 'Wraps de pollo (2)',
+    calories: 403,
+    type: 'main',
+  },
+  {
+    name: 'Albóndigas en chipotle',
+    calories: 251,
+    type: 'main',
+  },
+  {
+    name: 'Pescado al cacahuate',
+    calories: 273,
+    type: 'main',
+  },
 ];
 
 export const sideOptions = [
@@ -261,8 +311,23 @@ export const sideOptions = [
     type: 'side',
   },
   {
+    name: 'Porción de fruta',
+    calories: 27,
+    type: 'side',
+  },
+  {
     name: 'Ensalada verde',
     calories: 19,
+    type: 'side',
+  },
+  {
+    name: 'Puré de coliflor',
+    calories: 111,
+    type: 'side',
+  },
+  {
+    name: 'Verduras salteadas',
+    calories: 43,
     type: 'side',
   },
 ];
