@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { DayWithMeals, Course } from '@/types/Menu';
-import background from '@/assets/img/background.jpg';
+// import type { DayWithMeals, Course } from '@/types/Menu';
+// import background from '@/assets/img/background.jpg';
 
 // const { data: days } = await useFetch<DayWithMeals[]>('/api/menu');
 
@@ -13,12 +13,12 @@ import background from '@/assets/img/background.jpg';
 //   return type === 'breakfast' ? day?.breakfast : type === 'lunch' ? day?.lunch : day?.dinner || [];
 // };
 
-const items = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824838/heltifud/5%20Feb%20-%209%20Feb/Lunes_tdob8u.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824838/heltifud/5%20Feb%20-%209%20Feb/Martes_orhgif.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824839/heltifud/5%20Feb%20-%209%20Feb/Miercoles_bgblmq.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824838/heltifud/5%20Feb%20-%209%20Feb/Jueves_gw4zjx.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1706824839/heltifud/5%20Feb%20-%209%20Feb/Viernes_uagrut.png',
+const days = [
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707332196/heltifud/12%20Feb%20-%2016%20Feb/Lunes_yi5f3o.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707332196/heltifud/12%20Feb%20-%2016%20Feb/Martes_rkge4d.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707332196/heltifud/12%20Feb%20-%2016%20Feb/Miercoles_vpnn47.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707332197/heltifud/12%20Feb%20-%2016%20Feb/Jueves_cswvds.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707332196/heltifud/12%20Feb%20-%2016%20Feb/Viernes_wqbr0m.png',
 ];
 
 function indexName(index: number) {
@@ -80,51 +80,8 @@ useHead({
         </UButton>
       </section>
       <section class="mt-8 pb-8">
-        <!-- <section class="grid gap-2 lg:grid-cols-5">
-          <UAccordion
-            class="lg:hidden"
-            color="black"
-            :items="items"
-            size="xl"
-            :ui="{
-              default: {
-                class: 'py-6 shadow mb-1.5 w-full text-2xl text-primary hover:bg-gray-950',
-                variant: 'solid',
-              },
-            }"
-          >
-            <template #item="{ item }">
-              <ul class="px-2 mb-2">
-                <MealCourse title="Desayuno" :course="getMealtypeByDay(item.label, 'breakfast')" />
-                <MealCourse title="Comida" :course="getMealtypeByDay(item.label, 'lunch')" />
-                <MealCourse title="Cena" :course="getMealtypeByDay(item.label, 'dinner')" />
-              </ul>
-            </template>
-          </UAccordion>
-
-          <UCard
-            v-for="day in days"
-            class="hidden lg:block relative"
-            :ui="{
-              base: 'overflow-hidden',
-              background: 'bg-white dark:bg-white',
-              body: { base: 'min-h-[35rem] max-h-[35rem] h-full text-sm', padding: 'sm:p-3' },
-              header: { padding: 'sm:px-3' },
-              ring: '',
-              divide: '',
-            }"
-          >
-            <h3 class="text-2xl text-gray-300 z-10 relative py-2">{{ day.name }}</h3>
-            <img :src="background" alt="" class="absolute w-full h-full object-cover inset-0 z-0" />
-            <ul class="h-full z-10 relative text-gray-300">
-              <MealCourse title="Desayuno" :course="getMealtypeByDay(day.name, 'breakfast')" />
-              <MealCourse title="Comida" :course="getMealtypeByDay(day.name, 'lunch')" />
-              <MealCourse title="Cena" :course="getMealtypeByDay(day.name, 'dinner')" />
-            </ul>
-          </UCard>
-        </section> -->
         <UCarousel
-          :items="items"
+          :items="days"
           :ui="{
             item: 'basis-full',
             container: 'rounded-lg',
