@@ -14,11 +14,11 @@
 // };
 
 const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707335660/heltifud/12%20Feb%20-%2016%20Feb/Lunes_gsgkfe.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707335660/heltifud/12%20Feb%20-%2016%20Feb/Martes_u2fqeo.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707335660/heltifud/12%20Feb%20-%2016%20Feb/Miercoles_e5ijjv.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707335660/heltifud/12%20Feb%20-%2016%20Feb/Jueves_p82s6v.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1707335660/heltifud/12%20Feb%20-%2016%20Feb/Viernes_wtgkfn.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1708029684/heltifud/19%20Feb%20-%2023%20Feb/Lunes_aog1zf.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1708029684/heltifud/19%20Feb%20-%2023%20Feb/Martes_uwwylv.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1708029684/heltifud/19%20Feb%20-%2023%20Feb/Miercoles_lnh7zo.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1708029685/heltifud/19%20Feb%20-%2023%20Feb/Jueves_son8pl.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1708029684/heltifud/19%20Feb%20-%2023%20Feb/Viernes_wnv2pn.png',
 ];
 
 function indexName(index: number) {
@@ -69,7 +69,7 @@ useHead({
 <template>
   <MainSection :loading="isLoading">
     <template #heading>
-      <AppHeading title="Menú de la próxima semana" description="5 Febrero - 9 Febrero" />
+      <AppHeading title="Menú de la próxima semana" description="19 Febrero - 23 Febrero" />
     </template>
 
     <!-- Page content -->
