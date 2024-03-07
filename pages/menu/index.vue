@@ -14,11 +14,11 @@
 // };
 
 const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709245890/heltifud/4%20Mar%20-%208%20Mar/Lunes_fjer8g.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709245890/heltifud/4%20Mar%20-%208%20Mar/Martes_dbgkew.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709245890/heltifud/4%20Mar%20-%208%20Mar/Miercoles_t0utjt.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709245890/heltifud/4%20Mar%20-%208%20Mar/Jueves_vdurmc.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709245890/heltifud/4%20Mar%20-%208%20Mar/Viernes_td8rdj.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Lunes_tvvwvv.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Martes_hxq409.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Miercoles_ayyfgo.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Jueves_swg7r0.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852533/heltifud/11%20Mar%20-%2015%20Mar/Viernes_sfozto.png',
 ];
 
 function indexName(index: number) {
