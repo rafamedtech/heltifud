@@ -120,13 +120,24 @@ useHead({
           :items="menu"
           :ui="{
             item: 'basis-full',
-            container: 'rounded-lg',
+            container: 'rounded-lg  mx-auto',
             indicators: {
               wrapper: 'relative bottom-0 mt-4 gap-2 max-w-full',
             },
           }"
           indicators
-          class="min-w-full max-w-screen-md mx-auto"
+          :prev-button="{
+            color: 'gray',
+            icon: 'i-heroicons-arrow-left-20-solid',
+            class: '-left-12',
+          }"
+          :next-button="{
+            color: 'gray',
+            icon: 'i-heroicons-arrow-right-20-solid',
+            class: '-right-12',
+          }"
+          arrows
+          class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
             <img :src="item" class="w-full rounded-xl" draggable="false" />
