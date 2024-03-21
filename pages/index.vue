@@ -129,12 +129,12 @@ useHead({
           :prev-button="{
             color: 'gray',
             icon: 'i-heroicons-arrow-left-20-solid',
-            class: '-left-12',
+            class: '-left-12 hidden lg:flex',
           }"
           :next-button="{
             color: 'gray',
             icon: 'i-heroicons-arrow-right-20-solid',
-            class: '-right-12',
+            class: '-right-12 hidden lg:flex',
           }"
           arrows
           class="lg:w-[20rem] mx-auto"
