@@ -126,7 +126,6 @@ useHead({
             },
           }"
           indicators
-          arrows
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
