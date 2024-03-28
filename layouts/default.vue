@@ -49,9 +49,9 @@ const links = [
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
         </UButton>
 
-        <button class="text-white lg:hidden" @click="() => (isOpen = !isOpen)">
+        <!-- <button class="text-white lg:hidden" @click="() => (isOpen = !isOpen)">
           <Icon name="icon-park-outline:align-text-both" size="28" />
-        </button>
+        </button> -->
       </UContainer>
     </section>
 
