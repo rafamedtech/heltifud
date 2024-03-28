@@ -16,11 +16,11 @@ const menuBackup2 = [
 ];
 
 const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Lunes_tvvwvv.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Martes_hxq409.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Miercoles_ayyfgo.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852532/heltifud/11%20Mar%20-%2015%20Mar/Jueves_swg7r0.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1709852533/heltifud/11%20Mar%20-%2015%20Mar/Viernes_sfozto.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Lunes_zehw8b.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Martes_gg3yk7.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662401/heltifud/1%20Abr%20-%205%20Abr/Miercoles_s2ojxi.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Jueves_lgb0d6.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662402/heltifud/1%20Abr%20-%205%20Abr/Viernes_giqwdn.png',
 ];
 
 const menu = computed(() => {
