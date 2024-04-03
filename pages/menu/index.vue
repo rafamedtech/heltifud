@@ -16,11 +16,11 @@ const menuBackup2 = [
 ];
 
 const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Lunes_zehw8b.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Martes_gg3yk7.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662401/heltifud/1%20Abr%20-%205%20Abr/Miercoles_s2ojxi.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Jueves_lgb0d6.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662402/heltifud/1%20Abr%20-%205%20Abr/Viernes_giqwdn.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Lunes_sgyxpw.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Martes_f5x7cn.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Miercoles_llcmun.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Jueves_kuuaqw.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Viernes_nidfid.png',
 ];
 
 const menu = computed(() => {
@@ -54,7 +54,7 @@ const menuDate = computed(() => {
     }
   }
 
-  return '1 Abril - 5 Abril';
+  return '8 Abril - 12 Abril';
 });
 
 function indexName(index: number) {
