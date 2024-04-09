@@ -1,60 +1,18 @@
 <script setup lang="ts">
-const menuBackup1 = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262707/heltifud/18%20Mar%20-%2022%20Mar/Lunes_ucp302.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262708/heltifud/18%20Mar%20-%2022%20Mar/Martes_gk6jpk.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262709/heltifud/18%20Mar%20-%2022%20Mar/Miercoles_gsmbac.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262706/heltifud/18%20Mar%20-%2022%20Mar/Jueves_gf49ms.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262710/heltifud/18%20Mar%20-%2022%20Mar/Viernes_mj9my6.png',
-];
-
-const menuBackup2 = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262907/heltifud/25%20Mar%20-%2029%20Mar/Lunes_ba59rx.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262904/heltifud/25%20Mar%20-%2029%20Mar/Martes_qxar3n.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262908/heltifud/25%20Mar%20-%2029%20Mar/Miercoles_n9hu4n.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262903/heltifud/25%20Mar%20-%2029%20Mar/Jueves_oel5v2.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262905/heltifud/25%20Mar%20-%2029%20Mar/Viernes_sgihsf.png',
-];
-
 const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Lunes_sgyxpw.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Martes_f5x7cn.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Miercoles_llcmun.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Jueves_kuuaqw.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712111752/heltifud/8%20Abr%20-%2012%20Abr/Viernes_nidfid.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690998/heltifud/15%20Abr%20-%2019%20Abr/Lunes_grxebb.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Martes_s7aq9c.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Miercoles_e8dbzm.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Jueves_qk4kqk.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Viernes_jw14sp.png',
 ];
 
 const menu = computed(() => {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentDay = currentDate.getDate();
-
-  if (currentMonth === 2) {
-    // March is month 2 in JavaScript Date
-    if (currentDay >= 13 && currentDay <= 19) {
-      return menuBackup1;
-    } else if (currentDay >= 20 && currentDay <= 26) {
-      return menuBackup2;
-    }
-  }
-
   return days;
 });
 
 const menuDate = computed(() => {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentDay = currentDate.getDate();
-
-  if (currentMonth === 2) {
-    // March is month 2 in JavaScript Date
-    if (currentDay >= 13 && currentDay <= 19) {
-      return '18 Marzo - 22 Marzo';
-    } else if (currentDay >= 20 && currentDay <= 26) {
-      return '25 Marzo - 29 Marzo';
-    }
-  }
-
-  return '8 Abril - 12 Abril';
+  return '15 Abril - 19 Abril';
 });
 
 function indexName(index: number) {
