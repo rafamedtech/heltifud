@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690998/heltifud/15%20Abr%20-%2019%20Abr/Lunes_grxebb.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Martes_s7aq9c.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Miercoles_e8dbzm.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Jueves_qk4kqk.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1712690997/heltifud/15%20Abr%20-%2019%20Abr/Viernes_jw14sp.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294073/heltifud/22%20Abr%20-%2026%20Abr/Lunes_qazdod.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294072/heltifud/22%20Abr%20-%2026%20Abr/Martes_fjniuw.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294073/heltifud/22%20Abr%20-%2026%20Abr/Miercoles_wsv6ln.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294073/heltifud/22%20Abr%20-%2026%20Abr/Jueves_zdwvok.png',
+  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294814/heltifud/22%20Abr%20-%2026%20Abr/Viernes_1_x3livn.png',
 ];
 
 const menu = computed(() => {
@@ -12,7 +12,7 @@ const menu = computed(() => {
 });
 
 const menuDate = computed(() => {
-  return '15 Abril - 19 Abril';
+  return '22 Abril - 26 Abril';
 });
 
 function indexName(index: number) {
@@ -53,8 +53,7 @@ useHead({
     },
     {
       property: 'og:image',
-      content:
-        'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
+      content: 'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
     },
   ],
 });
