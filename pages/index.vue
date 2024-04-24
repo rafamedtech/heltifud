@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import background from '@/assets/img/background.jpg';
+
 const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
 
 const menuDate = computed(() => {
@@ -89,12 +91,15 @@ useHead({
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
-            <UCard class="w-full pt-4 pb-8">
-              <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
-              <section class="flex flex-col">
-                <Course label="Desayuno" :item="item.desayuno" />
-                <Course label="Comida" :item="item.comida" />
-                <Course label="Cena" :item="item.cena" />
+            <UCard class="w-full pt-4 pb-8 relative">
+              <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
+              <section class="relative z-10">
+                <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
+                <section class="flex flex-col">
+                  <Course label="Desayuno" :item="item.desayuno" />
+                  <Course label="Comida" :item="item.comida" />
+                  <Course label="Cena" :item="item.cena" />
+                </section>
               </section>
             </UCard>
           </template>
