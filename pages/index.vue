@@ -1,44 +1,5 @@
 <script setup lang="ts">
-const menuBackup1 = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262707/heltifud/18%20Mar%20-%2022%20Mar/Lunes_ucp302.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262708/heltifud/18%20Mar%20-%2022%20Mar/Martes_gk6jpk.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262709/heltifud/18%20Mar%20-%2022%20Mar/Miercoles_gsmbac.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262706/heltifud/18%20Mar%20-%2022%20Mar/Jueves_gf49ms.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262710/heltifud/18%20Mar%20-%2022%20Mar/Viernes_mj9my6.png',
-];
-
-const menuBackup2 = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262907/heltifud/25%20Mar%20-%2029%20Mar/Lunes_ba59rx.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262904/heltifud/25%20Mar%20-%2029%20Mar/Martes_qxar3n.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262908/heltifud/25%20Mar%20-%2029%20Mar/Miercoles_n9hu4n.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262903/heltifud/25%20Mar%20-%2029%20Mar/Jueves_oel5v2.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1710262905/heltifud/25%20Mar%20-%2029%20Mar/Viernes_sgihsf.png',
-];
-
-const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Lunes_zehw8b.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Martes_gg3yk7.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662401/heltifud/1%20Abr%20-%205%20Abr/Miercoles_s2ojxi.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662400/heltifud/1%20Abr%20-%205%20Abr/Jueves_lgb0d6.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1711662402/heltifud/1%20Abr%20-%205%20Abr/Viernes_giqwdn.png',
-];
-
-const menu = computed(() => {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentDay = currentDate.getDate();
-
-  if (currentMonth === 2) {
-    // March is month 2 in JavaScript Date
-    if (currentDay >= 13 && currentDay <= 19) {
-      return menuBackup1;
-    } else if (currentDay >= 20 && currentDay <= 26) {
-      return menuBackup2;
-    }
-  }
-
-  return days;
-});
+const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
 
 const menuDate = computed(() => {
   const currentDate = new Date();
@@ -58,11 +19,11 @@ const menuDate = computed(() => {
 });
 
 function indexName(index: number) {
-  if (index === 1) return 'Lunes';
-  if (index === 2) return 'Martes';
-  if (index === 3) return 'Miércoles';
-  if (index === 4) return 'Jueves';
-  if (index === 5) return 'Viernes';
+  if (index === 1) return 'Lun';
+  if (index === 2) return 'Mar';
+  if (index === 3) return 'Mie';
+  if (index === 4) return 'Jue';
+  if (index === 5) return 'Vie';
 }
 
 const isLoading = ref(true);
@@ -95,8 +56,7 @@ useHead({
     },
     {
       property: 'og:image',
-      content:
-        'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
+      content: 'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
     },
   ],
 });
@@ -111,35 +71,42 @@ useHead({
     <!-- Page content -->
     <template #content>
       <section class="lg:hidden flex justify-center">
-        <UButton label="Ordenar" size="lg" to="https://wa.me/c/5216648161284">
+        <UButton label="Ordenar" size="lg" to="https://wa.me/c/5216648161284" class="bg-lima-500">
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
         </UButton>
       </section>
-      <section class="mt-8 pb-8">
+      <section class="mt-8 pb-8 px-2">
         <UCarousel
           :items="menu"
           :ui="{
             item: 'basis-full',
             container: 'rounded-lg  mx-auto',
             indicators: {
-              wrapper: 'relative bottom-0 mt-4 gap-2 max-w-full',
+              wrapper: 'relative bottom-0 mt-4 max-w-full',
             },
           }"
           indicators
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
-            <img :src="item" class="w-full rounded-xl" draggable="false" />
+            <UCard class="w-full pt-4 pb-8">
+              <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
+              <section class="flex flex-col">
+                <Course label="Desayuno" :item="item.desayuno" />
+                <Course label="Comida" :item="item.comida" />
+                <Course label="Cena" :item="item.cena" />
+              </section>
+            </UCard>
           </template>
 
-          <template #indicator="{ onClick, index, active }">
+          <template #indicator="{ onClick, page, active }">
             <UButton
-              :label="indexName(index)"
+              :label="indexName(page)"
               :variant="active ? 'solid' : 'outline'"
               size="sm"
               class="rounded-xl min-w-6 justify-center"
               :color="active ? 'primary' : 'gray'"
-              @click="onClick(index)"
+              @click="onClick(page)"
             />
           </template>
         </UCarousel>
