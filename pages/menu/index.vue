@@ -1,26 +1,16 @@
 <script setup lang="ts">
-const days = [
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294073/heltifud/22%20Abr%20-%2026%20Abr/Lunes_qazdod.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294072/heltifud/22%20Abr%20-%2026%20Abr/Martes_fjniuw.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294073/heltifud/22%20Abr%20-%2026%20Abr/Miercoles_wsv6ln.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294073/heltifud/22%20Abr%20-%2026%20Abr/Jueves_zdwvok.png',
-  'https://res.cloudinary.com/rafamed-dev/image/upload/v1713294814/heltifud/22%20Abr%20-%2026%20Abr/Viernes_1_x3livn.png',
-];
+import background from '@/assets/img/background.jpg';
 
-const menu = computed(() => {
-  return days;
-});
+const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
 
-const menuDate = computed(() => {
-  return '22 Abril - 26 Abril';
-});
+const menuDate = '29 Abril - 3 Mayo';
 
 function indexName(index: number) {
-  if (index === 1) return 'Lunes';
-  if (index === 2) return 'Martes';
-  if (index === 3) return 'Miércoles';
-  if (index === 4) return 'Jueves';
-  if (index === 5) return 'Viernes';
+  if (index === 1) return 'Lun';
+  if (index === 2) return 'Mar';
+  if (index === 3) return 'Mie';
+  if (index === 4) return 'Jue';
+  if (index === 5) return 'Vie';
 }
 
 const isLoading = ref(true);
@@ -41,7 +31,7 @@ useHead({
     },
     {
       property: 'og:url',
-      content: 'https://heltifud.com/',
+      content: 'https://heltifud.com/menu',
     },
     {
       property: 'og:title',
@@ -68,45 +58,45 @@ useHead({
     <!-- Page content -->
     <template #content>
       <section class="lg:hidden flex justify-center">
-        <UButton label="Ordenar" size="lg" to="https://wa.me/c/5216648161284">
+        <UButton label="Ordenar" size="lg" to="https://wa.me/c/5216648161284" class="bg-lima-500">
           <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
         </UButton>
       </section>
-      <section class="mt-8 pb-8">
+      <section class="mt-8 pb-8 px-2">
         <UCarousel
           :items="menu"
           :ui="{
             item: 'basis-full',
             container: 'rounded-lg  mx-auto',
             indicators: {
-              wrapper: 'relative bottom-0 mt-4 gap-2 max-w-full',
+              wrapper: 'relative bottom-0 mt-4 max-w-full',
             },
           }"
           indicators
-          :prev-button="{
-            color: 'gray',
-            icon: 'i-heroicons-arrow-left-20-solid',
-            class: '-left-12',
-          }"
-          :next-button="{
-            color: 'gray',
-            icon: 'i-heroicons-arrow-right-20-solid',
-            class: '-right-12',
-          }"
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
-            <img :src="item" class="w-full rounded-xl" draggable="false" />
+            <UCard class="w-full py-4 relative">
+              <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
+              <section class="relative z-10">
+                <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
+                <section class="flex flex-col gap-4">
+                  <Course label="Desayuno" :item="item.desayuno" />
+                  <Course label="Comida" :item="item.comida" />
+                  <Course label="Cena" :item="item.cena" />
+                </section>
+              </section>
+            </UCard>
           </template>
 
-          <template #indicator="{ onClick, index, active }">
+          <template #indicator="{ onClick, page, active }">
             <UButton
-              :label="indexName(index)"
+              :label="indexName(page)"
               :variant="active ? 'solid' : 'outline'"
               size="sm"
               class="rounded-xl min-w-6 justify-center"
               :color="active ? 'primary' : 'gray'"
-              @click="onClick(index)"
+              @click="onClick(page)"
             />
           </template>
         </UCarousel>

@@ -3,22 +3,7 @@ import background from '@/assets/img/background.jpg';
 
 const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
 
-const menuDate = computed(() => {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentDay = currentDate.getDate();
-
-  if (currentMonth === 2) {
-    // March is month 2 in JavaScript Date
-    if (currentDay >= 13 && currentDay <= 19) {
-      return '18 Marzo - 22 Marzo';
-    } else if (currentDay >= 20 && currentDay <= 26) {
-      return '25 Marzo - 29 Marzo';
-    }
-  }
-
-  return '11 Marzo - 15 Marzo';
-});
+const menuDate = '29 Abril - 3 Mayo';
 
 function indexName(index: number) {
   if (index === 1) return 'Lun';
