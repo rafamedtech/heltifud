@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import background from '@/assets/img/background.jpg';
 
-const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
+// const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
+const { data: menu, pending } = await useFetch<WeeklyMenu>('/api/menu');
 
 const menuDate = '29 Abril - 3 Mayo';
 
@@ -50,7 +51,7 @@ useHead({
 </script>
 
 <template>
-  <MainSection :loading="isLoading">
+  <MainSection :loading="pending">
     <template #heading>
       <AppHeading title="Menú de la semana" :description="menuDate" />
     </template>
