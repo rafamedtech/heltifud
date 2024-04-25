@@ -1,22 +1,5 @@
 <script setup lang="ts">
-import background from '@/assets/img/background.jpg';
-
-// const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
 const { data: menu, pending } = await useFetch<WeeklyMenu>('/api/menu');
-
-const menuDate = '29 Abril - 3 Mayo';
-
-function indexName(index: number) {
-  if (index === 1) return 'Lun';
-  if (index === 2) return 'Mar';
-  if (index === 3) return 'Mie';
-  if (index === 4) return 'Jue';
-  if (index === 5) return 'Vie';
-}
-
-const isLoading = ref(true);
-
-onMounted(() => (isLoading.value = false));
 
 useHead({
   title: 'Menú de la semana | Heltifud Meal preps',
@@ -59,9 +42,13 @@ useHead({
     <!-- Page content -->
     <template #content>
       <section class="lg:hidden flex justify-center">
-        <UButton label="Ordenar" size="lg" to="https://wa.me/c/5216648161284" class="bg-lima-500">
-          <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
-        </UButton>
+        <UButton
+          label="Ordenar"
+          size="lg"
+          trailing-icon="i-heroicons-rocket-launch"
+          to="https://wa.me/c/5216648161284"
+          target="_blank"
+        />
       </section>
       <section class="mt-8 pb-8 px-2">
         <UCarousel
@@ -77,7 +64,7 @@ useHead({
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
-            <UCard class="w-full py-4 relative" :ui="{ rounded: 'rounded-xl' }">
+            <UCard class="w-full py-4 relative" :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }">
               <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
               <section class="relative z-10">
                 <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
