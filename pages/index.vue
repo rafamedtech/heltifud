@@ -67,7 +67,7 @@ useHead({
           :items="menu"
           :ui="{
             item: 'basis-full',
-            container: 'rounded-lg  mx-auto',
+            container: 'rounded-xl  mx-auto',
             indicators: {
               wrapper: 'relative bottom-0 mt-4 max-w-full',
             },
@@ -76,7 +76,7 @@ useHead({
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
-            <UCard class="w-full py-4 relative">
+            <UCard class="w-full py-4 relative" :ui="{ rounded: 'rounded-xl' }">
               <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
               <section class="relative z-10">
                 <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
