@@ -31,7 +31,7 @@ useHead({
     },
     {
       property: 'og:url',
-      content: 'https://heltifud.com/',
+      content: 'https://heltifud.com/menu',
     },
     {
       property: 'og:title',
@@ -76,11 +76,11 @@ useHead({
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
-            <UCard class="w-full pt-4 pb-8 relative">
+            <UCard class="w-full py-4 relative">
               <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
               <section class="relative z-10">
                 <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
-                <section class="flex flex-col">
+                <section class="flex flex-col gap-4">
                   <Course label="Desayuno" :item="item.desayuno" />
                   <Course label="Comida" :item="item.comida" />
                   <Course label="Cena" :item="item.cena" />
