@@ -1,17 +1,5 @@
 <script setup lang="ts">
-import background from '@/assets/img/background.jpg';
-
-const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
-
-const menuDate = '29 Abril - 3 Mayo';
-
-function indexName(index: number) {
-  if (index === 1) return 'Lun';
-  if (index === 2) return 'Mar';
-  if (index === 3) return 'Mie';
-  if (index === 4) return 'Jue';
-  if (index === 5) return 'Vie';
-}
+import hero from '@/assets/img/hero.jpeg';
 
 const isLoading = ref(true);
 
@@ -50,57 +38,28 @@ useHead({
 </script>
 
 <template>
-  <MainSection :loading="isLoading">
-    <template #heading>
-      <AppHeading title="Menú de la semana" :description="menuDate" />
-    </template>
+  <main class="bg-gray-50 min-h-screen">
+    <section class="">
+      <div class="container mx-auto h-[60vh] flex px-5 py-14 items-center justify-center flex-col md:flex-row-reverse">
+        <img
+          class="absolute top-0 pt-16 right-0 bottom-0 left-0 object-cover w-full lg:rotate-[270deg] lg:w-full z-0 brightness-50"
+          alt="hero"
+          :src="hero"
+        />
+        <!-- <img class="lg:w-3/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" :src="hero" /> -->
 
-    <!-- Page content -->
-    <template #content>
-      <section class="lg:hidden flex justify-center">
-        <UButton label="Ordenar" size="lg" to="https://wa.me/c/5216648161284" class="bg-lima-500">
-          <template #trailing><Icon name="heroicons:rocket-launch" size="24" /></template>
-        </UButton>
-      </section>
-      <section class="mt-8 pb-8 px-2">
-        <UCarousel
-          :items="menu"
-          :ui="{
-            item: 'basis-full',
-            container: 'rounded-xl  mx-auto',
-            indicators: {
-              wrapper: 'relative bottom-0 mt-4 max-w-full',
-            },
-          }"
-          indicators
-          class="lg:w-[20rem] mx-auto"
-        >
-          <template #default="{ item }">
-            <UCard class="w-full py-4 relative" :ui="{ rounded: 'rounded-xl' }">
-              <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
-              <section class="relative z-10">
-                <h3 class="text-3xl text-center font-bold">{{ item.day }}</h3>
-                <section class="flex flex-col gap-4">
-                  <Course label="Desayuno" :item="item.desayuno" />
-                  <Course label="Comida" :item="item.comida" />
-                  <Course label="Cena" :item="item.cena" />
-                </section>
-              </section>
-            </UCard>
-          </template>
-
-          <template #indicator="{ onClick, page, active }">
-            <UButton
-              :label="indexName(page)"
-              :variant="active ? 'solid' : 'outline'"
-              size="sm"
-              class="rounded-xl min-w-6 justify-center"
-              :color="active ? 'primary' : 'gray'"
-              @click="onClick(page)"
-            />
-          </template>
-        </UCarousel>
-      </section>
-    </template>
-  </MainSection>
+        <div class="text-center relative z-10 md:text-left lg:w-2/3 w-full">
+          <h1 class="sm:text-4xl text-3xl mb-4 font-semibold">Donde lo saludable se encuentra con lo delicioso</h1>
+          <p class="mb-8 leading-relaxed">Recibe tus comidas para toda la semana en la comodidad de tu hogar.</p>
+          <div class="flex justify-center md:justify-start">
+            <UButton label="Ver planes" size="lg" to="https://wa.me/c/5216648161284" class="bg-lima-500">
+              <template #trailing>
+                <Icon name="heroicons:rocket-launch" size="24" />
+              </template>
+            </UButton>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
