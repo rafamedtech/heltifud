@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { plans } from '@/utils/products';
 import background from '@/assets/img/background.jpg';
 
 const isLoading = ref(true);
@@ -27,9 +26,9 @@ onMounted(() => {
               header: { padding: 'py-0 px-0 sm:p-0' },
               body: { base: 'min-h-full ' },
             }"
-            class="relative flex-col justify-center"
+            class="relative flex-col justify-center rounded-2xl"
           >
-            <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
+            <img :src="background" class="absolute w-full h-full object-cover rounded-2xl inset-0 z-0" />
 
             <section class="min-h-full flex flex-col justify-between lg:h-[20rem]">
               <div>
@@ -39,10 +38,7 @@ onMounted(() => {
                     {{ description }}
                   </p>
                   <section class="mt-8 lg:mt-16 flex flex-col justify-center items-center">
-                    <div
-                      v-for="{ name, price } in prices"
-                      class="flex text-gray-300 gap-4 justify-around"
-                    >
+                    <div v-for="{ name, price } in prices" class="flex text-gray-300 gap-4 justify-around">
                       <span class="text-xl">{{ name }}:</span>
                       <span class="text-xl text-primary font-bold">${{ price }}</span>
                     </div>

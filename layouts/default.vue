@@ -26,18 +26,7 @@ const links = [
       <UContainer as="section" :ui="{ base: 'flex py-4 items-center justify-between', constrained: 'max-w-6xl' }">
         <Logo />
 
-        <!-- <ul class="hidden lg:flex text-white gap-8">
-          <li v-for="{ to, label, icon } in links">
-            <NuxtLink
-              :to="to"
-              class="flex gap-2 items-center hover:text-primary-500 transition-colors"
-              active-class="text-primary-500 border-b border-primary-500"
-            >
-              <Icon :name="icon" />
-              <span>{{ label }}</span>
-            </NuxtLink>
-          </li>
-        </ul> -->
+        <UHorizontalNavigation :links="links" class="hidden md:block w-fit" />
 
         <section class="flex gap-4">
           <UButton label="Ordenar" class="hidden lg:flex" to="/ordenar">
@@ -57,6 +46,7 @@ const links = [
                 },
               },
             }"
+            class="lg:hidden"
           >
             <UButton
               color="gray"

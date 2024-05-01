@@ -1,3 +1,5 @@
+export const menuDate = '6 Mayo - 10 Mayo';
+
 export const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'short',
@@ -24,8 +26,6 @@ export const monthOptions = [
 
 export const background =
   'https://res.cloudinary.com/rafamed-dev/image/upload/v1714075109/heltifud/background_xxcijf.jpg';
-
-export const menuDate = '6 Mayo - 10 Mayo';
 
 export function transformPrice(item: number): string {
   return new Intl.NumberFormat('es-MX', {

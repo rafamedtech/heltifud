@@ -1,74 +1,94 @@
-<script setup>
-// import { insumos } from '@/utils/insumos';
+<script setup lang="ts">
+import background from '@/assets/img/background.jpg';
 
-// function addInsumo() {
-//   insumos.value.push({
-//     id: Math.random(),
-//     name: '',
-//     qty: 0,
-//     unit: 'gr',
-//   });
-// }
+const { title, description, type } = defineProps<{
+  title: string;
+  description: string;
+  type: string;
+}>();
 </script>
 
 <template>
-  <dialog id="my_modal_3" class="modal">
-    <div class="modal-box">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      </form>
-      <h3 class="font-bold text-lg">Editar receta</h3>
-      <form>
-        <div class="overflow-x-auto">
-          <table class="table">
-            <!-- head -->
-            <thead>
-              <tr>
-                <th>Insumo</th>
-                <th>Cantidad</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- row 1 -->
-              <tr v-for="insumo in insumos" :key="insumo.id">
-                <td>
-                  <div class="form-control w-full max-w-xs">
-                    <select class="select select-bordered" v-model="insumo.name">
-                      <option disabled selected>Elige un insumo</option>
-
-                      <option
-                        v-for="insumoItem in insumos"
-                        :key="insumoItem.id"
-                        :value="insumoItem.name"
-                      >
-                        {{ insumoItem.name }}
-                      </option>
-                    </select>
-                  </div>
-                </td>
-                <td>
-                  <div class="join">
-                    <input
-                      class="input input-bordered join-item w-24"
-                      type="number"
-                      v-model="insumo.qty"
-                    />
-                    <span class="btn cursor-default join-item rounded-r-xl">{{ insumo.unit }}</span>
-                  </div>
-                </td>
-                <td><Icon name="icon-park-outline:delete" /></td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="flex justify-center w-full mt-8">
-            <button class="btn btn-sm btn-primary normal-case" type="button" @click="addInsumo">
-              Agregar insumo
-            </button>
-          </div>
+  <UModal
+    prevent-close
+    :ui="{
+      wrapper: 'z-[999999]',
+      overlay: { background: 'bg-gray-950/75 dark:bg-gray-950/75' },
+      rounded: 'rounded-xl',
+    }"
+  >
+    <UCard
+      :ui="{
+        ring: '',
+        divide: 'divide-gray-100 dark:divide-gray-100',
+        background: 'bg-white dark:bg-white',
+        rounded: 'rounded-xl',
+      }"
+    >
+      <template #header>
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-lg text-primary-500">{{ title }}</h2>
+          <UButton
+            label="Cerrar"
+            color="primary"
+            icon="i-heroicons-arrow-left-on-rectangle-solid"
+            size="md"
+            class="-my-1"
+            @click="useModal().close"
+          />
         </div>
-      </form>
-    </div>
-  </dialog>
+      </template>
+
+      <div v-if="type === 'plans'">
+        <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
+          <div class="grid grid-cols-1 gap-8">
+            <UCard
+              v-for="{ title, description, prices } in plans"
+              :ui="{
+                header: { padding: 'py-0 px-0 sm:p-0' },
+                body: { base: 'min-h-full ' },
+              }"
+              class="relative flex-col justify-center rounded-2xl"
+            >
+              <img :src="background" class="absolute w-full h-full object-cover rounded-2xl inset-0 z-0" />
+
+              <section class="min-h-full flex flex-col justify-between lg:h-[20rem]">
+                <div>
+                  <h3 class="text-2xl font-bold text-primary-500 z-50 relative">{{ title }}</h3>
+                  <section class="z-50 relative">
+                    <p class="text-gray-300">
+                      {{ description }}
+                    </p>
+                    <section class="mt-8 lg:mt-16 flex flex-col justify-center items-center">
+                      <div v-for="{ name, price } in prices" class="flex text-gray-300 gap-4 justify-around">
+                        <span class="text-xl">{{ name }}:</span>
+                        <span class="text-xl text-primary font-bold">${{ price }}</span>
+                      </div>
+                    </section>
+                  </section>
+                </div>
+
+                <section class="flex justify-between gap-4 flex-col mt-8">
+                  <UButton
+                    label="Ordenar"
+                    size="lg"
+                    class="justify-center w-full mx-auto text-lg z-10"
+                    color="primary"
+                    to="https://wa.me/c/5216648161284"
+                  >
+                    <template #trailing>
+                      <Icon name="heroicons:rocket-launch" size="24" />
+                    </template>
+                  </UButton>
+                </section>
+              </section>
+            </UCard>
+          </div>
+        </UContainer>
+      </div>
+
+      <!-- <h3 class="text-primary mb-2 text-xl"></h3> -->
+      <p v-if="type === 'delivery'" class="text-gray-950 text-lg">{{ description }}</p>
+    </UCard>
+  </UModal>
 </template>
