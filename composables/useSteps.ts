@@ -47,7 +47,7 @@ export function useSteps() {
           modal.open(Modal, {
             title: 'Sobre las entregas',
             description:
-              'Las entregas se realizan los días Domingos en la tarde/noche o los Lunes temprano para los primeros 3 días de comidas y si se elige alguna opción de 5 días, la entrega del resto de las comidas se realizaría el día Miércoles en la tarde o el Jueves temprano en la mañana.',
+              'Las entregas se realizan los días Domingo en la tarde o los Lunes en la mañana para los primeros 3 días de comidas y si se elige alguna opción de 5 días, la entrega del resto de se realizaría el día Miércoles en la tarde o el Jueves en la mañana.',
             type: 'delivery',
           }),
       },

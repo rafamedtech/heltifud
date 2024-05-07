@@ -15,6 +15,7 @@ const { title, description, type } = defineProps<{
       wrapper: 'z-[999999]',
       overlay: { background: 'bg-gray-950/75 dark:bg-gray-950/75' },
       rounded: 'rounded-xl',
+      width: `${type === 'plans' ? 'sm:max-w-6xl' : 'sm:max-w-lg'}`,
     }"
   >
     <UCard
@@ -41,7 +42,7 @@ const { title, description, type } = defineProps<{
 
       <div v-if="type === 'plans'">
         <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
-          <div class="grid grid-cols-1 gap-8">
+          <div class="grid md:grid-cols-3 gap-8 max-w-full">
             <UCard
               v-for="{ title, description, prices } in plans"
               :ui="{
@@ -68,7 +69,7 @@ const { title, description, type } = defineProps<{
                   </section>
                 </div>
 
-                <section class="flex justify-between gap-4 flex-col mt-8">
+                <section class="hidden justify-between gap-4 flex-col mt-8">
                   <UButton
                     label="Ordenar"
                     size="lg"

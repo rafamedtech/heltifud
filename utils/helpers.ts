@@ -1,4 +1,4 @@
-export const menuDate = '6 Mayo - 10 Mayo';
+export const menuDate = '13 Mayo - 17 Mayo';
 
 export const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
