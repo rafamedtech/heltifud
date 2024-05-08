@@ -7,7 +7,7 @@ const { item } = defineProps<{
 
 <template>
   <section class="pt-4 w-full h-full">
-    <h4 class="text-lima-500 text-xl text-center">{{ label }}</h4>
+    <h4 class="text-primary-500 text-xl text-center">{{ label }}</h4>
     <section class="grid grid-rows-3 pt-2">
       <div class="flex gap-2 justify-center items-center h-1/3 text-base">
         <span>{{ item.main.name }}</span>

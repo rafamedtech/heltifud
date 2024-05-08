@@ -68,6 +68,8 @@ const links = [
       </UContainer>
     </section>
 
-    <slot></slot>
+    <section class="dark:bg-neutral-800">
+      <slot></slot>
+    </section>
   </main>
 </template>
