@@ -8,16 +8,16 @@ const { item } = defineProps<{
 <template>
   <section class="pt-4 w-full h-full">
     <h4 class="text-primary-500 text-xl text-center">{{ label }}</h4>
-    <section class="grid grid-rows-3 pt-2 text-white">
-      <div class="flex gap-2 justify-center items-center h-1/3 text-base">
+    <section class="grid grid-rows-3 pt-2 text-white text-lg">
+      <div class="flex gap-2 justify-center items-center h-1/3">
         <span>{{ item.main.name }}</span>
         <span>{{ Number(item.main.calories).toFixed(0) }}Cal</span>
       </div>
-      <div class="flex gap-2 justify-center items-center h-1/3 text-base" v-if="item.side1.name">
+      <div class="flex gap-2 justify-center items-center h-1/3" v-if="item.side1.name">
         <span>{{ item.side1.name }}</span>
         <span>{{ Number(item.side1.calories).toFixed(0) }}Cal</span>
       </div>
-      <div class="flex gap-2 justify-center items-center h-1/3 text-base" v-if="item.side2.name">
+      <div class="flex gap-2 justify-center items-center h-1/3" v-if="item.side2.name">
         <span>{{ item.side2.name }}</span>
         <span>{{ Number(item.side2.calories).toFixed(0) }}Cal</span>
       </div>
