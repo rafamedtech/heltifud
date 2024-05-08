@@ -9,9 +9,7 @@ const { title, description, image, button } = step;
     class="text-white"
     :ui="{
       rounded: 'rounded-xl',
-      background: 'bg-white dark:bg-white',
-      divide: 'dark:divide-gray-200',
-      ring: 'dark:ring-gray-200',
+      background: 'bg-white dark:bg-dark',
     }"
     :key="title"
   >
@@ -22,7 +20,7 @@ const { title, description, image, button } = step;
     <figure class="w-56 h-56 mx-auto">
       <img :src="image" :alt="title" class="w-full h-full" />
     </figure>
-    <p class="text-lg text-gray-950">{{ description }}</p>
+    <p class="text-lg text-dark dark:text-gray-50">{{ description }}</p>
 
     <template #footer>
       <section class="flex items-center justify-center">

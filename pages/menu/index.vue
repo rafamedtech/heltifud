@@ -1,4 +1,9 @@
 <script setup lang="ts">
+// const { data: menu, pending } = await useFetch<WeeklyMenu>(
+//   'https://script.google.com/macros/s/AKfycby259dgbinrdic5-e72t4LRpynFvlYaxQChqoPJ-Z5AaqSjLFq5cU-a-kEXC1zYdOCX/exec'
+// );
+// JSON.parse(JSON.stringify(menu.value));
+
 const { data: menu, pending } = await useFetch<WeeklyMenu>('/api/menu');
 
 useHead({
@@ -34,14 +39,10 @@ useHead({
 </script>
 
 <template>
-  <MainSection :loading="pending">
-    <template #heading>
+  <main>
+    <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
       <AppHeading title="Menú de la semana" :description="menuDate" />
-    </template>
-
-    <!-- Page content -->
-    <template #content>
-      <section class="lg:hidden flex justify-center">
+      <section class="lg:hidden flex justify-center mt-8">
         <UButton
           label="Ordenar"
           size="lg"
@@ -65,7 +66,7 @@ useHead({
         >
           <template #default="{ item }">
             <UCard class="w-full py-4 relative" :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }">
-              <img :src="background" class="absolute w-full h-full object-cover inset-0 z-0" />
+              <img :src="background" class="absolute w-full h-full object-cover inset-0 rounded-xl z-0" />
               <section class="relative z-10">
                 <h3 class="text-3xl text-center font-bold text-white">{{ item.day }}</h3>
                 <section class="flex flex-col gap-4">
@@ -89,6 +90,15 @@ useHead({
           </template>
         </UCarousel>
       </section>
+      <!-- <MainSection :loading="pending">
+    <template #heading>
     </template>
-  </MainSection>
+
+
+    <template #content>
+
+    </template>
+  </MainSection> -->
+    </UContainer>
+  </main>
 </template>

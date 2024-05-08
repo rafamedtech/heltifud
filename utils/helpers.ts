@@ -1,5 +1,25 @@
 export const menuDate = '13 Mayo - 17 Mayo';
 
+export const links = [
+  [
+    {
+      label: 'Inicio',
+      icon: 'i-heroicons-home',
+      to: '/',
+    },
+    {
+      label: 'Nuestros planes',
+      icon: 'i-heroicons-list-bullet-20-solid',
+      to: '/nuestros-planes',
+    },
+    {
+      label: 'Menú',
+      icon: 'i-heroicons-newspaper',
+      to: '/menu',
+    },
+  ],
+];
+
 export const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'short',

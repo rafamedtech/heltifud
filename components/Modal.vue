@@ -20,15 +20,13 @@ const { title, description, type } = defineProps<{
   >
     <UCard
       :ui="{
-        ring: '',
-        divide: 'divide-gray-100 dark:divide-gray-100',
-        background: 'bg-white dark:bg-white',
+        background: 'bg-white dark:bg-dark',
         rounded: 'rounded-xl',
       }"
     >
       <template #header>
         <div class="flex items-center justify-between gap-2">
-          <h2 class="text-lg text-primary-500">{{ title }}</h2>
+          <h2 class="text-lg text-primary-500 lg:text-2xl">{{ title }}</h2>
           <UButton
             label="Cerrar"
             color="primary"
@@ -42,7 +40,7 @@ const { title, description, type } = defineProps<{
 
       <div v-if="type === 'plans'">
         <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
-          <div class="grid md:grid-cols-3 gap-8 max-w-full">
+          <div class="grid md:grid-cols-4 gap-8 max-w-full">
             <UCard
               v-for="{ title, description, prices } in plans"
               :ui="{
@@ -68,28 +66,37 @@ const { title, description, type } = defineProps<{
                     </section>
                   </section>
                 </div>
-
-                <section class="hidden justify-between gap-4 flex-col mt-8">
-                  <UButton
-                    label="Ordenar"
-                    size="lg"
-                    class="justify-center w-full mx-auto text-lg z-10"
-                    color="primary"
-                    to="https://wa.me/c/5216648161284"
-                  >
-                    <template #trailing>
-                      <Icon name="heroicons:rocket-launch" size="24" />
-                    </template>
-                  </UButton>
-                </section>
               </section>
             </UCard>
           </div>
+
+          <section class="mt-8">
+            <UCard>
+              <template #header>
+                <h2 class="text-3xl text-primary-500">¿Tienes dieta de tu nutriólo(a)?</h2>
+              </template>
+              <p class="pt-2 text-lg">
+                Si tienes una dieta especial de tu nutriólogo(a) y quieres seguirla, contáctanos para que podamos
+                adaptarla a nuestros planes.
+              </p>
+
+              <section class="mt-8 flex justify-center">
+                <UButton
+                  label="Contactar"
+                  icon="i-heroicons-device-phone-mobile"
+                  size="lg"
+                  color="primary"
+                  to="https://wa.me/c/5216648161284"
+                  class="justify-center"
+                />
+              </section>
+            </UCard>
+          </section>
         </UContainer>
       </div>
 
       <!-- <h3 class="text-primary mb-2 text-xl"></h3> -->
-      <p v-if="type === 'delivery'" class="text-gray-950 text-lg">{{ description }}</p>
+      <p v-if="type === 'delivery'" class="text-lg">{{ description }}</p>
     </UCard>
   </UModal>
 </template>

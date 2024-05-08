@@ -334,15 +334,18 @@ export const sideOptions = [
 
 export const plans = [
   {
-    title: 'Plan de desayunos',
+    title: 'Plan desayunos',
     type: 'breakfast',
-    cover:
-      'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
-    description: 'Desayunos nutritivos para comenzar el día con energía.',
+    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    description: 'Desayunos nutritivos para comenzar bien el día.',
     prices: [
       {
         name: '3 días',
         price: 400,
+      },
+      {
+        name: '4 días',
+        price: 500,
       },
       {
         name: '5 días',
@@ -351,15 +354,18 @@ export const plans = [
     ],
   },
   {
-    title: 'Plan de comidas',
+    title: 'Plan comidas',
     type: 'lunch',
-    cover:
-      'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
-    description: 'Comidas saludables para disfrutar en la oficina o en casa.',
+    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    description: 'Comidas saludables para disfrutar en cualquier lugar.',
     prices: [
       {
         name: '3 días',
         price: 500,
+      },
+      {
+        name: '4 días',
+        price: 600,
       },
       {
         name: '5 días',
@@ -368,10 +374,9 @@ export const plans = [
     ],
   },
   {
-    title: 'Plan de cenas',
+    title: 'Plan cenas',
     type: 'dinner',
-    cover:
-      'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
     description: 'Termina el día con una cena casera, ligera y saludable.',
     prices: [
       {
@@ -379,8 +384,24 @@ export const plans = [
         price: 450,
       },
       {
+        name: '4 días',
+        price: 550,
+      },
+      {
         name: '5 días',
         price: 650,
+      },
+    ],
+  },
+  {
+    title: 'Plan toda la semana',
+    type: 'full-week',
+    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    description: 'Desayunos, comidas y cenas para toda la semana.',
+    prices: [
+      {
+        name: '5 días',
+        price: 1900,
       },
     ],
   },
