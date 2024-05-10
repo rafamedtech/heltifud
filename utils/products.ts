@@ -338,6 +338,8 @@ export const plans = [
     type: 'breakfast',
     cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1715308238/heltifud/IMG_1698_Large_pgmvgu.jpg',
     description: 'Desayunos nutritivos para comenzar bien el día.',
+    link: 'https://wa.me/p/7399912683381643/5216648161284',
+    // link: 'https://wa.link/hrrhl8',
     prices: [
       {
         name: '3 días',
@@ -358,6 +360,8 @@ export const plans = [
     type: 'lunch',
     cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1715308238/heltifud/IMG_1704_Large_k5jt5v.jpg',
     description: 'Comidas saludables para disfrutar en cualquier lugar.',
+    link: 'https://wa.me/p/5561827923940940/5216648161284',
+    // link: 'https://wa.link/9x9hbm',
     prices: [
       {
         name: '3 días',
@@ -378,6 +382,8 @@ export const plans = [
     type: 'dinner',
     cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1715308239/heltifud/IMG_1709_Large_nfmo3s.jpg',
     description: 'Termina el día con una cena casera, ligera y saludable.',
+    link: 'https://wa.me/p/6970608749682993/5216648161284',
+    // link: 'https://wa.link/furglh',
     prices: [
       {
         name: '3 días',
@@ -398,6 +404,8 @@ export const plans = [
     type: 'full-week',
     cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
     description: 'Desayunos, comidas y cenas para toda la semana.',
+    link: 'https://wa.me/p/7283276145098092/5216648161284',
+    // link: 'https://wa.link/nj2aug',
     prices: [
       {
         name: '5 días',

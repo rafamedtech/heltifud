@@ -48,7 +48,7 @@ useHead({
       />
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
         <UCard
-          v-for="{ title, description, prices, cover } in plans"
+          v-for="{ title, description, prices, cover, link } in plans"
           :ui="{
             header: { padding: 'py-0 px-0 sm:p-0' },
             body: { base: 'min-h-full ' },
@@ -76,15 +76,14 @@ useHead({
 
             <section class="flex justify-between gap-4 flex-col mt-8">
               <UButton
-                label="Ordenar"
+                label="Ordenar por WhatsApp"
+                icon="i-heroicons-device-phone-mobile"
+                trailing
                 size="lg"
-                class="justify-center w-full mx-auto text-lg z-10"
+                class="justify-center w-fit text-lg md:text-sm md:w-full mx-auto z-10"
                 color="primary"
-                to="https://wa.me/c/5216648161284"
+                :to="link"
               >
-                <template #trailing>
-                  <Icon name="heroicons:rocket-launch" size="24" />
-                </template>
               </UButton>
             </section>
           </section>
@@ -94,7 +93,7 @@ useHead({
       <section class="mt-8">
         <UCard :ui="{ background: 'dark:bg-gray-950', rounded: 'rounded-xl' }">
           <template #header>
-            <h2 class="text-3xl text-primary-500">¿Tienes dieta de tu nutriólo(a)?</h2>
+            <h2 class="text-3xl text-primary-500">¿Tienes dieta de tu nutriólogo(a)?</h2>
           </template>
           <p class="pt-2 text-lg">
             Si tienes una dieta especial de tu nutriólogo(a) y quieres seguirla, contáctanos para que podamos adaptarla
@@ -102,14 +101,24 @@ useHead({
           </p>
 
           <section class="mt-8 flex justify-center">
-            <UButton
+            <!-- <UButton
               label="Contactar"
               icon="i-heroicons-device-phone-mobile"
               size="lg"
               color="primary"
-              to="https://wa.me/c/5216648161284"
+              to="https://wa.link/o3gf57"
               class="justify-center"
-            />
+            /> -->
+            <UButton
+              label="Cotizar plan personalizado"
+              icon="i-heroicons-device-phone-mobile"
+              trailing
+              size="lg"
+              class="justify-center w-fit text-lg md:text-sm mx-auto z-10"
+              color="primary"
+              to="https://wa.link/o3gf57"
+            >
+            </UButton>
           </section>
         </UCard>
       </section>

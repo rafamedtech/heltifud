@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import background from '@/assets/img/background.jpg';
+// import background from '@/assets/img/background.jpg';
 
 const { title, description, type } = defineProps<{
   title: string;
