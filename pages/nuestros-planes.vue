@@ -17,14 +17,15 @@ onMounted(() => {
       />
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
         <UCard
-          v-for="{ title, description, prices } in plans"
+          v-for="{ title, description, prices, cover } in plans"
           :ui="{
             header: { padding: 'py-0 px-0 sm:p-0' },
             body: { base: 'min-h-full ' },
+            rounded: 'rounded-xl',
           }"
-          class="relative flex-col justify-center rounded-2xl"
+          class="relative flex-col justify-center"
         >
-          <img :src="background" class="absolute w-full h-full object-cover rounded-2xl inset-0 z-0" />
+          <img :src="cover" class="absolute w-full h-full object-cover rounded-xl inset-0 z-0 brightness-[0.40]" />
 
           <section class="min-h-full flex flex-col justify-between lg:h-[20rem]">
             <div>
@@ -60,7 +61,7 @@ onMounted(() => {
       </div>
 
       <section class="mt-8">
-        <UCard>
+        <UCard :ui="{ background: 'dark:bg-gray-950', rounded: 'rounded-xl' }">
           <template #header>
             <h2 class="text-3xl text-primary-500">¿Tienes dieta de tu nutriólo(a)?</h2>
           </template>

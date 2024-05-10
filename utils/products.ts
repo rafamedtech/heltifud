@@ -336,7 +336,7 @@ export const plans = [
   {
     title: 'Plan desayunos',
     type: 'breakfast',
-    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1715308238/heltifud/IMG_1698_Large_pgmvgu.jpg',
     description: 'Desayunos nutritivos para comenzar bien el día.',
     prices: [
       {
@@ -356,7 +356,7 @@ export const plans = [
   {
     title: 'Plan comidas',
     type: 'lunch',
-    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1715308238/heltifud/IMG_1704_Large_k5jt5v.jpg',
     description: 'Comidas saludables para disfrutar en cualquier lugar.',
     prices: [
       {
@@ -376,7 +376,7 @@ export const plans = [
   {
     title: 'Plan cenas',
     type: 'dinner',
-    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1703806547/heltifud/meals_m3isqa.jpg',
+    cover: 'https://res.cloudinary.com/rafamed-dev/image/upload/v1715308239/heltifud/IMG_1709_Large_nfmo3s.jpg',
     description: 'Termina el día con una cena casera, ligera y saludable.',
     prices: [
       {
