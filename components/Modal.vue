@@ -42,14 +42,14 @@ const { title, description, type } = defineProps<{
         <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
           <div class="grid md:grid-cols-4 gap-8 max-w-full">
             <UCard
-              v-for="{ title, description, prices } in plans"
+              v-for="{ title, description, prices, cover } in plans"
               :ui="{
                 header: { padding: 'py-0 px-0 sm:p-0' },
                 body: { base: 'min-h-full ' },
               }"
               class="relative flex-col justify-center rounded-2xl"
             >
-              <img :src="background" class="absolute w-full h-full object-cover rounded-2xl inset-0 z-0" />
+              <img :src="cover" class="absolute w-full h-full object-cover rounded-2xl inset-0 z-0 brightness-[.40]" />
 
               <section class="min-h-full flex flex-col justify-between lg:h-[20rem]">
                 <div>
