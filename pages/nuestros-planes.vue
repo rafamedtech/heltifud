@@ -6,6 +6,37 @@ const isLoading = ref(true);
 onMounted(() => {
   isLoading.value = false;
 });
+
+useHead({
+  title: 'Heltifud Meal preps | Todos nuestros planes',
+  meta: [
+    {
+      name: 'description',
+      content: 'Conoce todos nuestros planes y elige el que más se adapte a tus necesidades.',
+    },
+    // Facebook Meta tags
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:url',
+      content: 'https://heltifud.com/nuestros-planes',
+    },
+    {
+      property: 'og:title',
+      content: 'Heltifud Meal preps | Todos nuestros planes',
+    },
+    {
+      property: 'og:description',
+      content: 'Conoce todos nuestros planes y elige el que más se adapte a tus necesidades.',
+    },
+    {
+      property: 'og:image',
+      content: 'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
+    },
+  ],
+});
 </script>
 
 <template>

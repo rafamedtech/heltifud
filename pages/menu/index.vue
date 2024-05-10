@@ -7,7 +7,7 @@
 const { data: menu, pending } = await useFetch<WeeklyMenu>('/api/menu');
 
 useHead({
-  title: 'Menú de la semana | Heltifud Meal preps',
+  title: 'Heltifud Meal preps | Menú de la semana',
   meta: [
     {
       name: 'description',
@@ -24,7 +24,7 @@ useHead({
     },
     {
       property: 'og:title',
-      content: 'Heltifud Meal preps',
+      content: 'Heltifud Meal preps | Menú de la semana',
     },
     {
       property: 'og:description',

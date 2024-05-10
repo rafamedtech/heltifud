@@ -7,11 +7,11 @@ const { steps } = useSteps();
 onMounted(() => (isLoading.value = false));
 
 useHead({
-  title: 'Menú de la semana | Heltifud Meal preps',
+  title: 'Heltifud Meal preps | Inicio',
   meta: [
     {
       name: 'description',
-      content: 'Este es nuestro menú para la próxima semana.',
+      content: 'Servicio de comidas saludables y caseras a domicilio.',
     },
     // Facebook Meta tags
     {
@@ -20,15 +20,15 @@ useHead({
     },
     {
       property: 'og:url',
-      content: 'https://heltifud.com/menu',
+      content: 'https://heltifud.com',
     },
     {
       property: 'og:title',
-      content: 'Heltifud Meal preps',
+      content: 'Heltifud Meal preps | Inicio',
     },
     {
       property: 'og:description',
-      content: 'Este es nuestro menú para la próxima semana.',
+      content: 'Servicio de comidas saludables y caseras a domicilio',
     },
     {
       property: 'og:image',
