@@ -1,4 +1,4 @@
-export const menuDate = '13 Mayo - 17 Mayo';
+export const menuDate = '20 Mayo - 24 Mayo';
 
 export const links = [
   [

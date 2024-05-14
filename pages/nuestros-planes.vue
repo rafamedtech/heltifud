@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import background from '@/assets/img/background.jpg';
-
-const isLoading = ref(true);
-
-onMounted(() => {
-  isLoading.value = false;
-});
-
 useHead({
   title: 'Heltifud Meal preps | Todos nuestros planes',
   meta: [
@@ -101,14 +93,6 @@ useHead({
           </p>
 
           <section class="mt-8 flex justify-center">
-            <!-- <UButton
-              label="Contactar"
-              icon="i-heroicons-device-phone-mobile"
-              size="lg"
-              color="primary"
-              to="https://wa.link/o3gf57"
-              class="justify-center"
-            /> -->
             <UButton
               label="Cotizar plan personalizado"
               icon="i-heroicons-device-phone-mobile"
@@ -123,13 +107,5 @@ useHead({
         </UCard>
       </section>
     </UContainer>
-    <!-- <MainSection :loading="isLoading">
-    <template #heading>
-    </template>
-
-    <template #content>
-
-    </template>
-  </MainSection> -->
   </main>
 </template>
