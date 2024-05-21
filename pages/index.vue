@@ -83,17 +83,18 @@ useHead({
         <div class="flex justify-center md:justify-start">
           <UButton
             label="Ver planes"
-            size="lg"
+            size="xl"
             to="/nuestros-planes"
             class="bg-primary-500"
             icon="i-heroicons-list-bullet-20-solid"
+            trailing
           />
         </div>
       </UContainer>
     </section>
 
     <UContainer as="section" class="pt-8" :ui="{ constrained: 'max-w-6xl' }">
-      <article class="pt-8">
+      <article>
         <h2 class="text-primary-500 text-3xl">¿Por qué elegirnos?</h2>
       </article>
       <section class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8 justify-between">
@@ -138,7 +139,7 @@ useHead({
         </p>
 
         <div class="flex justify-center">
-          <UButton label="Ordenar" icon="i-heroicons-rocket-launch" to="/ordenar" size="lg" />
+          <UButton label="Ordenar por WhatsApp" icon="i-heroicons-rocket-launch" to="/ordenar" size="xl" trailing />
         </div>
       </div>
     </section>

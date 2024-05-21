@@ -61,3 +61,10 @@ export function indexName(index: number) {
   if (index === 4) return 'Jue';
   if (index === 5) return 'Vie';
 }
+
+export function indexPlans(index: number) {
+  if (index === 1) return 'Desayuno';
+  if (index === 2) return 'Comida';
+  if (index === 3) return 'Cena';
+  if (index === 4) return 'Todos';
+}

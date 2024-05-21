@@ -24,7 +24,7 @@ const { title, description, image, button } = step;
 
     <template #footer>
       <section class="flex items-center justify-center">
-        <UButton :label="button.label" size="xl" :icon="button.icon" @click="button.click" />
+        <UButton :label="button.label" size="xl" :icon="button.icon" @click="button.click" trailing />
       </section>
     </template>
   </UCard>
