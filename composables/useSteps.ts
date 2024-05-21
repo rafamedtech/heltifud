@@ -21,7 +21,7 @@ export function useSteps() {
       title: 'Realiza tu pedido',
       description: 'Realiza tu pedido a través de WhatsApp.',
       button: {
-        label: 'Realizar pedido',
+        label: '¡Ordenar ahora!',
         icon: 'i-heroicons-rocket-launch',
         click: () => navigateTo('https://wa.me/c/5216648161284', { external: true }),
       },

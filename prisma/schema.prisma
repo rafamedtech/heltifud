@@ -11,39 +11,106 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Expense {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  date      DateTime?
-  type      String
-  concept   String
-  price     Float
-  category  String
-  ticket    String
+model Menu {
+  id        Int        @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  weekMenus WeekMenu[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
 }
 
-model Day {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
-  breakfast Meal[]   @relation("BreakfastMeals")
-  lunch     Meal[]   @relation("LunchMeals")
-  dinner    Meal[]   @relation("DinnerMeals")
+model WeekMenu {
+  id          Int       @id @default(autoincrement())
+  menuId      Int
+  dayOfWeek   DayOfWeek
+  breakfastId Int?      @unique
+  lunchId     Int?      @unique
+  dinnerId    Int?      @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  menu      Menu  @relation(fields: [menuId], references: [id])
+  breakfast Meal? @relation("Breakfast", fields: [breakfastId], references: [id])
+  lunch     Meal? @relation("Lunch", fields: [lunchId], references: [id])
+  dinner    Meal? @relation("Dinner", fields: [dinnerId], references: [id])
 }
 
 model Meal {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  name           String
-  calories       Int
-  type           String
-  breakfastDayId String?
-  lunchDayId     String?
-  dinnerDayId    String?
-  breakfastDay   Day?     @relation("BreakfastMeals", fields: [breakfastDayId], references: [id])
-  lunchDay       Day?     @relation("LunchMeals", fields: [lunchDayId], references: [id])
-  dinnerDay      Day?     @relation("DinnerMeals", fields: [dinnerDayId], references: [id])
+  id         Int      @id @default(autoincrement())
+  mainDishId Int
+  side1Id    Int?
+  side2Id    Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  mainDish Dish? @relation("mainDish", fields: [mainDishId], references: [id])
+  side1    Dish? @relation("side1", fields: [side1Id], references: [id])
+  side2    Dish? @relation("side2", fields: [side2Id], references: [id])
+
+  WeekMenuBreakfast WeekMenu? @relation("Breakfast")
+  WeekMenuLunch     WeekMenu? @relation("Lunch")
+  WeekMenuDinner    WeekMenu? @relation("Dinner")
+}
+
+model Dish {
+  id           Int      @id @default(autoincrement())
+  name         String
+  cover        String?
+  calories     Int
+  type         DishType
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+  MealMainDish Meal[]   @relation("mainDish")
+  MealSide1    Meal[]   @relation("side1")
+  MealSide2    Meal[]   @relation("side2")
+  recipeId     Int
+  Recipe       Recipe   @relation(fields: [recipeId], references: [id])
+}
+
+model Recipe {
+  id          Int          @id @default(autoincrement())
+  name        String
+  cover       String?
+  ingredients Ingredient[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  Dishes      Dish[]
+  description String
+}
+
+model Ingredient {
+  id        Int      @id @default(autoincrement())
+  name      String
+  quantity  String
+  unit      Unit
+  calories  Int
+  protein   Int
+  fat       Int
+  carbs     Int
+  recipeId  Int
+  Recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+}
+
+enum DishType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SIDE
+}
+
+enum Unit {
+  GRAMOS
+  MILILITROS
+  PIEZAS
 }

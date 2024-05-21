@@ -26,23 +26,25 @@ const darkModeIcon = computed(() => (isDark.value ? 'i-heroicons-sun-solid' : 'i
         />
 
         <section class="flex gap-4 items-center">
-          <UButton
-            :icon="darkModeIcon"
-            variant="ghost"
-            color="gray"
-            size="xl"
-            :ui="{
-              inline: 'flex-col',
-              rounded: 'rounded-xl',
-              color: {
-                gray: {
-                  ghost: 'text-gray-200 hover:text-gray-200 hover:bg-gray-800',
+          <ClientOnly>
+            <UButton
+              :icon="darkModeIcon"
+              variant="ghost"
+              color="gray"
+              size="xl"
+              :ui="{
+                inline: 'flex-col',
+                rounded: 'rounded-xl',
+                color: {
+                  gray: {
+                    ghost: 'text-gray-200 hover:text-gray-200 hover:bg-gray-800',
+                  },
                 },
-              },
-            }"
-            class="flex-1"
-            @click="toggleDark()"
-          />
+              }"
+              class="flex-1"
+              @click="toggleDark()"
+            />
+          </ClientOnly>
 
           <UButton
             label="Ordenar"

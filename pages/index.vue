@@ -1,8 +1,35 @@
 <script setup lang="ts">
 import deliveryTruck from '@/assets/img/deliverytruck.svg';
+import comodidad from '@/assets/img/benefits/comodidad.svg';
+import salud from '@/assets/img/benefits/salud.svg';
+import variedad from '@/assets/img/benefits/variedad.svg';
+import personalizacion from '@/assets/img/benefits/personalizacion.svg';
 const isLoading = ref(true);
 
 const { steps } = useSteps();
+
+const benefits = [
+  {
+    title: 'Comodidad',
+    description: 'Olvídate de las compras y el tiempo en la cocina. Nosotros lo hacemos por ti.',
+    img: comodidad,
+  },
+  {
+    title: 'Salud',
+    description: 'Menús diseñados para mantener una dieta equilibrada y nutritiva.',
+    img: salud,
+  },
+  {
+    title: 'Variedad',
+    description: 'Nuevos menús cada semana para mantener tu dieta interesante y deliciosa.',
+    img: variedad,
+  },
+  {
+    title: 'Personalización',
+    description: 'Adapta tus comidas a tus necesidades y preferencias.',
+    img: personalizacion,
+  },
+];
 
 onMounted(() => (isLoading.value = false));
 
@@ -46,10 +73,10 @@ useHead({
       <UContainer class="text-center z-10 md:text-left w-full" :ui="{ constrained: 'max-w-6xl' }">
         <section class="lg:w-2/3">
           <h1 class="sm:text-4xl lg:text-5xl text-3xl mb-4 font-semibold text-primary-500">
-            Donde lo saludable se encuentra con lo delicioso
+            ¡Comidas saludables, directo a tu puerta!
           </h1>
           <p class="mb-8 leading-relaxed text-lg lg:text-xl text-white">
-            Recibe tus comidas para toda la semana en la comodidad de tu hogar.
+            Transforma tu alimentación con comidas caseras, equilibradas y deliciosas, sin complicaciones.
           </p>
         </section>
 
@@ -66,25 +93,34 @@ useHead({
     </section>
 
     <UContainer as="section" class="pt-8" :ui="{ constrained: 'max-w-6xl' }">
-      <article class="pb-8 md:flex md:gap-8 md:items-center md:py-24">
-        <div>
-          <h2 class="text-primary-500 text-3xl">¿Qué es Heltifud Meal preps?</h2>
-          <p class="pt-2 text-lg">
-            Somos un servicio que ofrece comidas saludables y caseras. Todos nuestros platillos están preparados con
-            ingredientes frescos y pensados para apoyar un estilo de vida saludable.
-          </p>
-        </div>
-        <img :src="deliveryTruck" alt="" class="md:w-1/2 pt-8 md:pt-0 mx-auto" />
+      <article class="pt-8">
+        <h2 class="text-primary-500 text-3xl">¿Por qué elegirnos?</h2>
       </article>
+      <section class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8 justify-between">
+        <UCard v-for="benefit in benefits" :ui="{ rounded: 'rounded-xl' }">
+          <section class="flex flex-col gap-2">
+            <!-- <img :src="benefit.img" :alt="benefit.title" class="h-40" /> -->
+            <figure class="w-56 h-56 mx-auto">
+              <img :src="benefit.img" :alt="benefit.title" class="w-full h-full" />
+            </figure>
+            <h3 class="text-primary text-2xl">{{ benefit.title }}</h3>
+            <p class="text-lg">{{ benefit.description }}</p>
+          </section>
+        </UCard>
+      </section>
+      <!-- <article class="pb-2 md:flex flex-col md:gap-8 md:items-center md:py-24">
+        <h2 class="text-primary-500 text-3xl">¿Por qué elegirnos?</h2>
+      </article> -->
+
       <article class="pt-8">
         <h2 class="text-primary-500 text-3xl">¿Cómo funciona el servicio?</h2>
         <p class="lg:w-1/2 pt-2 text-lg">
-          Nuestro servicio es muy sencillo, solo sigue estos pasos y recibe tus comidas en la comodidad de tu hogar.
+          Para recibir tus meal preps a la puerta de tu hogar sólo sigue los siguientes pasos:
         </p>
       </article>
 
       <section>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8 justify-between">
           <StepCard v-for="step in steps" :step="step" :key="step.title" />
         </div>
       </section>

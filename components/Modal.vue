@@ -28,7 +28,7 @@ const { title, description, type } = defineProps<{
         <div class="flex items-center justify-between gap-2">
           <h2 class="text-lg text-primary-500 lg:text-2xl">{{ title }}</h2>
           <UButton
-            label="Cerrar"
+            label="Regresar"
             color="primary"
             icon="i-heroicons-arrow-left-on-rectangle-solid"
             size="md"
@@ -39,7 +39,7 @@ const { title, description, type } = defineProps<{
       </template>
 
       <div v-if="type === 'plans'">
-        <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
+        <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl', padding: 'py-0 px-0 sm:p-0' }">
           <div class="grid md:grid-cols-4 gap-8 max-w-full">
             <UCard
               v-for="{ title, description, prices, cover } in plans"
@@ -98,6 +98,19 @@ const { title, description, type } = defineProps<{
 
       <!-- <h3 class="text-primary mb-2 text-xl"></h3> -->
       <p v-if="type === 'delivery'" class="text-lg">{{ description }}</p>
+
+      <template #footer>
+        <div class="flex items-center justify-center gap-2">
+          <UButton
+            label="Regresar"
+            color="primary"
+            icon="i-heroicons-arrow-left-on-rectangle-solid"
+            size="md"
+            class="-my-1"
+            @click="useModal().close"
+          />
+        </div>
+      </template>
     </UCard>
   </UModal>
 </template>
