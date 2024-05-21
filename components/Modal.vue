@@ -26,10 +26,11 @@ const { title, description, type } = defineProps<{
     >
       <template #header>
         <div class="flex items-center justify-between gap-2">
-          <h2 class="text-lg text-primary-500 lg:text-2xl">{{ title }}</h2>
+          <h2 class="text-xl text-primary-500 lg:text-2xl">{{ title }}</h2>
           <UButton
             label="Regresar"
-            color="primary"
+            color="gray"
+            variant="outline"
             icon="i-heroicons-arrow-left-on-rectangle-solid"
             size="md"
             class="-my-1"
@@ -136,7 +137,7 @@ const { title, description, type } = defineProps<{
                 <UButton
                   label="Contactar"
                   icon="i-heroicons-device-phone-mobile"
-                  size="lg"
+                  size="xl"
                   color="primary"
                   to="https://wa.me/c/5216648161284"
                   class="justify-center"

@@ -3,5 +3,7 @@
 ## TODO
 
 - [x] Carrousel with plans in modal
-- [] Delete back button in modal footer
+- [x] Delete back button in modal footer
+- [x] Fetch menu from Google Sheets
+- [] Save new menu in supabase
 - [] Fetch menu from supabase

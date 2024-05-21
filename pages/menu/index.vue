@@ -4,7 +4,7 @@
 // );
 // JSON.parse(JSON.stringify(menu.value));
 
-const { data: menu, pending } = await useFetch<WeeklyMenu>('/api/menu');
+const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
 
 useHead({
   title: 'Heltifud Meal preps | Menú de la semana',

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { data: menu } = await useFetch('/api/weekly-menu');
+// const { data: menu } = await useFetch('/api/weekly-menu');
+const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
 </script>
 
 <template>

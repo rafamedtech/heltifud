@@ -49,6 +49,7 @@ const darkModeIcon = computed(() => (isDark.value ? 'i-heroicons-sun-solid' : 'i
           <UButton
             label="Ordenar"
             icon="i-heroicons-rocket-launch"
+            trailing
             class="hidden lg:flex"
             size="lg"
             to="https://wa.me/c/5216648161284"
