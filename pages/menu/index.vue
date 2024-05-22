@@ -1,10 +1,6 @@
 <script setup lang="ts">
-// const { data: menu, pending } = await useFetch<WeeklyMenu>(
-//   'https://script.google.com/macros/s/AKfycby259dgbinrdic5-e72t4LRpynFvlYaxQChqoPJ-Z5AaqSjLFq5cU-a-kEXC1zYdOCX/exec'
-// );
-// JSON.parse(JSON.stringify(menu.value));
-
-const { data: menu } = await useFetch<WeeklyMenu>('/api/menu');
+const { data: menu } = await useFetch<Menu>('/api/current-menu');
+const weeklyMenu = menu.value?.weekMenus as WeeklyMenu;
 
 useHead({
   title: 'Heltifud Meal preps | Menú de la semana',
@@ -41,7 +37,10 @@ useHead({
 <template>
   <main>
     <UContainer as="section" :ui="{ base: 'py-8', constrained: 'max-w-6xl' }">
-      <AppHeading title="Menú de la semana" :description="menuDate" />
+      <AppHeading
+        title="Menú de la semana"
+        :description="`${formatDate(menu.startDate)} - ${formatDate(menu.endDate)}`"
+      />
       <section class="lg:hidden flex justify-center mt-8">
         <UButton
           label="Ordenar"
@@ -53,7 +52,7 @@ useHead({
       </section>
       <section class="mt-8 pb-8 px-2">
         <UCarousel
-          :items="menu"
+          :items="weeklyMenu"
           :ui="{
             item: 'basis-full',
             container: 'rounded-xl  mx-auto',
@@ -68,11 +67,11 @@ useHead({
             <UCard class="w-full py-4 relative" :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }">
               <img :src="background" class="absolute w-full h-full object-cover inset-0 rounded-xl z-0" />
               <section class="relative z-10">
-                <h3 class="text-3xl text-center font-bold text-white">{{ item.day }}</h3>
+                <h3 class="text-3xl text-center font-bold text-white capitalize">{{ item.dayOfWeek }}</h3>
                 <section class="flex flex-col gap-4">
-                  <Course label="Desayuno" :item="item.desayuno" />
-                  <Course label="Comida" :item="item.comida" />
-                  <Course label="Cena" :item="item.cena" />
+                  <Course label="Desayuno" :item="item.breakfast" />
+                  <Course label="Comida" :item="item.lunch" />
+                  <Course label="Cena" :item="item.dinner" />
                 </section>
               </section>
             </UCard>
@@ -90,15 +89,6 @@ useHead({
           </template>
         </UCarousel>
       </section>
-      <!-- <MainSection :loading="pending">
-    <template #heading>
-    </template>
-
-
-    <template #content>
-
-    </template>
-  </MainSection> -->
     </UContainer>
   </main>
 </template>

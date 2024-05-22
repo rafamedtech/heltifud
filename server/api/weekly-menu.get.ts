@@ -10,11 +10,7 @@ export default defineEventHandler(async (event) => {
     include: {
       breakfast: {
         include: {
-          mainDish: {
-            include: {
-              Recipe: true,
-            },
-          },
+          mainDish: true,
           side1: true,
           side2: true,
         },

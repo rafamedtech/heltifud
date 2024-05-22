@@ -25,6 +25,10 @@ export const dateOptions: Intl.DateTimeFormatOptions = {
   month: 'short',
   day: 'numeric',
 };
+export const shortDateOptions: Intl.DateTimeFormatOptions = {
+  month: 'short',
+  day: 'numeric',
+};
 
 export const expenseOptions = ['Todas', 'Gasto', 'Ingreso'];
 
@@ -52,6 +56,10 @@ export function transformPrice(item: number): string {
     style: 'currency',
     currency: 'MXN',
   }).format(item);
+}
+
+export function formatDate(date: string): string {
+  return new Date(date).toLocaleDateString('es-MX', shortDateOptions);
 }
 
 export function indexName(index: number) {

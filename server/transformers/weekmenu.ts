@@ -10,7 +10,7 @@ export function weekMenuTransformer(weekMenu: any) {
   }));
 }
 
-function mealTransformer(meal: any) {
+export function mealTransformer(meal: any) {
   return {
     mainDish: dishTransformer(meal.mainDish),
     side1: dishTransformer(meal.side1),
@@ -18,7 +18,7 @@ function mealTransformer(meal: any) {
   };
 }
 
-function dishTransformer(dish: any) {
+export function dishTransformer(dish: any) {
   if (!dish) return null;
   return {
     name: dish.name,

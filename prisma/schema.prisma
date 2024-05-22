@@ -64,42 +64,14 @@ model Dish {
   MealMainDish Meal[]   @relation("mainDish")
   MealSide1    Meal[]   @relation("side1")
   MealSide2    Meal[]   @relation("side2")
-  recipeId     Int
-  Recipe       Recipe   @relation(fields: [recipeId], references: [id])
-}
-
-model Recipe {
-  id          Int          @id @default(autoincrement())
-  name        String
-  cover       String?
-  ingredients Ingredient[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now()) @updatedAt
-  Dishes      Dish[]
-  description String
-}
-
-model Ingredient {
-  id        Int      @id @default(autoincrement())
-  name      String
-  quantity  String
-  unit      Unit
-  calories  Int
-  protein   Int
-  fat       Int
-  carbs     Int
-  recipeId  Int
-  Recipe    Recipe   @relation(fields: [recipeId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
 }
 
 enum DayOfWeek {
-  MONDAY
-  TUESDAY
-  WEDNESDAY
-  THURSDAY
-  FRIDAY
+  LUNES
+  MARTES
+  MIERCOLES
+  JUEVES
+  VIERNES
 }
 
 enum DishType {
@@ -107,10 +79,4 @@ enum DishType {
   LUNCH
   DINNER
   SIDE
-}
-
-enum Unit {
-  GRAMOS
-  MILILITROS
-  PIEZAS
 }

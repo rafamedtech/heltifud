@@ -1,5 +1,5 @@
 type Meal = {
-  main: {
+  mainDish: {
     name: string;
     calories: number;
   };
@@ -14,13 +14,20 @@ type Meal = {
 };
 
 type DayMenu = {
-  day: string;
-  desayuno: Meal;
-  comida: Meal;
-  cena: Meal;
+  dayOfWeek: string;
+  breakfast: Meal;
+  lunch: Meal;
+  dinner: Meal;
 };
 
 type WeeklyMenu = DayMenu[];
+
+type Menu = {
+  id: number;
+  startDate: string;
+  endDate: string;
+  weekMenus: WeeklyMenu;
+};
 
 // import type { Day, Meal } from '@prisma/client';
 
