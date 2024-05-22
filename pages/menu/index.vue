@@ -54,8 +54,8 @@ useHead({
         <UCarousel
           :items="weeklyMenu"
           :ui="{
-            item: 'basis-full',
-            container: 'rounded-xl  mx-auto max-h-[35rem]',
+            item: 'basis-full ',
+            container: 'rounded-xl min-h-[35rem] max-h-[35rem] h-full h-fit mx-auto ',
             indicators: {
               wrapper: 'relative bottom-0 mt-4 max-w-full',
             },
@@ -64,11 +64,14 @@ useHead({
           class="lg:w-[20rem] mx-auto"
         >
           <template #default="{ item }">
-            <UCard class="w-full py-4 relative" :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }">
-              <img :src="background" class="absolute w-full h-full object-cover inset-0 rounded-xl z-0" />
-              <section class="relative z-10">
+            <UCard
+              class="w-full py-4 relative h-full min-h-full"
+              :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
+            >
+              <!-- <img :src="background" class="absolute w-full h-full object-cover inset-x-0 rounded-xl z-0" /> -->
+              <section class="relative z-10 min-h-full">
                 <h3 class="text-3xl text-center font-bold text-white capitalize">{{ item.dayOfWeek }}</h3>
-                <section class="flex flex-col gap-4">
+                <section class="flex flex-col gap-2">
                   <Course label="Desayuno" :item="item.breakfast" />
                   <Course label="Comida" :item="item.lunch" />
                   <Course label="Cena" :item="item.dinner" />
