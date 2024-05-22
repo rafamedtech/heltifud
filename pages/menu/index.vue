@@ -69,7 +69,7 @@ useHead({
               :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
             >
               <img :src="background" class="absolute w-full h-full object-cover inset-0 rounded-xl z-0" />
-              <section class="relative z-10">
+              <section class="relative z-10 h-full">
                 <h3 class="text-3xl text-center font-bold text-white capitalize">{{ item.dayOfWeek }}</h3>
                 <section class="flex flex-col gap-4">
                   <Course label="Desayuno" :item="item.breakfast" />
