@@ -2,6 +2,8 @@
 const { data: menu } = await useFetch<Menu>('/api/current-menu');
 const weeklyMenu = menu.value?.weekMenus as WeeklyMenu;
 
+console.log(menu.value);
+
 useHead({
   title: 'Heltifud Meal preps | Menú de la semana',
   meta: [

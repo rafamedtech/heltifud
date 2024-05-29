@@ -35,6 +35,7 @@ export default defineEventHandler(async (event) => {
   // const menu = weekMenuTransformer(weekMenu);
 
   const rawMenu = await prisma.menu.findFirst({
+    where: { id: 2 },
     include: {
       weekMenus: {
         include: {
