@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   assertMethod(event, ['GET']);
 
-  const rawMenu = await prisma.menu.findFirst({
-    where: { id: 3 },
+  const rawMenu = await prisma.menu.findMany({
+    // where: { id: 3 },
     include: {
       weekMenus: {
         include: {
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
   const menu = {
     ...rawMenu,
-    weekMenus: rawMenu?.weekMenus.map((day) => ({
+    weekMenus: rawMenu[-1]?.weekMenus.map((day) => ({
       id: day.id,
       dayOfWeek: day.dayOfWeek,
       breakfast: mealTransformer(day.breakfast),
