@@ -2,37 +2,12 @@
 const { data: menu } = await useFetch<Menu>('/api/current-menu');
 const weeklyMenu = menu.value?.weekMenus as WeeklyMenu;
 
-console.log(menu.value);
-
-useHead({
+useSeoMeta({
   title: 'Heltifud Meal preps | Menú de la semana',
-  meta: [
-    {
-      name: 'description',
-      content: 'Este es nuestro menú para la próxima semana.',
-    },
-    // Facebook Meta tags
-    {
-      property: 'og:type',
-      content: 'website',
-    },
-    {
-      property: 'og:url',
-      content: 'https://heltifud.com/menu',
-    },
-    {
-      property: 'og:title',
-      content: 'Heltifud Meal preps | Menú de la semana',
-    },
-    {
-      property: 'og:description',
-      content: 'Este es nuestro menú para la próxima semana.',
-    },
-    {
-      property: 'og:image',
-      content: 'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
-    },
-  ],
+  description: 'Este es nuestro menú para la próxima semana.',
+  ogDescription: 'Este es nuestro menú para la próxima semana.',
+  ogImage: 'https://cdn.shopify.com/s/files/1/0752/9424/5145/files/logo-horizontal-dark.png?v=1698184121',
+  ogTitle: 'Heltifud Meal preps | Menú de la semana',
 });
 </script>
 

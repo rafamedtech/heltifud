@@ -1,41 +1,13 @@
 import { PrismaClient } from '@prisma/client';
-import { weekMenuTransformer, mealTransformer, dishTransformer } from '../transformers/weekmenu';
-import { raw } from '@prisma/client/runtime/library';
+import { mealTransformer } from '../transformers/weekmenu';
 
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   assertMethod(event, ['GET']);
 
-  // const weekMenu = await prisma.weekMenu.findMany({
-  //   include: {
-  //     breakfast: {
-  //       include: {
-  //         mainDish: true,
-  //         side1: true,
-  //         side2: true,
-  //       },
-  //     },
-  //     lunch: {
-  //       include: {
-  //         mainDish: true,
-  //         side1: true,
-  //         side2: true,
-  //       },
-  //     },
-  //     dinner: {
-  //       include: {
-  //         mainDish: true,
-  //         side1: true,
-  //         side2: true,
-  //       },
-  //     },
-  //   },
-  // });
-  // const menu = weekMenuTransformer(weekMenu);
-
   const rawMenu = await prisma.menu.findFirst({
-    where: { id: 2 },
+    where: { id: 3 },
     include: {
       weekMenus: {
         include: {
