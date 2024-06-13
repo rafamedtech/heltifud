@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
     where: { id: 4 },
     include: {
       weekMenus: {
+        orderBy: { id: 'desc' },
         include: {
           breakfast: { include: { mainDish: true, side1: true, side2: true } },
           lunch: { include: { mainDish: true, side1: true, side2: true } },
