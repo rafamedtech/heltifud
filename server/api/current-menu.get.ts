@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   assertMethod(event, ['GET']);
 
   const rawMenu = await prisma.menu.findFirst({
-    where: { id: 4 },
+    where: { id: 5 },
     include: {
       weekMenus: {
         orderBy: { id: 'asc' },
