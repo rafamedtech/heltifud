@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: menu } = await useFetch<Menu>('/api/current-menu', { lazy: true });
+const { data: menu } = await useFetch<Menu>('/api/current-menu');
 const weeklyMenu = menu.value?.weekMenus as WeeklyMenu;
 
 useSeoMeta({
@@ -28,46 +28,52 @@ useSeoMeta({
         />
       </section>
       <section class="mt-8 pb-8 px-2">
-        <UCarousel
-          :items="weeklyMenu"
-          :ui="{
-            item: 'basis-full ',
-            container: 'rounded-xl min-h-[35rem] max-h-[35rem] h-full h-fit mx-auto',
-            indicators: {
-              wrapper: 'relative bottom-0 mt-4 max-w-full',
-            },
-          }"
-          indicators
-          class="lg:w-[20rem] mx-auto"
-        >
-          <template #default="{ item }">
-            <UCard
-              class="w-full py-4 relative h-full min-h-full"
-              :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
+        <Suspense>
+          <template #default>
+            <UCarousel
+              :items="weeklyMenu"
+              :ui="{
+                item: 'basis-full ',
+                container: 'rounded-xl min-h-[35rem] max-h-[35rem] h-full h-fit mx-auto',
+                indicators: {
+                  wrapper: 'relative bottom-0 mt-4 max-w-full',
+                },
+              }"
+              indicators
+              class="lg:w-[20rem] mx-auto"
             >
-              <img :src="background" class="absolute w-full h-full object-cover inset-0 rounded-xl z-0" />
-              <section class="relative z-10 min-h-full">
-                <h3 class="text-3xl text-center font-bold text-white capitalize">{{ item.dayOfWeek }}</h3>
-                <section class="flex flex-col gap-2">
-                  <Course label="Desayuno" :item="item.breakfast" />
-                  <Course label="Comida" :item="item.lunch" />
-                  <Course label="Cena" :item="item.dinner" />
-                </section>
-              </section>
-            </UCard>
+              <template #default="{ item }">
+                <UCard
+                  class="w-full py-4 relative h-full min-h-full"
+                  :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
+                >
+                  <img :src="background" class="absolute w-full h-full object-cover inset-0 rounded-xl z-0" />
+                  <section class="relative z-10 min-h-full">
+                    <h3 class="text-3xl text-center font-bold text-white capitalize">{{ item.dayOfWeek }}</h3>
+                    <section class="flex flex-col gap-2">
+                      <Course label="Desayuno" :item="item.breakfast" />
+                      <Course label="Comida" :item="item.lunch" />
+                      <Course label="Cena" :item="item.dinner" />
+                    </section>
+                  </section>
+                </UCard>
+              </template>
+
+              <template #indicator="{ onClick, page, active }">
+                <UButton
+                  :label="indexName(page)"
+                  :variant="active ? 'solid' : 'outline'"
+                  size="sm"
+                  class="rounded-xl min-w-6 justify-center"
+                  :color="active ? 'primary' : 'gray'"
+                  @click="onClick(page)"
+                />
+              </template>
+            </UCarousel>
           </template>
 
-          <template #indicator="{ onClick, page, active }">
-            <UButton
-              :label="indexName(page)"
-              :variant="active ? 'solid' : 'outline'"
-              size="sm"
-              class="rounded-xl min-w-6 justify-center"
-              :color="active ? 'primary' : 'gray'"
-              @click="onClick(page)"
-            />
-          </template>
-        </UCarousel>
+          <template #fallback>Loading...</template>
+        </Suspense>
       </section>
     </UContainer>
   </main>
