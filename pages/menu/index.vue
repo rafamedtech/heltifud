@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: menu } = await useFetch<Menu>('/api/current-menu');
+const { data: menu } = await useFetch<Menu>('/api/current-menu', { lazy: true });
 const weeklyMenu = menu.value?.weekMenus as WeeklyMenu;
 
 useSeoMeta({
