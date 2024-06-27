@@ -6,8 +6,22 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   assertMethod(event, ['GET']);
 
+  // const rawMenu = await prisma.menu.findFirst({
+  //   where: { id: 5 },
+  //   include: {
+  //     weekMenus: {
+  //       orderBy: { id: 'asc' },
+  //       include: {
+  //         breakfast: { include: { mainDish: true, side1: true, side2: true } },
+  //         lunch: { include: { mainDish: true, side1: true, side2: true } },
+  //         dinner: { include: { mainDish: true, side1: true, side2: true } },
+  //       },
+  //     },
+  //   },
+  // });
+
   const rawMenu = await prisma.menu.findFirst({
-    where: { id: 5 },
+    orderBy: { id: 'desc' },
     include: {
       weekMenus: {
         orderBy: { id: 'asc' },
