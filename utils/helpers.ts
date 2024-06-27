@@ -1,3 +1,6 @@
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 export const menuDate = '20 Mayo - 24 Mayo';
 
 export const links = [
@@ -58,8 +61,10 @@ export function transformPrice(item: number): string {
   }).format(item);
 }
 
-export function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString('es-MX', shortDateOptions);
+export function formatDate(date: Date | string): string {
+  const newDate = new Date(date);
+  const formattedDate = format(newDate, 'd MMMM', { locale: es });
+  return formattedDate;
 }
 
 export function indexName(index: number) {

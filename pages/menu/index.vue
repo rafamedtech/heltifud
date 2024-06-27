@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 const { data: menu } = await useFetch<Menu>('/api/current-menu');
 const weeklyMenu = menu.value?.weekMenus as WeeklyMenu;
 
