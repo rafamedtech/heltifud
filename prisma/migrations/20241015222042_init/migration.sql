@@ -7,6 +7,8 @@ CREATE TYPE "DishType" AS ENUM ('BREAKFAST', 'LUNCH', 'DINNER', 'SIDE');
 -- CreateTable
 CREATE TABLE "Menu" (
     "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT false,
     "startDate" TIMESTAMP(3) NOT NULL,
     "endDate" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -16,7 +18,7 @@ CREATE TABLE "Menu" (
 );
 
 -- CreateTable
-CREATE TABLE "WeekMenu" (
+CREATE TABLE "DayMenu" (
     "id" SERIAL NOT NULL,
     "menuId" INTEGER NOT NULL,
     "dayOfWeek" "DayOfWeek" NOT NULL,
@@ -26,7 +28,7 @@ CREATE TABLE "WeekMenu" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "WeekMenu_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "DayMenu_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -55,25 +57,25 @@ CREATE TABLE "Dish" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "WeekMenu_breakfastId_key" ON "WeekMenu"("breakfastId");
+CREATE UNIQUE INDEX "DayMenu_breakfastId_key" ON "DayMenu"("breakfastId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "WeekMenu_lunchId_key" ON "WeekMenu"("lunchId");
+CREATE UNIQUE INDEX "DayMenu_lunchId_key" ON "DayMenu"("lunchId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "WeekMenu_dinnerId_key" ON "WeekMenu"("dinnerId");
+CREATE UNIQUE INDEX "DayMenu_dinnerId_key" ON "DayMenu"("dinnerId");
 
 -- AddForeignKey
-ALTER TABLE "WeekMenu" ADD CONSTRAINT "WeekMenu_menuId_fkey" FOREIGN KEY ("menuId") REFERENCES "Menu"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "DayMenu" ADD CONSTRAINT "DayMenu_menuId_fkey" FOREIGN KEY ("menuId") REFERENCES "Menu"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WeekMenu" ADD CONSTRAINT "WeekMenu_breakfastId_fkey" FOREIGN KEY ("breakfastId") REFERENCES "Meal"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "DayMenu" ADD CONSTRAINT "DayMenu_breakfastId_fkey" FOREIGN KEY ("breakfastId") REFERENCES "Meal"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WeekMenu" ADD CONSTRAINT "WeekMenu_lunchId_fkey" FOREIGN KEY ("lunchId") REFERENCES "Meal"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "DayMenu" ADD CONSTRAINT "DayMenu_lunchId_fkey" FOREIGN KEY ("lunchId") REFERENCES "Meal"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WeekMenu" ADD CONSTRAINT "WeekMenu_dinnerId_fkey" FOREIGN KEY ("dinnerId") REFERENCES "Meal"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "DayMenu" ADD CONSTRAINT "DayMenu_dinnerId_fkey" FOREIGN KEY ("dinnerId") REFERENCES "Meal"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Meal" ADD CONSTRAINT "Meal_mainDishId_fkey" FOREIGN KEY ("mainDishId") REFERENCES "Dish"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

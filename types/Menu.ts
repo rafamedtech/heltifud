@@ -1,33 +1,41 @@
-type Meal = {
-  mainDish: {
-    name: string;
-    calories: number;
-  };
-  side1: {
-    name: string;
-    calories: number;
-  };
-  side2: {
-    name: string;
-    calories: number;
-  };
+import type { Menu, Dish } from "@prisma/client";
+
+export type DishType = Dish;
+
+export type Meal = {
+  mainDish: Dish;
+  side1: Dish;
+  side2: Dish;
 };
 
-type DayMenu = {
+export type DayMenu = {
   dayOfWeek: string;
   breakfast: Meal;
   lunch: Meal;
   dinner: Meal;
 };
 
-type WeeklyMenu = DayMenu[];
+export type WeekMenu = Menu & {
+  dayMenus: DayMenu[];
+};
 
-type Menu = {
+export type MenuOutline = {
   id: number;
+  name: string | null | undefined;
   startDate: string;
   endDate: string;
-  weekMenus: WeeklyMenu;
+  isActive: boolean;
+  dayMenus: DayMenu[] | null | undefined;
 };
+
+// type Menu = {
+//   id: number;
+//   startDate: string;
+//   endDate: string;
+//   dayMenus: DayMenu[];
+//   isActive: boolean;
+
+// };
 
 // import type { Day, Meal } from '@prisma/client';
 

@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   assertMethod(event, ['GET']);
 
-  const weekMenu = await prisma.weekMenu.findMany({
+  const weekMenu = await prisma.dayMenu.findMany({
     include: {
       breakfast: {
         include: {

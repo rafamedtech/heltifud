@@ -1,31 +1,19 @@
-import { PrismaClient } from "@prisma/client";
-import { mealTransformer } from "../transformers/weekmenu";
+import { PrismaClient } from '@prisma/client';
+import { mealTransformer } from '../../transformers/weekmenu';
 
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-  assertMethod(event, ["GET"]);
+  assertMethod(event, ['GET']);
 
-  // const rawMenu = await prisma.menu.findFirst({
-  //   orderBy: { id: 'desc' },
-  //   include: {
-  //     dayMenus: {
-  //       orderBy: { id: 'asc' },
-  //       include: {
-  //         breakfast: { include: { mainDish: true, side1: true, side2: true } },
-  //         lunch: { include: { mainDish: true, side1: true, side2: true } },
-  //         dinner: { include: { mainDish: true, side1: true, side2: true } },
-  //       },
-  //     },
-  //   },
-  // });
+  const { id }: any = event.context.params;
 
   const rawMenu = await prisma.menu.findFirst({
-    where: {
-      isActive: true,
-    },
+    where: { id: parseInt(id) },
+    orderBy: { id: 'desc' },
     include: {
       dayMenus: {
+        orderBy: { id: 'asc' },
         include: {
           breakfast: { include: { mainDish: true, side1: true, side2: true } },
           lunch: { include: { mainDish: true, side1: true, side2: true } },
@@ -37,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
   const menu = {
     ...rawMenu,
-    weekMenus: rawMenu?.dayMenus.map((day) => ({
+    dayMenus: rawMenu?.dayMenus.map((day) => ({
       id: day.id,
       dayOfWeek: day.dayOfWeek,
       breakfast: mealTransformer(day.breakfast),

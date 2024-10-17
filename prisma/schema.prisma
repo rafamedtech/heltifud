@@ -12,15 +12,17 @@ datasource db {
 }
 
 model Menu {
-  id        Int        @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
+  name      String
+  isActive  Boolean   @default(false)
   startDate DateTime
   endDate   DateTime
-  weekMenus WeekMenu[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
+  dayMenus  DayMenu[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
 }
 
-model WeekMenu {
+model DayMenu {
   id          Int       @id @default(autoincrement())
   menuId      Int
   dayOfWeek   DayOfWeek
@@ -48,9 +50,9 @@ model Meal {
   side1    Dish? @relation("side1", fields: [side1Id], references: [id])
   side2    Dish? @relation("side2", fields: [side2Id], references: [id])
 
-  WeekMenuBreakfast WeekMenu? @relation("Breakfast")
-  WeekMenuLunch     WeekMenu? @relation("Lunch")
-  WeekMenuDinner    WeekMenu? @relation("Dinner")
+  DayMenuBreakfast DayMenu? @relation("Breakfast")
+  DayMenuLunch     DayMenu? @relation("Lunch")
+  DayMenuDinner    DayMenu? @relation("Dinner")
 }
 
 model Dish {
@@ -79,4 +81,5 @@ enum DishType {
   LUNCH
   DINNER
   SIDE
+  SNACK
 }

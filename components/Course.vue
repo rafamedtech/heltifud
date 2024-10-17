@@ -1,8 +1,12 @@
 <script setup lang="ts">
-const { item } = defineProps<{
+import type { Meal } from '@/types/Menu';
+
+interface Props {
   label: string;
   item: Meal;
-}>();
+}
+
+const { item, label } = defineProps<Props>();
 </script>
 
 <template>
