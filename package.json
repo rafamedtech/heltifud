@@ -15,15 +15,15 @@
     "@pinia/nuxt": "^0.5.1",
     "nuxt": "^3.10.0",
     "nuxt-icon": "^0.6.6",
-    "prettier": "^3.1.0",
-    "prettier-plugin-tailwindcss": "^0.5.7",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@fawmi/vue-google-maps": "^0.9.79",
     "@nuxt/ui": "^2.13.0",
-    "@prisma/client": "^5.14.0",
+    "@prisma/client": "^5.21.1",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.9.0",
     "cloudinary": "^1.41.0",

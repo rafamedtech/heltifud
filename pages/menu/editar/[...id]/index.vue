@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { Dish } from "@prisma/client";
-import type { DayMenu, MenuOutline, WeekMenu } from "@/types/Menu";
+import type { WeekMenu } from "@/types/Menu";
 const { params } = useRoute();
 
 const [id] = params.id;
@@ -31,8 +30,6 @@ const newMenu = reactive({
   startDate: selectedMenu.value?.startDate,
   endDate: selectedMenu.value?.endDate,
 });
-
-console.log(selectedMenu.value);
 </script>
 
 <template>
@@ -41,14 +38,22 @@ console.log(selectedMenu.value);
       <AppHeading title="Actualizar menú" />
 
       <section class="mt-8">
-        <h3 class="text-2xl text-primary">Menu {{ newMenu?.name }}</h3>
+        <!-- <h3 class="text-2xl">Menu {{ newMenu?.name }}</h3> -->
 
         <section
-          class="flex max-w-6xl place-items-center gap-4 overflow-x-scroll pb-8 pt-4"
+          class="grid max-w-6xl place-items-center gap-4 overflow-x-scroll pb-8 pt-4"
         >
-          <UCard
+          <Suspense>
+            <template #fallback>
+              <Icon name="svg-spinners:gooey-balls-2" size="32" />
+            </template>
+            <template #default>
+              <Tabs :menu="newMenu" />
+            </template>
+          </Suspense>
+          <!-- <UCard
             v-for="item in newMenu?.dayMenus"
-            class="relative min-w-[20rem] py-4"
+            class="relative min-w-[12rem] py-4"
             :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
           >
             <img
@@ -65,7 +70,7 @@ console.log(selectedMenu.value);
                 <Meal label="Cena" :item="item.dinner" />
               </section>
             </section>
-          </UCard>
+          </UCard> -->
         </section>
       </section>
     </UContainer>

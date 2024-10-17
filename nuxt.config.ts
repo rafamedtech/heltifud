@@ -23,4 +23,6 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
   },
+
+  compatibilityDate: '2024-10-17',
 });

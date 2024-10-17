@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { WeekMenu, DayMenu } from "@/types/Menu";
+import { background } from "@/utils/helpers";
 
 const downloadedMenu = ref<DayMenu[]>([]);
 
@@ -45,23 +46,24 @@ async function saveMenu() {
         <section
           class="flex max-w-6xl place-items-center gap-4 overflow-x-scroll pb-8 pt-4"
         >
-          <UCard
-            v-for="item in menus"
-            class="relative h-full min-w-[20rem] py-4"
-            :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
-          >
-            <img
-              :src="background"
-              class="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
-            />
-            <NuxtLink :to="`/menu/editar/${item.id}`" class="relative z-10">
-              <div>
-                <h3 class="text-center text-3xl font-bold text-white">
-                  {{ item.name }}
-                </h3>
-              </div>
-            </NuxtLink>
-          </UCard>
+          <NuxtLink v-for="item in menus" :to="`/menu/editar/${item.id}`">
+            <UCard
+              class="relative h-full min-w-[20rem] py-4"
+              :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
+            >
+              <img
+                :src="background"
+                class="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
+              />
+              <section class="relative z-10">
+                <div>
+                  <h3 class="text-center text-3xl font-bold text-white">
+                    {{ item.name }}
+                  </h3>
+                </div>
+              </section>
+            </UCard>
+          </NuxtLink>
         </section>
       </section>
 
@@ -71,26 +73,28 @@ async function saveMenu() {
         <section
           class="flex max-w-6xl place-items-center gap-4 overflow-x-scroll pb-8 pt-4"
         >
-          <UCard
-            v-for="item in currentMenu?.dayMenus"
-            class="relative min-w-[20rem] py-4"
-            :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
-          >
-            <img
-              :src="background"
-              class="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
-            />
-            <section class="relative z-10">
-              <h3 class="text-center text-3xl font-bold text-white">
-                {{ item.dayOfWeek }}
-              </h3>
-              <section class="flex flex-col gap-2">
-                <Course label="Desayuno" :item="item.breakfast" />
-                <Course label="Comida" :item="item.lunch" />
-                <Course label="Cena" :item="item.dinner" />
+          <ClientOnly>
+            <UCard
+              v-for="item in currentMenu?.dayMenus"
+              class="relative min-w-[20rem] py-4"
+              :ui="{ background: 'bg-gray-900', rounded: 'rounded-xl' }"
+            >
+              <img
+                :src="background"
+                class="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
+              />
+              <section class="relative z-10">
+                <h3 class="text-center text-3xl font-bold text-white">
+                  {{ item.dayOfWeek }}
+                </h3>
+                <section class="flex flex-col gap-2">
+                  <Course label="Desayuno" :item="item.breakfast" />
+                  <Course label="Comida" :item="item.lunch" />
+                  <Course label="Cena" :item="item.dinner" />
+                </section>
               </section>
-            </section>
-          </UCard>
+            </UCard>
+          </ClientOnly>
         </section>
       </section>
     </UContainer>
