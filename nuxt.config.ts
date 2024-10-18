@@ -30,4 +30,10 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
   },
+
+  security: {
+    corsHandler: {
+      origin: "*",
+    },
+  },
 });
