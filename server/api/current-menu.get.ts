@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
           lunch: { include: { mainDish: true, side1: true, side2: true } },
           dinner: { include: { mainDish: true, side1: true, side2: true } },
         },
+        orderBy: { id: "asc" },
       },
     },
   });
