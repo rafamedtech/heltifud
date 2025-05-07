@@ -13,38 +13,32 @@ const loading = ref(false);
 
 const { item, label } = defineProps<Props>();
 
-const mainDish = ref(
-  item.mainDish || {
+const newMeal = reactive<Meal>({
+  mainDish: item.mainDish || {
     name: "",
     calories: 0,
   },
-);
-
-const side1 = ref(
-  item.side1 || {
+  side1: item.side1 || {
     name: "",
     calories: 0,
   },
-);
-
-const side2 = ref(
-  item.side2 || {
+  side2: item.side2 || {
     name: "",
     calories: 0,
   },
-);
+});
 
 function resetMainDish() {
-  mainDish.value.name = "";
-  mainDish.value.calories = 0;
+  newMeal.mainDish.name = "";
+  newMeal.mainDish.calories = 0;
 }
 function resetSide1() {
-  side1.value.name = "";
-  side1.value.calories = 0;
+  newMeal.side1.name = "";
+  newMeal.side1.calories = 0;
 }
 function resetSide2() {
-  side2.value.name = "";
-  side2.value.calories = 0;
+  newMeal.side2.name = "";
+  newMeal.side2.calories = 0;
 }
 </script>
 
@@ -57,25 +51,28 @@ function resetSide2() {
           :loading="loading"
           :options="dishes"
           class="flex h-1/3 w-3/4 items-center justify-between gap-2"
-          v-model="mainDish.name"
+          v-model="newMeal.mainDish"
           placeholder="Selecciona un plato"
           option-attribute="name"
           searchable
           searchable-placeholder="Busca un platillo..."
           size="lg"
+          :ui="{ input: 'placeholder-gray-200' }"
         />
 
-        <div class="flex w-1/4 items-center gap-2">
+        <div class="flex w-24 items-center gap-2">
           <UInput
             type="number"
             size="lg"
             class="flex h-1/3 w-full items-center justify-between gap-2"
-            v-model="item.mainDish.calories"
+            v-model="newMeal.mainDish.calories"
+            disabled
           /><span>Cal</span>
         </div>
         <UButton
           icon="i-heroicons-x-circle"
-          color="gray"
+          color="red"
+          variant="ghost"
           @click="resetMainDish"
         />
       </div>
@@ -85,48 +82,62 @@ function resetSide2() {
           :loading="loading"
           :options="sides"
           class="flex h-1/3 w-3/4 items-center justify-between gap-2"
-          v-model="side1.name"
+          v-model="newMeal.side1"
           placeholder="Selecciona un plato"
           option-attribute="name"
           searchable
           searchable-placeholder="Busca un platillo..."
           size="lg"
+          :ui="{ input: 'placeholder-gray-200' }"
         />
 
-        <div class="flex w-1/4 items-center gap-2">
+        <div class="flex w-24 items-center gap-2">
           <UInput
             type="number"
             size="lg"
             class="flex h-1/3 w-full items-center justify-between gap-2"
-            v-model="side1.calories"
+            v-model="newMeal.side1.calories"
+            disabled
           /><span>Cal</span>
         </div>
-        <!-- <UButton icon="i-heroicons-check-circle" />-->
-        <UButton icon="i-heroicons-x-circle" color="gray" @click="resetSide1" />
+
+        <UButton
+          icon="i-heroicons-x-circle"
+          color="red"
+          variant="ghost"
+          @click="resetSide1"
+        />
       </div>
       <div class="flex h-1/3 items-center justify-between gap-2">
         <USelectMenu
           :loading="loading"
           :options="sides"
           class="flex h-1/3 w-3/4 items-center justify-between gap-2"
-          v-model="side2.name"
+          v-model="newMeal.side2"
           option-attribute="name"
           placeholder="Selecciona un plato"
           searchable
           searchable-placeholder="Busca un platillo..."
           size="lg"
+          :ui="{ input: 'placeholder-gray-200' }"
         />
 
-        <div class="flex w-1/4 items-center gap-2">
+        <div class="flex w-24 items-center gap-2">
           <UInput
             type="number"
             size="lg"
             class="flex h-1/3 w-full items-center justify-between gap-2"
-            v-model="side2.calories"
+            v-model="newMeal.side2.calories"
+            disabled
           /><span>Cal</span>
         </div>
-        <!-- <UButton icon="i-heroicons-check-circle" /> -->
-        <UButton icon="i-heroicons-x-circle" color="gray" @click="resetSide2" />
+
+        <UButton
+          icon="i-heroicons-x-circle"
+          color="red"
+          variant="ghost"
+          @click="resetSide2"
+        />
       </div>
       <section class="flex items-center justify-end">
         <UButton icon="i-heroicons-check-circle" label="Guardar" />

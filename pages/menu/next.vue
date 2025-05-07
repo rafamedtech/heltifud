@@ -1,35 +1,29 @@
 <script setup lang="ts">
 import { format } from "date-fns";
-import type { WeekMenu } from "@/types/Menu";
-import type { Dish } from "@prisma/client";
+import type { WeekMenu } from "~/types/Menu";
 
-const { data: menu } = await useFetch<WeekMenu>("/api/next-menu");
-const weeklyMenu = menu.value?.dayMenus!;
+const { getNextMenu, getDishes } = useMenu();
+const menu = await getNextMenu();
+const allDishes = await getDishes();
 
-const { data: dishes } = await useFetch<Dish[]>("/api/dishes");
-const allDishes = dishes.value as Dish[];
+const updatedMenu = reactive<WeekMenu>({
+  startDate: new Date(menu?.value?.startDate!),
+  endDate: new Date(menu?.value?.endDate!),
+  name: menu?.value?.name!,
+  dayMenus: menu?.value?.dayMenus!,
+  id: menu?.value?.id!,
+  isActive: menu?.value?.isActive!,
+  createdAt: menu?.value?.createdAt!,
+  updatedAt: menu?.value?.updatedAt!,
+});
 
-const startDate = ref<Date>(new Date(menu.value?.startDate!));
-const endDate = ref<Date>(new Date(menu.value?.endDate!));
-
-const toast = useToast();
+const { toast } = useCustomToast();
 async function updateDates() {
   const dates = {
-    id: menu.value?.id,
-    startDate: startDate.value,
-    endDate: endDate.value,
+    id: menu?.value?.id,
+    startDate: updatedMenu.startDate,
+    endDate: updatedMenu.endDate,
   };
-
-  if (
-    menu.value?.startDate === startDate.value &&
-    menu.value?.endDate === endDate.value
-  ) {
-    toast.add({
-      title: "No se han realizado cambios",
-      icon: "i-heroicons-exclamation-circle",
-    });
-    return;
-  }
 
   try {
     await $fetch("/api/menu/dates", {
@@ -39,7 +33,7 @@ async function updateDates() {
       },
     });
 
-    toast.add({
+    toast({
       title: "Fechas actualizadas",
       icon: "i-heroicons-check-circle",
     });
@@ -66,25 +60,33 @@ useSeoMeta({
         <UPopover :popper="{ placement: 'bottom-start' }">
           <UButton
             icon="i-heroicons-calendar-days-20-solid"
-            :label="format(startDate, 'd MMM, yyy')"
+            :label="format(updatedMenu.startDate, 'd MMM, yyy')"
             variant="outline"
             color="gray"
           />
 
           <template #panel="{ close }">
-            <DatePicker v-model="startDate" is-required @close="close" />
+            <DatePicker
+              v-model="updatedMenu.startDate"
+              is-required
+              @close="close"
+            />
           </template>
         </UPopover>
         <UPopover :popper="{ placement: 'bottom-start' }">
           <UButton
             icon="i-heroicons-calendar-days-20-solid"
-            :label="format(endDate, 'd MMM, yyy')"
+            :label="format(updatedMenu.endDate, 'd MMM, yyy')"
             variant="outline"
             color="gray"
           />
 
           <template #panel="{ close }">
-            <DatePicker v-model="endDate" is-required @close="close" />
+            <DatePicker
+              v-model="updatedMenu.endDate"
+              is-required
+              @close="close"
+            />
           </template>
         </UPopover>
 
@@ -104,7 +106,7 @@ useSeoMeta({
           </template>
 
           <template #default>
-            <Tabs :day-menus="weeklyMenu" :dishes="allDishes" />
+            <Tabs :day-menus="menu?.dayMenus" :dishes="allDishes" />
           </template>
         </Suspense>
       </section>

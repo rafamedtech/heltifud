@@ -4,11 +4,11 @@ import type { DayMenu } from "@/types/Menu";
 
 interface Props {
   dayMenus: DayMenu[];
-  dishes?: Dish[];
+  dishes?: Dish[] | null;
 }
 
 const { dayMenus, dishes } = defineProps<Props>();
-// console.log("Dishes", dishes);
+
 const breakfasts = computed(() =>
   dishes?.filter((dish) => dish.type === "BREAKFAST"),
 );
